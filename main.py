@@ -1,2 +1,2 @@
-while i in range(5):
-	print("Hey Hou")
+pow = lambda x, y: x**y
+print(pow(2, 3))
