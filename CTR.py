@@ -1,0 +1,1 @@
+# Método com número e com fração dos vizinhos
