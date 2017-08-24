@@ -33,5 +33,3 @@ for i in range(ite):
 	for j in range(N):
 		Y1[j] = a(alpha + beta + (gama * np.asscalar(np.dot(X1, nx.to_numpy_matrix(g)[j].transpose())) / N) + U1[j])
 		Y0[j] = a(alpha + (gama * np.asscalar(np.dot(X0, nx.to_numpy_matrix(g)[j].transpose())) / N) + U2[j])
-	print(Y1)
-	print(Y0)
