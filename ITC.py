@@ -10,9 +10,9 @@ def a(valor):
 	return 1
 
 # Entradas
-arq = input("Arquivo:\n> ")
-alpha = float(input("\nAlpha:\n> "))
-ite = int(input("\nIterações:\n> "))
+arq = input("Arquivo: ")
+alpha = float(input("Alpha: "))
+ite = int(input("Iterações: "))
 
 # Declarações
 results = []
