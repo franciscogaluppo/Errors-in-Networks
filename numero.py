@@ -25,14 +25,14 @@ N = g.number_of_nodes()
 #Cria um vetor Z de tamanho N com os tratamentos
 Z = []
 for i in range (N):
-	if random.random() < 0.1: #esse valor pode ser alterado para mudar a quantidade de pessoas com tratamento
+	if random.random() < (porcentagem/100):
 		Z.append(0)
 	else:
 		Z.append(1)
 #Cria um vetor U de tamanho N com os componentes estocasticos
 U = []
 for i in range(N):
-	U.append(random.random())
+	U.append(random.normalvariate(0, 0.05))
 #Cria um vetor Y que tera os resultados e tamanho N
 Y = []
 
@@ -60,5 +60,8 @@ for i in range(N):
 		NumDeZ0 += 1
 
 print "Fracao de nos com Yi = 1: {}".format(NumDeUns/N)
-print "Fracao de nos com Yi = 1 dado que Z = 0: {}".format(NumDeUnsComZ0/NumDeZ0)
+try:
+    print ("Fracao de nos com Yi = 1 dado que Z = 0: {0}".format(NumDeUnsComZ0/NumDeZ0))
+except ZeroDivisionError:
+    print ("Nao e possivel exibir Yi = 1 dado que Z = 0")
 print "Fracao de nos com Yi = 1 dado que Z = 1: {}".format((NumDeUns - NumDeUnsComZ0)/(N - NumDeZ0))
