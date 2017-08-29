@@ -1,4 +1,3 @@
-import networkx as nx
 import random
 
 def a(valor):
@@ -11,7 +10,7 @@ def fracao(grafo, vertice, Z):
 	for i in nx.all_neighbors(grafo, vertice):
 		tratamento += Z[i]
 
-	return tratamento/nx.degree(i)
+	return tratamento/grafo.degree(i)
 
 arq = raw_input("Arquivo: ")
 alpha = float(input("Alpha: "))
@@ -33,7 +32,7 @@ for i in range (N):
 #Cria um vetor U de tamanho N com os componentes estocasticos
 U = []
 for i in range(N):
-	U.append(random.random())
+	U.append(random.normalvariate(0, 0.05))
 #Cria um vetor Y que tera os resultados e tamanho N
 Y = []
 
@@ -61,5 +60,8 @@ for i in range(N):
 		NumDeZ0 += 1
 
 print ("Fracao de nos com Yi = 1: {0}".format(NumDeUns/N))
-print ("Fracao de nos com Yi = 1 dado que Z = 0: {0}".format(NumDeUnsComZ0/NumDeZ0))
+try:
+    print ("Fracao de nos com Yi = 1 dado que Z = 0: {0}".format(NumDeUnsComZ0/NumDeZ0))
+except ZeroDivisionError:
+    print ("Nao e possivel exibir Yi = 1 dado que Z = 0")
 print ("Fracao de nos com Yi = 1 dado que Z = 1: {0}".format((NumDeUns - NumDeUnsComZ0)/(N - NumDeZ0)))
