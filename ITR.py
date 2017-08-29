@@ -31,5 +31,5 @@ for j in range(ite):
 		out += a(U[i] + alpha) - a(U[i])
 	results.append(out / N)
 
+# Imprime a média das iterações e a variância
 print("\nMédia: {}\nVariância: {}".format(np.median(results), np.var(results)))	
-	
