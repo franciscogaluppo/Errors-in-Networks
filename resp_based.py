@@ -35,8 +35,8 @@ for i in range(ite):
 
 	# Aplica o Tratamento 1 e 0 para todo nó
 	for j in range(N):
-		Y1[j] = a(alpha + beta + (gama * np.asscalar(np.dot(X1, A[j].transpose())) / N) + U1[j])
-		Y0[j] = a(alpha + (gama * np.asscalar(np.dot(X0, A[j].transpose())) / N) + U2[j])
+		Y1[j] = a(alpha + beta + (gama * np.asscalar(np.dot(X1, A[j].transpose())) / g.degree(j)) + U1[j])
+		Y0[j] = a(alpha + (gama * np.asscalar(np.dot(X0, A[j].transpose())) / g.degree(j)) + U2[j])
 
 # Imprime a média entre os tratamentos
 print("Média:", (sum(Y1) - sum(Y0)) / N)
