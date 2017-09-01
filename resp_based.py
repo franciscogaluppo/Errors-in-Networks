@@ -31,9 +31,6 @@ def resp_based(arq, alpha, beta, gama, cent, T):
 			z1 += 1
 
 
-	# Vetor auxiliar para armazenar os valores atuais
-	Y = np.zeros(N)
-
 	# Tempo discreto
 	for i in range(T):
 
@@ -48,11 +45,11 @@ def resp_based(arq, alpha, beta, gama, cent, T):
 			for k in g.neighbors(j): soma += g.node[k]['y']
 
 			# Aplica a função ao nó j
-			Y[j] = a(alpha + (beta * g.node[j]['z']) + (gama * soma/ g.degree(j)) + U[j])
+			g.node[j]["y'"] = a(alpha + (beta * g.node[j]['z']) + (gama * soma/ g.degree(j)) + U[j])
 
 		# Atualiza as respostas dos nós com os novos valores
 		for j in range(N):
-			g.node[j]['y'] = Y[j]
+			g.node[j]['y'] = g.node[j]["y'"]
 
 
 	# Resultados
