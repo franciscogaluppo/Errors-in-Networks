@@ -45,7 +45,7 @@ for i in range(T):
 	# Componente estocástico
 	U = np.random.normal(0, 1, N)
 
-	# Aplica o Tratamento 1 e 0 para todo nó
+	# Aplica a função ao grafo
 	for j in range(N):
 		
 		# Soma dos tratamentos dos nós vizinhos de j
