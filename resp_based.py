@@ -23,6 +23,7 @@ T = int(input("T: "))
 g = nx.read_edgelist(arq, nodetype=int)
 N = g.number_of_nodes()
 A = nx.to_numpy_matrix(g)
+z1 = 0
 
 
 # cent% da população recebe o tratamento z=0 e o restante o z=1
@@ -34,6 +35,7 @@ for i in range(N):
 	else:
 		g.node[i]['y'] = 0
 		g.node[i]['z'] = 1
+		z1 += 1
 
 
 # Vetor auxiliar para armazenar os valores atuais
@@ -74,14 +76,14 @@ for i in range(N):
 
 
 # Imprime os resultados
-print("\nFração de nós com Yi=1: {}".format(y1/N))
+print("\nFração de nós com Yi=1: {}".format(y1 / N))
 
-if N - y1 != 0:
-	print("Fração de nós com Yi=1 dado que Z=0: {}".format((y1 - y1z1) / (N - y1)))
+if N - z1 != 0:
+	print("Fração de nós com Yi=1 dado que Z=0: {}".format((y1 - y1z1) / (N - z1)))
 else:
 	print("Não há nós com Yi=0")
 
-if y1 != 0:
-	print("Fração de nós com Yi=1 dado que Z=1: {}".format(y1z1/y1))
+if z1 != 0:
+	print("Fração de nós com Yi=1 dado que Z=1: {}".format(y1z1 / z1))
 else:
 	print("Não há nós com Yi=1")
