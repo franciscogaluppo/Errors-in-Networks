@@ -7,7 +7,7 @@ def fracao(grafo, vertice, Z):
 	for i in nx.all_neighbors(grafo, vertice):
 		tratamento += Z[i]
 
-	return tratamento/grafo.degree(i)
+	return tratamento/grafo.degree(vertice)
 
 
 def init(ins):
@@ -48,7 +48,7 @@ def init(ins):
 		if Z[i] == 0 and fracao(g, i, Z) < tau:
 			Y.append(a(alpha + U[i]))
 		elif Z[i] == 1 and fracao(g, i, Z) > tau:
-			Y.append((alpha + beta + U[i]))
+			Y.append(a(alpha + beta + U[i]))
 		else:
 			Y.append(a(alpha + beta*(fracao(g, i, Z)*(1 - gama) + Z[i]*gama) + U[i]))
 
