@@ -48,7 +48,7 @@ def init(ins):
 		if Z[i] == 0 and numero(g, i, Z) < kappa:    #grupo de controle
 			Y.append(a(alpha + U[i]))
 		elif Z[i] == 1 and numero(g, i, Z) > kappa:  #grupo de tratamento
-			Y.append((alpha + beta + U[i]))
+			Y.append(a(alpha + beta + U[i]))
 		else:                                        #sobra
 			Y.append(a(alpha +(Z[i]*gama + (1 - gama)*min(kappa, numero(g, i, Z))*beta/(gama + (1 - gama)*kappa) + U[i])))
 
