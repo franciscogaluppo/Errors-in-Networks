@@ -1,10 +1,6 @@
 import networkx as nx
+from funcs import a
 import random
-
-def a(valor):
-	if valor <= 0:
-		return 0
-	return 1
 
 def numero(grafo, vertice, Z):
 	tratamento = 0
@@ -13,7 +9,17 @@ def numero(grafo, vertice, Z):
 
 	return tratamento
 
-def init(arq, alpha, beta, gama, kappa, cent):
+
+def init(ins):
+
+	# Entradas
+	arq = ins[0]
+	alpha = ins[1]
+	beta = ins[2]
+	gama = ins[3]
+	kappa = ins[4]
+	cent = ins[5]
+
 	g = nx.read_edgelist(arq, nodetype=int)
 	N = g.number_of_nodes()
 
@@ -54,10 +60,17 @@ def init(arq, alpha, beta, gama, kappa, cent):
 		if Z[i] == 0:
 			NumDeZ0 += 1
 
-	print("\n--Número")
-	print("Fração de nós com Yi = 1: {}".format(NumDeUns/N))
-	try:
-		print("Fração de nós com Yi = 1 dado que Z = 0: {0}".format(NumDeUnsComZ0/NumDeZ0))
-	except ZeroDivisionError:
-		print("Não há nós com Z=0")
-	print("Fração de nós com Yi = 1 dado que Z = 1: {}".format((NumDeUns - NumDeUnsComZ0)/(N - NumDeZ0)))
+	# Retorno
+	out = [NumDeUns/N]
+
+	if NumDeZ0 != 0:
+		out.append(NumDeUnsComZ0/NumDeZ0)
+	else:
+		out.append(-1)
+
+	if NumDeZ0 != N:
+		out.append((NumDeUns - NumDeUnsComZ0)/(N - NumDeZ0))
+	else:
+		out.append(-1)
+
+	return(out)

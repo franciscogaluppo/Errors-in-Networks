@@ -1,17 +1,21 @@
 # Módulos
 from random import random as rd
-import numpy as np
 import networkx as nx
-
-
-# Função a
-def a(valor):
-	if valor <= 0: return 0
-	return 1
-
+from funcs import a
+import numpy as np
 
 # Função Response Based
-def resp_based(arq, alpha, beta, gama, cent, T):
+def resp_based(ins):
+
+	# Entradas
+	arq = ins[0]
+	alpha = ins[1]
+	beta = ins[2]
+	gama = ins[3]
+	cent = ins[4]
+	T = ins[5]
+
+
 	# Declarações
 	g = nx.read_edgelist(arq, nodetype=int)
 	N = g.number_of_nodes()
@@ -64,17 +68,17 @@ def resp_based(arq, alpha, beta, gama, cent, T):
 			if g.node[i]['z'] == 1:
 				y1z1 += 1
 
-
-	# Imprime os resultados
-	print("\n--Response Based")
-	print("Fração de nós com Yi=1: {}".format(y1 / N))
+	# Retorno
+	out = [y1 / N]
 
 	if z1 != N:
-		print("Fração de nós com Yi=1 dado que Z=0: {}".format((y1 - y1z1) / (N - z1)))
+		out.append((y1 - y1z1) / (N - z1))
 	else:
-		print("Não há nós com Z=0")
+		out.append(-1)
 
 	if z1 != 0:
-		print("Fração de nós com Yi=1 dado que Z=1: {}".format(y1z1 / z1))
+		out.append(y1z1 / z1)
 	else:
-		print("Não há nós com Z=1")
+		out.append(-1)
+
+	return(out)

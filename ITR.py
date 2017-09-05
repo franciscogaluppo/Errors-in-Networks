@@ -1,17 +1,18 @@
 # Módulos
 from random import random as rd
-import numpy as np
 import networkx as nx
-
-
-# Função a
-def a(valor):
-	if valor <= 0: return 0
-	return 1
-
+from funcs import a
+import numpy as np
 
 # Função ITR
-def itr(arq, alpha, ite, cent):
+def itr(ins):
+
+	# Entradas
+	arq = ins[0]
+	alpha = ins[1]
+	cent = ins[2]
+	ite = ins[3]
+
 	# Listas dos resultados
 	res1 = []
 	res2 = []
@@ -61,17 +62,21 @@ def itr(arq, alpha, ite, cent):
 		if z1 != 0:
 			res3.append(y1z1 / z1)
 
+	# Retorno
+	out = [np.mean(res1), np.std(res1)]
 
-	# Imprime os resultados
-	print("\n--ITR")
-	print("Fração de nós com Yi=1: {} ± {}".format(np.mean(res1), np.std(res1)))
-	
 	if z1 != N:
-		print("Fração de nós com Yi=1 dado que Z=0: {} ± {}".format(np.mean(res2), np.std(res2)))
+		out.append(np.mean(res2))
+		out.append(np.std(res2))
 	else:
-		print("Não há nós com Z=0")
+		out.append(-1)
+		out.append(-1)
 
 	if z1 != 0:
-		print("Fração de nós com Yi=1 dado que Z=1: {} ± {}".format(np.mean(res3), np.std(res3)))
+		out.append(np.mean(res3))
+		out.append(np.std(res3))
 	else:
-		print("Não há nós com Z=1")
+		out.append(-1)
+		out.append(-1)
+
+	return(out)
