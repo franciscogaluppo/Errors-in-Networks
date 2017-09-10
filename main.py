@@ -1,8 +1,8 @@
 # Importa os modelos
-from ITR import itr
-from numero import init as num
-from fracao import init as frac
-from resp_based import resp_based as resp
+from Modelos.ITR import itr
+from Modelos.numero import init as num
+from Modelos.fracao import init as frac
+from Modelos.resp_based import resp_based as resp
 
 # Importa as funções
 from funcs import print_out as po
