@@ -24,12 +24,30 @@ def init(ins, trat=-1):
 	g = nx.read_edgelist(arq, nodetype=int)
 	N = g.number_of_nodes()
 
-	# cent% da população recebe o tratamento z=0 e o restante o z=1
-	for i in range(N):
-		if rd() < cent/100:
-			g.node[i]['z'] = 0
-		else:
-			g.node[i]['z'] = 1
+	# Caso não haja tratamento, porcentagem é o padrão
+	if trat == -1:
+
+		# Entrada da porcentagem
+		cent = float(input("%z=0: "))
+
+		# cent% da população recebe o tratamento z=0 e o restante o z=1
+		for i in range(N):
+			if rd() < cent/100:
+				g.node[i]['z'] = 0
+			else:
+				g.node[i]['z'] = 1
+				z1 += 1
+
+	# Caso haja tratamento
+	else:
+		tf = open(trat, "r")
+
+		for i in range(N):
+			r = tf.readline()
+			g.node[i]['z'] = int(r[0])
+			if int(r[0]) == 1:
+				z1 += 1
+		tf.close()
 
 		
 	#Cria um vetor U de tamanho N com os componentes estocasticos
