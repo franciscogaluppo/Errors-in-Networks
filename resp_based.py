@@ -5,15 +5,14 @@ from funcs import a
 import numpy as np
 
 # Função Response Based
-def resp_based(ins):
+def resp_based(ins, trat=-1):
 
 	# Entradas
 	arq = ins[0]
 	alpha = ins[1]
 	beta = ins[2]
 	gama = ins[3]
-	cent = ins[4]
-	T = ins[5]
+	T = ins[4]
 
 
 	# Declarações
@@ -23,16 +22,34 @@ def resp_based(ins):
 	z1 = 0
 
 
-	# cent% da população recebe o tratamento z=0 e o restante o z=1
-	# A resposta inicial de ambos é y=0
-	for i in range(N):
-		if rd() < cent/100:
+	# Caso não haja tratamento, porcentagem é o padrão
+	if trat == -1:
+
+		# Entrada da porcentagem
+		cent = float(input("%z=0: "))
+
+		# cent% da população recebe o tratamento z=0 e o restante o z=1
+		# A resposta inicial de ambos é y=0
+		for i in range(N):
+			if rd() < cent/100:
+				g.node[i]['y'] = 0
+				g.node[i]['z'] = 0
+			else:
+				g.node[i]['y'] = 0
+				g.node[i]['z'] = 1
+				z1 += 1
+
+	# Caso haja tratamento
+	else:
+		tf = open(trat, "r")
+
+		for i in range(N):
+			r = tf.readline()
 			g.node[i]['y'] = 0
-			g.node[i]['z'] = 0
-		else:
-			g.node[i]['y'] = 0
-			g.node[i]['z'] = 1
-			z1 += 1
+			g.node[i]['z'] = int(r[0])
+			if int(r[0]) == 1:
+				z1 += 1
+		tf.close()
 
 
 	# Tempo discreto
@@ -69,16 +86,12 @@ def resp_based(ins):
 				y1z1 += 1
 
 	# Retorno
-	out = [y1 / N]
+	out = [y1 / N, -1, -1]
 
 	if z1 != N:
-		out.append((y1 - y1z1) / (N - z1))
-	else:
-		out.append(-1)
+		out[1] = (y1 - y1z1) / (N - z1)
 
 	if z1 != 0:
-		out.append(y1z1 / z1)
-	else:
-		out.append(-1)
+		out[2] = (y1z1 / z1)
 
 	return(out)

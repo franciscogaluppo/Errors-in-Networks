@@ -5,18 +5,15 @@ from funcs import a
 import numpy as np
 
 # Função ITR
-def itr(ins):
+def itr(ins, trat=-1):
 
 	# Entradas
 	arq = ins[0]
 	alpha = ins[1]
-	cent = ins[2]
-	ite = ins[3]
+	ite = ins[2]
 
-	# Listas dos resultados
-	res1 = []
-	res2 = []
-	res3 = []
+	# Lista dos resultados
+	res = [0,0,0]
 
 	# Declarações
 	g = nx.read_edgelist(arq, nodetype=int)
@@ -24,18 +21,35 @@ def itr(ins):
 	z1 = 0
 
 
-	# cent% da população recebe o tratamento z=0 e o restante o z=1
-	# A resposta inicial de ambos é y=0
-	for i in range(N):
-		if rd() < cent/100:
-			g.node[i]['z'] = 0
-		else:
-			g.node[i]['z'] = 1
-			z1 += 1
+	# Caso não haja tratamento, porcentagem é o padrão
+	if trat == -1:
+
+		# Entrada da porcentagem
+		cent = float(input("%z=0: "))
+
+		# cent% da população recebe o tratamento z=0 e o restante o z=1
+		for i in range(N):
+			if rd() < cent/100:
+				g.node[i]['z'] = 0
+			else:
+				g.node[i]['z'] = 1
+				z1 += 1
+
+	# Caso haja tratamento
+	else:
+		tf = open(trat, "r")
+
+		for i in range(N):
+			r = tf.readline()
+			g.node[i]['z'] = int(r[0])
+			if int(r[0]) == 1:
+				z1 += 1
+		tf.close()
 
 
 	# Laço
 	for i in range(ite):
+
 		# Componente Estocástico
 		U = np.random.normal(0, 1, N)
 
@@ -56,27 +70,23 @@ def itr(ins):
 					y1z1 += 1
 
 		# Passa os valores para as listas de resultado
-		res1.append(y1/N)
+		res[0] += y1/N
 		if N - z1 != 0:
-			res2.append((y1 - y1z1) / (N - z1))
+			res[1] += (y1 - y1z1) / (N - z1)
 		if z1 != 0:
-			res3.append(y1z1 / z1)
+			res[2] += y1z1 / z1
+
+
+
+
 
 	# Retorno
-	out = [np.mean(res1), np.std(res1)]
+	out = [res[0]/ite, -1, -1]
 
 	if z1 != N:
-		out.append(np.mean(res2))
-		out.append(np.std(res2))
-	else:
-		out.append(-1)
-		out.append(-1)
+		out[1] = res[1]/ite
 
 	if z1 != 0:
-		out.append(np.mean(res3))
-		out.append(np.std(res3))
-	else:
-		out.append(-1)
-		out.append(-1)
+		out[2] = res[2]/ite
 
 	return(out)
