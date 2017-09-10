@@ -10,7 +10,7 @@ def numero(grafo, vertice, Z):
 	return tratamento
 
 
-def init(ins):
+def init(ins, trat=-1):
 
 	# Entradas
 	arq = ins[0]
@@ -18,18 +18,26 @@ def init(ins):
 	beta = ins[2]
 	gama = ins[3]
 	kappa = ins[4]
-	cent = ins[5]
 
 	g = nx.read_edgelist(arq, nodetype=int)
 	N = g.number_of_nodes()
 
 	#Cria um vetor Z de tamanho N com os tratamentos
 	Z = []
-	for i in range (N):
-		if random.random() < (cent/100):
-			Z.append(0)
-		else:
-			Z.append(1)
+
+	# Caso não haja tratamento, porcentagem é o padrão
+	if trat == -1:
+
+		# Entrada da porcentagem
+		cent = float(input("%z=0: "))
+
+		for i in range (N):
+			if random.random() < (cent/100):
+				Z.append(0)
+			else:
+				Z.append(1)
+
+		
 	#Cria um vetor U de tamanho N com os componentes estocasticos
 	U = []
 	for i in range(N):
@@ -61,16 +69,12 @@ def init(ins):
 			NumDeZ0 += 1
 
 	# Retorno
-	out = [NumDeUns/N]
+	out = [NumDeUns/N, -1, -1]
 
 	if NumDeZ0 != 0:
-		out.append(NumDeUnsComZ0/NumDeZ0)
-	else:
-		out.append(-1)
+		out[1] = NumDeUnsComZ0/NumDeZ0
 
 	if NumDeZ0 != N:
-		out.append((NumDeUns - NumDeUnsComZ0)/(N - NumDeZ0))
-	else:
-		out.append(-1)
+		out[2] = (NumDeUns - NumDeUnsComZ0)/(N - NumDeZ0)
 
 	return(out)
