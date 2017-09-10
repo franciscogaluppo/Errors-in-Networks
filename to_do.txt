@@ -1,5 +1,5 @@
 prioridade - tratamento como entrada:
-	em fracao e em numero ainda não foi implementado
+	Falta testar com fracao e numero
 
 comunidades com tratamentos diferentes
 
