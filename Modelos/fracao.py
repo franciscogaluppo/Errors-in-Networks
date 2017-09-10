@@ -1,11 +1,12 @@
 import networkx as nx
+from random import random as rd
 from funcs import a
-import random
 
-def fracao(grafo, vertice, Z):
+
+def fracao(grafo, vertice):
 	tratamento = 0
 	for i in nx.all_neighbors(grafo, vertice):
-		tratamento += Z[i]
+		tratamento += grafo.node[i]['z']
 
 	return tratamento/grafo.degree(vertice)
 
@@ -18,29 +19,23 @@ def init(ins, trat=-1):
 	beta = ins[2]
 	gama = ins[3]
 	tau = ins[4]
+	cent = int(input("%z=0: "))
 
 	g = nx.read_edgelist(arq, nodetype=int)
 	N = g.number_of_nodes()
 
-	#Cria um vetor Z de tamanho N com os tratamentos
-	Z = []
 
-	# Caso não haja tratamento, porcentagem é o padrão
-	if trat == -1:
-
-		# Entrada da porcentagem
-		cent = float(input("%z=0: "))
-
-		for i in range (N):
-			if random.random() < (cent/100):
-				Z.append(0)
-			else:
-				Z.append(1)
+	# cent% da população recebe o tratamento z=0 e o restante o z=1
+	for i in range(N):
+		if rd() < cent/100:
+			g.node[i]['z'] = 0
+		else:
+			g.node[i]['z'] = 1
 
 	#Cria um vetor U de tamanho N com os componentes estocasticos
 	U = []
 	for i in range(N):
-		U.append(random.normalvariate(0, 0.05))
+		U.append(rd())
 	#Cria um vetor Y que tera os resultados e tamanho N
 	Y = []
 
@@ -52,19 +47,19 @@ def init(ins, trat=-1):
 
 
 	for i in range(N):
-		if Z[i] == 0 and fracao(g, i, Z) < tau:
+		if g.node[i]['z'] == 0 and fracao(g, i) < tau:
 			Y.append(a(alpha + U[i]))
-		elif Z[i] == 1 and fracao(g, i, Z) > tau:
+		elif g.node[i]['z'] == 1 and fracao(g, i) > tau:
 			Y.append(a(alpha + beta + U[i]))
 		else:
-			Y.append(a(alpha + beta*(fracao(g, i, Z)*(1 - gama) + Z[i]*gama) + U[i]))
+			Y.append(a(alpha + beta*(fracao(g, i)*(1 - gama) + g.node[i]['z']*gama) + U[i]))
 
 		if Y[i] == 1:
 			NumDeUns += 1
-			if Z[i] == 0:
+			if g.node[i]['z'] == 0:
 				NumDeUnsComZ0 += 1
 
-		if Z[i] == 0:
+		if g.node[i]['z'] == 0:
 			NumDeZ0 += 1
 
 	# Retorno
