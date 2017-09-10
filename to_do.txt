@@ -1,0 +1,7 @@
+prioridade - tratamento como entrada:
+	em fracao e em numero ainda não foi implementado
+
+comunidades com tratamentos diferentes
+
+diferentes paramentros para as simulações:
+	saída em arquivos + grafico bonito
