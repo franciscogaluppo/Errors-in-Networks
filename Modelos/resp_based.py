@@ -4,8 +4,9 @@ import networkx as nx
 from funcs import a
 import numpy as np
 
+
 # Função Response Based
-def resp_based(ins, trat=-1):
+def resp(ins, trat=-1):
 
 	# Entradas
 	arq = ins[0]
@@ -13,7 +14,6 @@ def resp_based(ins, trat=-1):
 	beta = ins[2]
 	gama = ins[3]
 	T = ins[4]
-
 
 	# Declarações
 	g = nx.read_edgelist(arq, nodetype=int)
@@ -84,6 +84,7 @@ def resp_based(ins, trat=-1):
 			y1 += 1
 			if g.node[i]['z'] == 1:
 				y1z1 += 1
+
 
 	# Retorno
 	out = [y1 / N, -1, -1]

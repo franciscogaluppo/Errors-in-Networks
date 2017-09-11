@@ -1,17 +1,12 @@
-import networkx as nx
+# Módulos
 from random import random as rd
+import networkx as nx
 from funcs import a
+import numpy as np
 
 
-def numero(grafo, vertice):
-	tratamento = 0
-	for i in nx.all_neighbors(grafo, vertice):
-		tratamento += grafo.node[i]['z']
-
-	return tratamento
-
-
-def init(ins, trat=-1):
+# Função Número
+def num(ins, trat=-1):
 
 	# Entradas
 	arq = ins[0]
@@ -19,10 +14,12 @@ def init(ins, trat=-1):
 	beta = ins[2]
 	gama = ins[3]
 	kappa = ins[4]
-	cent = int(input("%z=0: "))
 
+	# Declarações
 	g = nx.read_edgelist(arq, nodetype=int)
 	N = g.number_of_nodes()
+	z1 = 0
+
 
 	# Caso não haja tratamento, porcentagem é o padrão
 	if trat == -1:
@@ -49,44 +46,46 @@ def init(ins, trat=-1):
 				z1 += 1
 		tf.close()
 
+	
+	# Componente Estocástico
+	U = np.random.normal(0, 1, N)
+
+	# Pessoas com y=1 e pessoas com y=1 e z=1
+	y1 = 0
+	y1z1 = 0
+
+
+	for i in range(N):
+
+		# Soma dos tratamentos dos nós vizinhos de i
+		soma = 0
+		for k in g.neighbors(i): soma += g.node[k]['z']
+
+		# Grupo de controle
+		if g.node[i]['z'] == 0 and soma < kappa:
+			g.node[i]['y'] = a(alpha + U[i])
+
+		# Grupo de tratamento
+		elif g.node[i]['z'] == 1 and soma > kappa:
+			g.node[i]['y'] = a(alpha + beta + U[i])
 		
-	#Cria um vetor U de tamanho N com os componentes estocasticos
-	U = []
-	for i in range(N):
-		U.append(rd())
-	#Cria um vetor Y que tera os resultados e tamanho N
-	Y = []
+		# Sobra
+		else:
+			g.node[i]['y'] = a(alpha + (g.node[i]['z']*gama + (1 - gama)*min(kappa, soma)*beta/(gama + (1 - gama)*kappa) + U[i]))
 
-
-	#Variaveis para definir os resultados
-	NumDeUns = 0
-	NumDeUnsComZ0 = 0
-	NumDeZ0 = 0
-
-
-	for i in range(N):
-		if g.node[i]['z'] == 0 and numero(g, i) < kappa:    #grupo de controle
-			Y.append(a(alpha + U[i]))
-		elif g.node[i]['z'] == 1 and numero(g, i) > kappa:  #grupo de tratamento
-			Y.append(a(alpha + beta + U[i]))
-		else:                                        #sobra
-			Y.append(a(alpha +(g.node[i]['z']*gama + (1 - gama)*min(kappa, numero(g, i))*beta/(gama + (1 - gama)*kappa) + U[i])))
-
-		if Y[i] == 1:
-			NumDeUns += 1
-			if g.node[i]['z'] == 0:
-				NumDeUnsComZ0 += 1
-
-		if g.node[i]['z'] == 0:
-			NumDeZ0 += 1
+		# Contagem
+		if g.node[i]['y'] == 1:
+			y1 += 1
+			if g.node[i]['z'] == 1:
+				y1z1 += 1
 
 	# Retorno
-	out = [NumDeUns/N, -1, -1]
+	out = [y1 / N, -1, -1]
 
-	if NumDeZ0 != 0:
-		out[1] = NumDeUnsComZ0/NumDeZ0
+	if z1 != N:
+		out[1] = (y1 - y1z1) / (N - z1)
 
-	if NumDeZ0 != N:
-		out[2] = (NumDeUns - NumDeUnsComZ0)/(N - NumDeZ0)
+	if z1 != 0:
+		out[2] = (y1z1 / z1)
 
 	return(out)

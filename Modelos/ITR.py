@@ -77,9 +77,6 @@ def itr(ins, trat=-1):
 			res[2] += y1z1 / z1
 
 
-
-
-
 	# Retorno
 	out = [res[0]/ite, -1, -1]
 
