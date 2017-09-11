@@ -1,6 +1,3 @@
-prioridade - tratamento como entrada:
-	Falta testar com fracao e numero
-
 comunidades com tratamentos diferentes
 
 diferentes paramentros para as simulações:
