@@ -37,7 +37,7 @@ def itr(ins, trat=-1):
 		for i in range(N):
 			if i in membros: #se o vértice estiver na comunidade, ele recebe tratamento especial
 				g.node[i]['z'] = np.random.normal(0.5, 0.8)
-			elif if rd() < cent/100:
+			elif rd() < cent/100:
 				g.node[i]['z'] = 0
 			else:
 				g.node[i]['z'] = 1
