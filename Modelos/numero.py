@@ -1,13 +1,13 @@
 # Módulos
 from random import random as rd
 import networkx as nx
-from funcs import a
-from Comunidade import comunidade as com
+from funcs1 import a
+from funcs1 import comunidade as com
 import numpy as np
 
 
 # Função Número
-def num(ins, trat=-1):
+def num(ins, trat=-1, comu=-1):
 
 	# Entradas
 	arq = ins[0]
@@ -15,6 +15,9 @@ def num(ins, trat=-1):
 	beta = ins[2]
 	gama = ins[3]
 	kappa = ins[4]
+
+	if comu != -1:
+		membros = com(comu)	
 
 	# Declarações
 	g = nx.read_edgelist(arq, nodetype=int)
@@ -25,19 +28,12 @@ def num(ins, trat=-1):
 	# Caso não haja tratamento, porcentagem é o padrão
 	if trat == -1:
 
-		membros = [] #vetor que vai guardar quais vértices fazem parte da maior comunidade
-		comu = str(input("Arquivo com comunidades(se não houver digite 0): "))
-		if comu != "0":
-			membros = com(comu)
-
 		# Entrada da porcentagem
 		cent = float(input("%z=0: "))
 
 		# cent% da população recebe o tratamento z=0 e o restante o z=1
 		for i in range(N):
-			if i in membros: #se o vértice estiver na comunidade, ele recebe tratamento especial
-				g.node[i]['z'] = np.random.normal(0.5, 0.8)
-			elif rd() < cent/100:
+			if rd() < cent/100:
 				g.node[i]['z'] = 0
 			else:
 				g.node[i]['z'] = 1
@@ -88,7 +84,7 @@ def num(ins, trat=-1):
 				y1z1 += 1
 
 	# Retorno
-	out = [y1 / N, -1, -1]
+	out = [y1 / N, -1, -1, N]
 
 	if z1 != N:
 		out[1] = (y1 - y1z1) / (N - z1)
