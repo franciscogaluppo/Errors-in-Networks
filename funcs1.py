@@ -1,7 +1,4 @@
-import Modelos.ITR
-import Modelos.numero
-import Modelos.fracao
-import Modelos.resp_based
+# Funções que não importam os módulos
 
 # Função a
 def a(valor):
@@ -89,65 +86,3 @@ def comunidade(arq):
 		lista[i] = int(lista[i])
 
 	return lista
-
-
-# Função do Average Treatment Effect
-def ate(ins, model, Za=-1, Zb=-1, comu=-1):
-
-	# ITR
-	if model == 1:
-
-		# Entrada ou porcentagem
-		if Za == -1:
-			val1 = ITR.itr(ins, -1, comu)
-		else:
-			val1 = ITR.itr(ins, Za, comu)
-		
-		if Zb == -1:
-			val2 = ITR.itr(ins, -1, comu)
-		else:
-			val2 = ITR.itr(ins, Zb, comu)
-
-	# Número
-	elif model == 2:
-
-		# Entrada ou porcentagem
-		if Za == -1:
-			val1 = numero.num(ins, -1, comu)
-		else:
-			val1 = numero.num(ins, Za, comu)
-		
-		if Zb == -1:
-			val2 = numero.num(ins, -1, comu)
-		else:
-			val2 = numero.num(ins, Zb, comu)
-
-	# Fração
-	elif model == 3:
-
-		# Entrada ou porcentagem
-		if Za == -1:
-			val1 = fracao.frac(ins, -1, comu)
-		else:
-			val1 = fracao.frac(ins, Za, comu)
-		
-		if Zb == -1:
-			val2 = fracao.frac(ins, -1, comu)
-		else:
-			val2 = fracao.frac(ins, Zb, comu)
-
-	# Response Based
-	elif model == 4:
-
-		# Entrada ou porcentagem
-		if Za == -1:
-			val1 = resp_based.resp(ins, -1, comu)
-		else:
-			val1 = resp_based.resp(ins, Za, comu)
-		
-		if Zb == -1:
-			val2 = resp_based.resp(ins, -1, comu)
-		else:
-			val2 = resp_based.resp(ins, Zb, comu)
-
-	return(val1[0] - val2[0])
