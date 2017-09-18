@@ -5,8 +5,8 @@ from Modelos.fracao import frac
 from Modelos.resp_based import resp
 
 # Importa as funções
-from funcs import print_out as po
-from funcs import get_input as gt
+from funcs1 import print_out as po
+from funcs1 import get_input as gt
 
 # Seleciona o modelo
 sim = int(input("[1]ITR\n[2]Número\n[3]Fração\n[4]Response Based\n\n> "))
