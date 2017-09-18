@@ -1,4 +1,0 @@
-comunidades com tratamentos diferentes
-
-diferentes paramentros para as simulações:
-	saída em arquivos + grafico bonito
