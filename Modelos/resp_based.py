@@ -61,6 +61,10 @@ def resp(ins, trat=-1, comu=-1):
 
 		# Componente estocástico
 		U = np.random.normal(0, 1, N)
+		if comu != -1:
+			for k in range(N):
+				if k in membros:
+					U[k] = np.random.normal(0.5, 0.8)
 
 		# Aplica a função ao grafo
 		for j in range(N):
