@@ -16,7 +16,7 @@ def bfs(g, lista, centro, vertice, distMax, distAtual):
 
 
 
-arq = "set3.txt"
+arq = "set1.txt"
 g = nx.read_edgelist(arq, nodetype=int)
 N = g.number_of_nodes()
 lista = [] #lista que contem os vertices que nao estao em nenhuma comunidade
@@ -38,7 +38,7 @@ while len(lista) > 2:
 		g.node[centro]["distancia"] = 0
 		g.node[centro]["comunidade"] = centro
 		lista.remove(centro)
-		bfs(g, lista, centro, centro, 50, 1)
+		bfs(g, lista, centro, centro, 2, 1)
 		quantidade += 1
 
 
@@ -46,4 +46,4 @@ while len(lista) > 2:
 print ("Total de comunidades: {}".format(quantidade))
 
 nx.draw_networkx(g)
-plt.draw()
+plt.show()
