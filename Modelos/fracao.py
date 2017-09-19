@@ -53,6 +53,10 @@ def frac(ins, trat=-1, comu=-1):
 
 	# Componente Estocástico
 	U = np.random.normal(0, 1, N)
+	if comu != -1:
+		for k in range(N):
+			if k in membros:
+				U[k] = np.random.normal(0.5, 0.8)
 
 	# Pessoas com y=1 e pessoas com y=1 e z=1
 	y1 = 0
