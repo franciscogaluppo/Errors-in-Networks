@@ -10,58 +10,18 @@ def ate(ins, model, Za=-1, Zb=-1, comu=-1):
 
 	# ITR
 	if model == 1:
-
-		# Entrada ou porcentagem
-		if Za == -1:
-			val1 = itr(ins, -1, comu)
-		else:
-			val1 = itr(ins, Za, comu)
-		
-		if Zb == -1:
-			val2 = itr(ins, -1, comu)
-		else:
-			val2 = itr(ins, Zb, comu)
+		val1 = itr(ins, -1, comu)
 
 	# Número
 	elif model == 2:
-
-		# Entrada ou porcentagem
-		if Za == -1:
-			val1 = num(ins, -1, comu)
-		else:
-			val1 = num(ins, Za, comu)
-		
-		if Zb == -1:
-			val2 = num(ins, -1, comu)
-		else:
-			val2 = num(ins, Zb, comu)
+		val1 = num(ins, -1, comu)
 
 	# Fração
 	elif model == 3:
-
-		# Entrada ou porcentagem
-		if Za == -1:
-			val1 = frac(ins, -1, comu)
-		else:
-			val1 = frac(ins, Za, comu)
-		
-		if Zb == -1:
-			val2 = frac(ins, -1, comu)
-		else:
-			val2 = frac(ins, Zb, comu)
+		val1 = frac(ins, -1, comu)
 
 	# Response Based
 	elif model == 4:
-
-		# Entrada ou porcentagem
-		if Za == -1:
-			val1 = resp(ins, -1, comu)
-		else:
-			val1 = resp(ins, Za, comu)
-		
-		if Zb == -1:
-			val2 = resp(ins, -1, comu)
-		else:
-			val2 = resp(ins, Zb, comu)
+		val1 = resp(ins, -1, comu)
 
 	return(val1[0] - val2[0])
