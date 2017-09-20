@@ -10,18 +10,22 @@ def ate(ins, model, Za=-1, Zb=-1, comu=-1):
 
 	# ITR
 	if model == 1:
-		val1 = itr(ins, -1, comu)
+		val1 = itr(ins, Za, comu)
+		val2 = itr(ins, Zb, comu)
 
 	# Número
 	elif model == 2:
-		val1 = num(ins, -1, comu)
+		val1 = num(ins, Za, comu)
+		val2 = num(ins, Zb, comu)
 
 	# Fração
 	elif model == 3:
-		val1 = frac(ins, -1, comu)
+		val1 = frac(ins, Za, comu)
+		val2 = frac(ins, Zb, comu)
 
 	# Response Based
 	elif model == 4:
-		val1 = resp(ins, -1, comu)
+		val1 = resp(ins, Za, comu)
+		val2 = resp(ins, Zb, comu)
 
 	return(val1[0] - val2[0])
