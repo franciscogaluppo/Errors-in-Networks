@@ -1,29 +1,29 @@
-# Importa os modelos
+from Modelos.resp_based import resp
 from Modelos.ITR import itr
 from Modelos.numero import num
 from Modelos.fracao import frac
-from Modelos.resp_based import resp
 
-# Importa as funções
-from funcs1 import print_out as po
-from funcs1 import get_input as gt
+import networkx as nx
+import funcs as f
 
-# Seleciona o modelo
+arq = "set1.txt"
+
+g = nx.read_edgelist(arq, nodetype=int)
+N = g.number_of_nodes()
+
 sim = int(input("[1]ITR\n[2]Número\n[3]Fração\n[4]Response Based\n\n> "))
-print("")
+porcentagem = int(input("\n%z=1: "))
+ins = f.get_input(sim)
 
-# Recebe as entradas
-ins = gt(sim)
+zvector = f.cent(porcentagem, N)
 
-# Chama o modelo
 if sim == 1:
-	po(sim, itr(ins))
-
-elif sim == 2:
-	po(sim, num(ins))
-
-elif sim == 3:
-	po(sim, frac(ins))
-
+	yvector = itr(g, ins, zvector)
 elif sim == 4:
-	po(sim, resp(ins))
+	yvector = num(g, ins, zvector)
+elif sim == 3:
+	yvector = frac(g, ins, zvector)
+elif sim == 4:
+	yvector = resp(g, ins, zvector)
+
+f.print_out(sim, zvector, yvector)
