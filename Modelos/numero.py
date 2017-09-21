@@ -1,66 +1,32 @@
-# Módulos
-from random import random as rd
-import networkx as nx
-from funcs1 import a
-from funcs1 import comunidade as com
 import numpy as np
+import networkx as nx
+from funcs import a
+from funcs import comunidade as com
 
 
 # Função Número
-def num(ins, trat=-1, comu=-1):
+def num(g, ins, zvector, comu=-1):
 
 	# Entradas
-	arq = ins[0]
-	alpha = ins[1]
-	beta = ins[2]
-	gama = ins[3]
-	kappa = ins[4]
+	alpha = ins[0]
+	beta = ins[1]
+	gama = ins[2]
+	kappa = ins[3]
 
 	if comu != -1:
 		membros = com(comu)	
 
-	# Declarações
-	g = nx.read_edgelist(arq, nodetype=int)
 	N = g.number_of_nodes()
-	z1 = 0
 
-
-	# Caso não haja tratamento, porcentagem é o padrão
-	if trat == -1:
-
-		# Entrada da porcentagem
-		cent = float(input("%z=0: "))
-
-		# cent% da população recebe o tratamento z=0 e o restante o z=1
-		for i in range(N):
-			if rd() < cent/100:
-				g.node[i]['z'] = 0
-			else:
-				g.node[i]['z'] = 1
-				z1 += 1
-
-	# Caso haja tratamento
-	else:
-		tf = open(trat, "r")
-
-		for i in range(N):
-			r = tf.readline()
-			g.node[i]['z'] = int(r[0])
-			if int(r[0]) == 1:
-				z1 += 1
-		tf.close()
-
+	# Tratamentos
+	for i in range(N):
+		g.node[i]['z'] = zvector[i]
 	
 	# Componente Estocástico
 	U = np.random.normal(0, 1, N)
 	if comu != -1:
-		for k in range(N):
-			if k in membros:
-				U[k] = np.random.normal(0.5, 0.8)
-
-	# Pessoas com y=1 e pessoas com y=1 e z=1
-	y1 = 0
-	y1z1 = 0
+		for k in membros:
+			U[k] = np.random.normal(0.5, 0.8)
 
 
 	for i in range(N):
@@ -69,11 +35,11 @@ def num(ins, trat=-1, comu=-1):
 		soma = 0
 		for k in g.neighbors(i): soma += g.node[k]['z']
 
-		# Grupo de controle
+		# Grupo controle
 		if g.node[i]['z'] == 0 and soma < kappa:
 			g.node[i]['y'] = a(alpha + U[i])
 
-		# Grupo de tratamento
+		# Grupo tratamento
 		elif g.node[i]['z'] == 1 and soma > kappa:
 			g.node[i]['y'] = a(alpha + beta + U[i])
 		
@@ -81,19 +47,8 @@ def num(ins, trat=-1, comu=-1):
 		else:
 			g.node[i]['y'] = a(alpha + (g.node[i]['z']*gama + (1 - gama)*min(kappa, soma)*beta/(gama + (1 - gama)*kappa) + U[i]))
 
-		# Contagem
-		if g.node[i]['y'] == 1:
-			y1 += 1
-			if g.node[i]['z'] == 1:
-				y1z1 += 1
-
-	# Retorno
-	out = [y1 / N, -1, -1, N]
-
-	if z1 != N:
-		out[1] = (y1 - y1z1) / (N - z1)
-
-	if z1 != 0:
-		out[2] = (y1z1 / z1)
-
-	return(out)
+	yvector = []
+	for i in range(N):
+		yvector.append(g.node[i]['y'])
+		
+	return(yvector)
