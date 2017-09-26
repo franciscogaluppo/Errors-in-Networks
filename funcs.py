@@ -50,9 +50,6 @@ def get_input(model):
 			inputs.append(float(input("Tau: ")))
 		elif model == 4:
 			inputs.append(int(input("Time: ")))
-
-	else:
-		inputs.append(int(input("Ite: ")))
 		
 	return(inputs)
 
