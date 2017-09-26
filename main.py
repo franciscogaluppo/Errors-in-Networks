@@ -9,16 +9,17 @@ import funcs as f
 from ate import ate_estimate
 
 arq = "set1.txt"
-
 g = nx.read_edgelist(arq, nodetype=int)
 N = g.number_of_nodes()
 
+# Entradas
 sim = int(input("[1]ITR\n[2]Número\n[3]Fração\n[4]Response Based\n\n> "))
 por = float(input("\n%z=1: "))
 ins = f.get_input(sim)
 
 zvector = f.cent(por, N)
 
+# Roda a simulação
 if sim == 1:
 	yvector = itr(g, ins, zvector)
 elif sim == 2:
@@ -30,5 +31,6 @@ elif sim == 4:
 
 f.print_out(sim, zvector, yvector)
 
+# Estimadores de ATE
 print("\nSUTVA:", ate_estimate(zvector, yvector, g, 1))
 print("Linear:", ate_estimate(zvector, yvector, g, 2))
