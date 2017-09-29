@@ -31,6 +31,12 @@ elif sim == 4:
 
 f.print_out(sim, zvector, yvector)
 
+# ATE de fato
+y1 = sum(frac(g, ins, f.cent(100, N)))
+y0 = sum(frac(g, ins, f.cent(0, N)))
+
+print("\nATE:", (y1-y0)/N)
+
 # Estimadores de ATE
-print("\nSUTVA:", ate_estimate(zvector, yvector, g, 1))
+print("SUTVA:", ate_estimate(zvector, yvector, g, 1))
 print("Linear:", ate_estimate(zvector, yvector, g, 2))
