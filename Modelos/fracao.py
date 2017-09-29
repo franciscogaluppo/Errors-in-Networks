@@ -42,7 +42,7 @@ def frac(g, ins, zvector, comu=-1):
 			g.node[i]['y'] = a(alpha + beta + U[i])
 
 		else:
-			g.node[i]['y'] = a(alpha + beta*(frac*(1 - gama) + g.node[i]['z']*gama) + U[i])
+			g.node[i]['y'] = a(alpha + beta*g.node[i]['z'] + gama*frac + U[i])
 
 	yvector = []
 	for i in range(N):
