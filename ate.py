@@ -1,6 +1,8 @@
 import funcs as f
 import networkx as nx
 from sklearn import linear_model
+import ipdb
+import numpy as np
 
 def ate_estimate(zvec, yvec, g, est_model):
 	N = len(zvec)
@@ -46,14 +48,15 @@ def ate_estimate(zvec, yvec, g, est_model):
 		# Regressão
 		lr = linear_model.LinearRegression()
 		lr.fit(features, yvec)
-		
+
 		c = lr.coef_
-		i = lr.intercept_ 
+		i = lr.intercept_
 
 		# Constantes
 		alpha = i
 		beta = c[0]
 		gama = c[1]
+		print('alpha: {}, beta: {}, gamma: {}'.format(i, c[0], c[1]))
 
 		# Cálculo da estimativa
 		sum_resp_z1 = 0
@@ -68,4 +71,5 @@ def ate_estimate(zvec, yvec, g, est_model):
 			else:
 				sum_resp_z0 += alpha + (gama * tau[i])
 
-		return((sum_resp_z1 - sum_resp_z0)/N)
+		#return((sum_resp_z1 - sum_resp_z0)/N)
+		return(beta+gama)

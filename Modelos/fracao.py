@@ -13,7 +13,7 @@ def frac(g, ins, zvector, comu=-1):
 	tau = ins[3]
 
 	if comu != -1:
-		membros = com(comu)	
+		membros = com(comu)
 
 	N = g.number_of_nodes()
 
@@ -23,6 +23,7 @@ def frac(g, ins, zvector, comu=-1):
 
 	# Componente Estocástico
 	U = np.random.normal(0, 1, N)
+	U = np.zeros(N)
 	if comu != -1:
 		for k in range(N):
 			if k in membros:
@@ -35,17 +36,21 @@ def frac(g, ins, zvector, comu=-1):
 		for k in g.neighbors(i): soma += g.node[k]['z']
 		frac = soma / g.degree(i)
 
-		if g.node[i]['z'] == 0 and frac < tau:
-			g.node[i]['y'] = a(alpha + U[i])
+		g.node[i]['y'] = (alpha + beta*g.node[i]['z'] + gama*frac + U[i])
+		#if g.node[i]['z'] == 0 and frac < tau:
+		#	g.node[i]['y'] = (alpha + U[i])
+		#	#g.node[i]['y'] = a(alpha + U[i])
 
-		elif g.node[i]['z'] == 1 and frac > tau:
-			g.node[i]['y'] = a(alpha + beta + U[i])
+		#elif g.node[i]['z'] == 1 and frac > tau:
+		#	g.node[i]['y'] = (alpha + beta + U[i])
+		#	#g.node[i]['y'] = a(alpha + beta + U[i])
 
-		else:
-			g.node[i]['y'] = a(alpha + beta*g.node[i]['z'] + gama*frac + U[i])
+		#else:
+		#	g.node[i]['y'] = (alpha + beta*g.node[i]['z'] + gama*frac + U[i])
+		#	#g.node[i]['y'] = a(alpha + beta*g.node[i]['z'] + gama*frac + U[i])
 
 	yvector = []
 	for i in range(N):
 		yvector.append(g.node[i]['y'])
-		
+
 	return(yvector)
