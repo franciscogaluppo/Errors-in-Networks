@@ -49,5 +49,5 @@ def frac(g, ins, zvector, comu=None):
 	yvector = []
 	for i in range(N):
 		yvector.append(g.node[i]['y'])
-		
+
 	return(yvector)
