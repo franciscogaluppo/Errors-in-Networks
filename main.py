@@ -1,39 +1,30 @@
-from Modelos.resp_based import resp
-from Modelos.ITR import itr
-from Modelos.numero import num
-from Modelos.fracao import frac
-
 import networkx as nx
 import funcs as f
 
-
 nome = "email-Eu-core"
-arq = f.path(nome)
-g = nx.read_edgelist(arq, nodetype=int)
-N = g.number_of_nodes()
 
 # Entradas
 sim = int(input("[1]ITR\n[2]Número\n[3]Fração\n[4]Response Based\n\n> "))
-ins = f.file_to_ins(nome, sim, 1)
-zvector = f.zfile_to_zvector(nome, 2)
+ins_run = 1
+z_run = 2
 
-# Roda a simulação
-if sim == 1:
-	yvector = itr(g, ins, zvector)
-elif sim == 2:
-	yvector = num(g, ins, zvector)
-elif sim == 3:
-	yvector = frac(g, ins, zvector)
-elif sim == 4:
-	yvector = resp(g, ins, zvector)
+ins = f.file_to_ins(nome, sim, ins_run)
+# ------- OPCIONAL
+# ins = f.get_input(sim)
+# f.ins_to_file(ins, nome, sim)
 
+zvector = f.zfile_to_zvector(nome, z_run)
+# ------- OPCIONAL
+# g = nx.read_edgelist(path(name), nodetype=int)
+# N = g.number_of_nodes()
+# zvector = f.cent(int(input("%z=1: ")), N)
+
+yvector = f.simulate(sim, zvector, ins, nome)
 f.print_out(sim, zvector, yvector)
 
-# ATE de fato de FRAC
-# y1 = sum(frac(g, ins, f.cent(100, N), 1))
-# y0 = sum(frac(g, ins, f.cent(0, N), True))
-# print("\nATE:", (y1-y0)/N)
-
 # Estimadores de ATE
-print("SUTVA:", f.ate_estimate(zvector, yvector, g, 1))
-print("Linear:", f.ate_estimate(zvector, yvector, g, 2))
+print("\nATE:", f.real_ATE(sim, ins, nome))
+print("SUTVA:", f.ate_estimate(zvector, yvector, nome, 1))
+print("Linear:", f.ate_estimate(zvector, yvector, nome, 2))
+
+f.yvector_to_yfile(yvector, sim, nome, ins_run, z_run)

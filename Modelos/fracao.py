@@ -1,7 +1,13 @@
 import numpy as np
 import networkx as nx
-from funcs import a
-from funcs import comunidade as com
+
+#from funcs import comunidade as com
+
+# Função a
+def a(valor):
+	if valor <= 0: return 0
+	return 1
+
 
 # Função Fração
 def frac(g, ins, zvector, comu=None):

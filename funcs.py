@@ -3,6 +3,11 @@ import networkx as nx
 from sklearn import linear_model
 from os import listdir
 
+from Modelos.ITR import itr
+from Modelos.numero import num
+from Modelos.fracao import frac
+from Modelos.resp_based import resp
+
 # Função a
 def a(valor):
 	if valor <= 0: return 0
@@ -149,7 +154,8 @@ def count_y1z0(vecz, vecy):
 
 
 # Estima o valor do ATE
-def ate_estimate(zvec, yvec, g, est_model):
+def ate_estimate(zvec, yvec, name, est_model):
+	g = nx.read_edgelist(path(name), nodetype=int)
 	N = len(zvec)
 
 	# SUTVA
@@ -212,6 +218,13 @@ def path(name):
 	return("Datasets/" + name + "/set.txt")
 
 
+# Cria str com zero à esquerda se n < 10
+def int_to_str(run):
+	if run < 10:
+		return("0" + str(run))
+	return(str(run))
+
+
 # Cria o arquivo do zvector
 def zvector_to_zfile(vec, name):
 	N = len(vec)
@@ -219,10 +232,7 @@ def zvector_to_zfile(vec, name):
 	run = len(listdir(path)) + 1
 
 	# Zero à esquerda
-	if run < 10:
-		run = "0" + str(run)
-	else:
-		run = str(run)
+	run = int_to_str(run)
 
 	path += "Z-#" + run + ".txt"
 	arq = open(path, "w")
@@ -240,10 +250,7 @@ def zfile_to_zvector(name, run):
 	treatment = []
 
 	# Zero à esquerda
-	if run < 10:
-		run = "0" + str(run)
-	else:
-		run = str(run)
+	run = int_to_str(run)
 
 	path = "Datasets/" + name + "/Tratamentos/Z-#" + run + ".txt"
 	tf = open(path, "r")
@@ -263,10 +270,7 @@ def ins_to_file(ins, name, model):
 	run = len([ x for x in listdir(path) if ("m" +  str(model)) in x ]) + 1
 
 	# Zero à esquerda
-	if run < 10:
-		run = "0" + str(run)
-	else:
-		run = str(run)
+	run = int_to_str(run)
 
 	path += "ins-m" + str(model) + "|#" + run + ".txt"
 	arq = open(path, "w")
@@ -284,10 +288,7 @@ def file_to_ins(name, model, run):
 	ins = []
 
 	# Zero à esquerda
-	if run < 10:
-		run = "0" + str(run)
-	else:
-		run = str(run)
+	run = int_to_str(run)
 
 	path = "Datasets/" + name + "/Entradas/ins-m" + str(model) + "|#" + run + ".txt"
 	tf = open(path, "r")
@@ -300,15 +301,69 @@ def file_to_ins(name, model, run):
 			ins.append(int(i))
 		else:
 			ins.append(float(i))
-
 	tf.close()
 
 	return(ins)
 
 
 def yvector_to_yfile(vec, modelo, name, ins_run, zvec_run):
-	pass
+	N = len(vec)
+	path = "Datasets/" + name + "/Respostas/"
+	zvec_run = int_to_str(zvec_run)
+	ins_run = int_to_str(ins_run)
+
+	run = len([ x for x in listdir(path) if ("m" +  str(modelo)) in x
+		and ("Z#" + zvec_run) in x and ("ins#" + ins_run)]) + 1
+
+	run = int_to_str(run)
+
+	path += "Y-m" + str(modelo) + "|Z#" + zvec_run + "|ins#" + ins_run + "|#" + run + ".txt"
+	arq = open(path, "w")
+
+	# Escreve no arquivo
+	for i in range(N):
+		arq.write("{}\n".format(vec[i]))
+	arq.close()
+
+	return(run)
 
 
-def yfile_to_yvector():
-	pass
+def yfile_to_yvector(name, yvec_run, modelo, ins_run, zvec_run):
+	vec = []
+
+	# Zero à esquerda
+	yvec_run = int_to_str(yvec_run)
+	zvec_run = int_to_str(zvec_run)
+	ins_run = int_to_str(ins_run)
+
+	path = "Datasets/" + name + "/Respostas/Y-m" + str(modelo) + "|Z#" + zvec_run + "|ins#" + ins_run + "|#" + yvec_run + ".txt"
+	tf = open(path, "r")
+
+	# Lê o arquivo
+	for i in tf:
+		vec.append(float(i))
+	tf.close()
+	return(vec)
+
+
+def simulate(model, zvec, ins, name):
+	g = nx.read_edgelist(path(name), nodetype=int)
+
+	if model == 1:
+		return(itr(g, ins, zvec))
+
+	elif model == 2:
+		return(num(g, ins, zvec))
+	
+	elif model == 3:
+		return(frac(g, ins, zvec))
+	
+	elif model == 4:
+		return(resp(g, ins, zvec))
+
+
+# Calcula o ATE real
+def real_ATE(model, ins, name):
+	g = nx.read_edgelist(path(name), nodetype=int)
+	N = g.number_of_nodes()
+	return((sum(simulate(model, cent(100, N), ins, name)) - sum(simulate(model, cent(0, N), ins, name)))/N)
