@@ -5,7 +5,7 @@ from funcs import a
 from funcs import comunidade as com
 
 # Função Response Based
-def resp(g, ins, zvector, comu=-1):
+def resp(g, ins, zvector, comu=None):
 
 	# Entradas
 	alpha = ins[0]
@@ -13,7 +13,7 @@ def resp(g, ins, zvector, comu=-1):
 	gama = ins[2]
 	T = ins[3]
 
-	if comu != -1:
+	if comu != None:
 		membros = com(comu)	
 
 	N = g.number_of_nodes()
@@ -24,9 +24,9 @@ def resp(g, ins, zvector, comu=-1):
 		g.node[i]['y'] = 0
 
 	# Componente estocástico
-	U = np.random.normal(0, 1, N)
+	U = np.random.normal(ins[4], ins[5], N)
 
-	if comu != -1:
+	if comu != None:
 		for k in membros:
 			U[k] = np.random.normal(0.5, 0.8)
 

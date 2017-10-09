@@ -5,12 +5,12 @@ from funcs import a
 from funcs import comunidade as com
 
 # Função ITR
-def itr(g, ins, zvector, comu=-1):
+def itr(g, ins, zvector, comu=None):
 
 	# Entradas
 	alpha = ins[0]
 
-	if comu != -1:
+	if comu != None:
 		membros = com(comu)	
 
 	N = g.number_of_nodes()
@@ -20,8 +20,8 @@ def itr(g, ins, zvector, comu=-1):
 		g.node[i]['z'] = zvector[i]
 
 	# Componente Estocástico
-	U = np.random.normal(0, 1, N)
-	if comu != -1:
+	U = np.random.normal(ins[1], ins[2], N)
+	if comu != None:
 		for k in membros:
 			U[k] = np.random.normal(0.5, 0.8)
 

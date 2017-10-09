@@ -5,7 +5,7 @@ from funcs import comunidade as com
 
 
 # Função Número
-def num(g, ins, zvector, comu=-1):
+def num(g, ins, zvector, normal=[0, 1], comu=None):
 
 	# Entradas
 	alpha = ins[0]
@@ -13,7 +13,7 @@ def num(g, ins, zvector, comu=-1):
 	gama = ins[2]
 	kappa = ins[3]
 
-	if comu != -1:
+	if comu != None:
 		membros = com(comu)	
 
 	N = g.number_of_nodes()
@@ -23,8 +23,8 @@ def num(g, ins, zvector, comu=-1):
 		g.node[i]['z'] = zvector[i]
 	
 	# Componente Estocástico
-	U = np.random.normal(0, 1, N)
-	if comu != -1:
+	U = np.random.normal(ins[4], ins[5], N)
+	if comu != None:
 		for k in membros:
 			U[k] = np.random.normal(0.5, 0.8)
 
