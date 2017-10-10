@@ -1,7 +1,7 @@
 import numpy as np
 import networkx as nx
 
-#from funcs import comunidade as com
+from comu import comunidade as com
 
 # Função a
 def a(valor):
