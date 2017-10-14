@@ -58,7 +58,7 @@ def get_input(model):
 			inputs.append(float(input("Kappa: ")))
 
 		elif model == 3:
-			inputs.append(bool(input("Linear: ")))
+			inputs.append(bool(int(input("Linear: "))))
 			inputs.append(0)
 
 			if inputs[3] == False:
@@ -216,7 +216,7 @@ def zvector_to_zfile(vec, name):
 		arq.write("{}\n".format(vec[i]))
 	arq.close()
 
-	return(run)
+	return(int(run))
 
 
 # Cria zvector lendo de um arquivo 
@@ -254,7 +254,7 @@ def ins_to_file(ins, name, model):
 		arq.write("{}\n".format(ins[i]))
 	arq.close()
 
-	return(run)	
+	return(int(run))
 
 
 # Cria ins lendo de um arquivo
@@ -270,7 +270,7 @@ def file_to_ins(name, model, run):
 	# Lê o arquivo
 	for i in tf:
 		if i[0] in ["T", "F"]:
-			ins.append(bool(i))
+			ins.append(bool(int(i)))
 		elif model is 4 and "." not in i:
 			ins.append(int(i))
 		else:
@@ -280,6 +280,7 @@ def file_to_ins(name, model, run):
 	return(ins)
 
 
+# Cria o arquivo resposta
 def yvector_to_yfile(vec, modelo, name, ins_run, zvec_run):
 	N = len(vec)
 	path = "Datasets/" + name + "/Respostas/"
@@ -299,9 +300,10 @@ def yvector_to_yfile(vec, modelo, name, ins_run, zvec_run):
 		arq.write("{}\n".format(vec[i]))
 	arq.close()
 
-	return(run)
+	return(int(run))
 
 
+# Criva o yvector a partir de um arquivo de resposta
 def yfile_to_yvector(name, yvec_run, modelo, ins_run, zvec_run):
 	vec = []
 
@@ -320,6 +322,7 @@ def yfile_to_yvector(name, yvec_run, modelo, ins_run, zvec_run):
 	return(vec)
 
 
+# Simula um dos modelos
 def simulate(model, zvec, ins, name):
 	g = nx.read_edgelist(path(name), nodetype=int)
 
