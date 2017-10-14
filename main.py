@@ -4,7 +4,7 @@ import funcs as f
 nome = "email-Eu-core"
 
 # Entradas
-sim = int(input("[1]ITR\n[2]Número\n[3]Fração\n[4]Response Based\n> "))
+sim = int(input("[1]ITR\n[2]Número\n[3]Fração\n[4]Response Based\n\n> "))
 new = bool(int(input("\nNovos parâmetros?\n> ")))
 print()
 
