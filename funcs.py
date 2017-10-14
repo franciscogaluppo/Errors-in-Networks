@@ -270,7 +270,7 @@ def file_to_ins(name, model, run):
 	# Lê o arquivo
 	for i in tf:
 		if i[0] in ["T", "F"]:
-			ins.append(bool(int(i)))
+			ins.append(bool(i))
 		elif model is 4 and "." not in i:
 			ins.append(int(i))
 		else:
