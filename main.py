@@ -1,7 +1,7 @@
 import networkx as nx
 import funcs as f
 
-nome = "email-Eu-core"
+nome = "p2p-Gnutella08"
 
 # Entradas
 sim = int(input("[1]ITR\n[2]Número\n[3]Fração\n[4]Response Based\n\n> "))
@@ -13,16 +13,23 @@ if new:
 	ins = f.get_input(sim)
 	ins_run = f.ins_to_file(ins, nome, sim)
 
+# Seleciona os arquivos de entrada
+else:
+	ins_run = int(input("Rodada da entrada: "))
+	ins = f.file_to_ins(nome, sim, ins_run)
+
+
+# Escolha do tratamento
+new = bool(int(input("\nNovo tratamento?\n> ")))
+print()
+
+if new:
 	g = nx.read_edgelist(f.path(nome), nodetype=int)
 	N = g.number_of_nodes()
 	zvector = f.cent(int(input("%z=1: ")), N)
 	z_run = f.zvector_to_zfile(zvector, nome)
 
-# Seleciona os arquivos de entrada
 else:
-	ins_run = int(input("Rodada da entrada: "))
-	ins = f.file_to_ins(nome, sim, ins_run)
-	
 	z_run = int(input("Rodada do tratamento: "))
 	zvector = f.zfile_to_zvector(nome, z_run)
 

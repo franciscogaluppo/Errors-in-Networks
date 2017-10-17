@@ -60,6 +60,7 @@ def get_input(model):
 		elif model == 3:
 			inputs.append(bool(int(input("Linear: "))))
 			inputs.append(0)
+			inputs.append(bool(int(input("Função a: "))))
 
 			if inputs[3] == False:
 				inputs[4] = (float(input("Tau: ")))
@@ -269,8 +270,10 @@ def file_to_ins(name, model, run):
 
 	# Lê o arquivo
 	for i in tf:
-		if i[0] in ["T", "F"]:
-			ins.append(bool(i))
+		if i[0] is "T":
+			ins.append(bool(1))
+		elif i[0] is "F":
+			ins.append(bool(0))
 		elif model is 4 and "." not in i:
 			ins.append(int(i))
 		else:
