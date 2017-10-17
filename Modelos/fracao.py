@@ -18,6 +18,7 @@ def frac(g, ins, zvector, comu=None):
 	gama = ins[2]
 	linear = ins[3]
 	tau = ins[4]
+	binario = ins[5]
 
 	if comu != None:
 		membros = com(comu)	
@@ -49,8 +50,11 @@ def frac(g, ins, zvector, comu=None):
 		elif g.node[i]['z'] == 1 and frac > tau and not linear:
 			g.node[i]['y'] = a(alpha + beta + U[i])
 
+		elif binario:
+			g.node[i]['y'] = a(alpha + beta*g.node[i]['z'] + gama*frac + U[i])
+
 		else:
-			g.node[i]['y'] = (alpha + beta*g.node[i]['z'] + gama*frac + U[i])
+			g.node[i]['y'] = alpha + beta*g.node[i]['z'] + gama*frac + U[i]
 
 	yvector = []
 	for i in range(N):
