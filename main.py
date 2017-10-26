@@ -42,5 +42,7 @@ f.print_out(sim, zvector, yvector)
 print("\nATE:", f.real_ATE(sim, ins, nome))
 print("SUTVA:", f.ate_estimate(zvector, yvector, nome, 1))
 print("Linear:", f.ate_estimate(zvector, yvector, nome, 2))
+if sim != 3 or ins[5] == 1:
+	print("Probit:", f.ate_estimate(zvector, yvector, nome, 3))
 
 f.yvector_to_yfile(yvector, sim, nome, ins_run, z_run)

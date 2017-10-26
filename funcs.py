@@ -1,3 +1,4 @@
+from statsmodels.discrete.discrete_model import Probit
 from random import random as rd
 import networkx as nx
 from sklearn import linear_model
@@ -161,31 +162,28 @@ def ate_estimate(zvec, yvec, name, est_model):
 
 		return(sum_resp_z1/z1 - sum_resp_z0/z0)
 
+	# Vetor tau
+	tau = []
+	for i in range(N):
+		soma = 0
+		for k in g.neighbors(i):
+			soma += zvec[k]
+		tau.append(soma/g.degree(i))
+
+	# Vetor das features
+	features = []
+	for j in range(N):
+		features.append([])
+		features[j].append(zvec[j])
+		features[j].append(tau[j])
+
 	# Linear
 	if est_model == 2:
+		return(sum(linear_model.LinearRegression().fit(features, yvec).coef_))
 
-		# Vetor tau
-		tau = []
-		for i in range(N):
-			soma = 0
-			for k in g.neighbors(i):
-				soma += zvec[k]
-			tau.append(soma/g.degree(i))
-
-		# Vetor das features
-		features = []
-		for j in range(N):
-			features.append([])
-			features[j].append(zvec[j])
-			features[j].append(tau[j])
-
-		# Regressão
-		lr = linear_model.LinearRegression()
-		lr.fit(features, yvec)
-		
-		c = lr.coef_
-
-		return(sum(c))
+	# Probit
+	if est_model == 3:
+		return(sum(Probit(yvec, features).fit(disp=0).params))
 
 
 # Cria path completo do set
@@ -291,7 +289,7 @@ def yvector_to_yfile(vec, modelo, name, ins_run, zvec_run):
 	ins_run = int_to_str(ins_run)
 
 	run = len([ x for x in listdir(path) if ("m" +  str(modelo)) in x
-		and ("Z#" + zvec_run) in x and ("ins#" + ins_run)]) + 1
+	and ("Z#" + zvec_run) in x and ("ins#" + ins_run) in x]) + 1
 
 	run = int_to_str(run)
 
