@@ -30,7 +30,7 @@ def frac(g, ins, zvector, comu=None):
 		g.node[i]['z'] = zvector[i]
 
 	# Componente Estocástico
-	U = np.random.normal(ins[5], ins[6], N)
+	U = np.random.normal(ins[6], ins[7], N)
 
 	if comu != None:
 		for k in range(N):
