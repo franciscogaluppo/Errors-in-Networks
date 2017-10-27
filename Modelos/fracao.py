@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 import numpy as np
 import networkx as nx
 
@@ -21,7 +23,7 @@ def frac(g, ins, zvector, comu=None):
 	binario = ins[5]
 
 	if comu != None:
-		membros = com(comu)	
+		membros = com(comu)
 
 	N = g.number_of_nodes()
 

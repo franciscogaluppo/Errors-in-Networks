@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 def comunidade(arq):
 	f = open(arq, "r")
 
@@ -14,7 +16,7 @@ def comunidade(arq):
 	#remove o \n do final da string
 	string = string[:-1]
 
-	#tranforma a string numa lista de strings         
+	#tranforma a string numa lista de strings
 	lista = string.split("	")
 
 	#tranforma as strings em ints

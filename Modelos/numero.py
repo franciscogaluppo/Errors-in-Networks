@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 import numpy as np
 import networkx as nx
 
@@ -19,14 +21,14 @@ def num(g, ins, zvector, normal=[0, 1], comu=None):
 	kappa = ins[3]
 
 	if comu != None:
-		membros = com(comu)	
+		membros = com(comu)
 
 	N = g.number_of_nodes()
 
 	# Tratamentos
 	for i in range(N):
 		g.node[i]['z'] = zvector[i]
-	
+
 	# Componente Estocástico
 	U = np.random.normal(ins[4], ins[5], N)
 	if comu != None:
@@ -47,7 +49,7 @@ def num(g, ins, zvector, normal=[0, 1], comu=None):
 		# Grupo tratamento
 		elif g.node[i]['z'] == 1 and soma > kappa:
 			g.node[i]['y'] = a(alpha + beta + U[i])
-		
+
 		# Sobra
 		else:
 			g.node[i]['y'] = a(alpha + (g.node[i]['z']*gama + (1 - gama)*min(kappa, soma)*beta/(gama + (1 - gama)*kappa) + U[i]))
@@ -55,5 +57,5 @@ def num(g, ins, zvector, normal=[0, 1], comu=None):
 	yvector = []
 	for i in range(N):
 		yvector.append(g.node[i]['y'])
-		
+
 	return(yvector)

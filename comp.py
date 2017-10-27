@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import funcs as f
 import matplotlib.pyplot as plt
 

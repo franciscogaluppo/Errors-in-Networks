@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from statsmodels.discrete.discrete_model import Probit
 from random import random as rd
 import networkx as nx
@@ -42,7 +45,7 @@ def print_out(model, zvec, yvec):
 		print("Fração de nós com Yi=1 dado que Z=1: {}".format(out[2]))
 	else:
 		print("Não há nós com Z=1")
-	
+
 
 # Recebe entradas do usuário
 def get_input(model):
@@ -53,8 +56,8 @@ def get_input(model):
 	if model != 1:
 		inputs.append(float(input("Beta: ")))
 		inputs.append(float(input("Gamma: ")))
-		
-		# 
+
+		#
 		if model == 2:
 			inputs.append(float(input("Kappa: ")))
 
@@ -65,13 +68,13 @@ def get_input(model):
 
 			if inputs[3] == False:
 				inputs[4] = (float(input("Tau: ")))
-			
+
 		elif model == 4:
 			inputs.append(int(input("Time: ")))
-		
+
 	inputs.append(float(input("µ: ")))
 	inputs.append(float(input("σ²: ")))
-		
+
 	return(inputs)
 
 
@@ -218,7 +221,7 @@ def zvector_to_zfile(vec, name):
 	return(int(run))
 
 
-# Cria zvector lendo de um arquivo 
+# Cria zvector lendo de um arquivo
 def zfile_to_zvector(name, run):
 	treatment = []
 
@@ -332,10 +335,10 @@ def simulate(model, zvec, ins, name):
 
 	elif model == 2:
 		return(num(g, ins, zvec))
-	
+
 	elif model == 3:
 		return(frac(g, ins, zvec))
-	
+
 	elif model == 4:
 		return(resp(g, ins, zvec))
 

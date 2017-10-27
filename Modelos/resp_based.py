@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 import numpy as np
 import networkx as nx
 
@@ -19,7 +21,7 @@ def resp(g, ins, zvector, comu=None):
 	T = ins[3]
 
 	if comu != None:
-		membros = com(comu)	
+		membros = com(comu)
 
 	N = g.number_of_nodes()
 
@@ -39,7 +41,7 @@ def resp(g, ins, zvector, comu=None):
 
 		# Aplica a função ao grafo
 		for j in range(N):
-			
+
 			# Soma dos tratamentos dos nós vizinhos de j
 			soma = 0
 			for k in g.neighbors(j): soma += g.node[k]['y']
@@ -54,5 +56,5 @@ def resp(g, ins, zvector, comu=None):
 	yvector = []
 	for i in range(N):
 		yvector.append(g.node[i]['y'])
-		
+
 	return(yvector)
