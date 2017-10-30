@@ -36,7 +36,8 @@ trat = 6
 model = 3
 
 # m3
-ins = [0, 'beta', 'gamma', True, 0, False, 0, 0.4]
+#    alpha              linear    func_a media e var
+ins = [0, 'beta', 'gamma', True, 0, False, 0, 0]
 
 # m4
 # ins = [0, 'beta', 'gamma', 10, 0, 0.4]
@@ -58,7 +59,7 @@ for gamma in [x / 10.0 for x in range(1, 11, 1)]:
 		gammas.append(gamma)
 
 		# Cálculo da altura
-		altura.append(fracz1(nome, model, ins, zvec))
+		altura.append(real_dist(nome, model, ins, zvec))
 
 	print(gamma)
 
@@ -70,10 +71,10 @@ ax.scatter(betas, gammas, altura)
 # Legenda
 ax.set_xlabel("Beta")
 ax.set_ylabel("Gamma")
-ax.set_zlabel("Fração das respostas")
+ax.set_zlabel("Distância")
 
 # Finalização
 path = "Imagens/Plots/"
 run = len([ x for x in listdir(path)]) + 1
-plt.savefig(path + "TESTE #" + str(run) + ".png")
-#plt.show()
+#plt.savefig(path + "TESTE #" + str(run) + ".png")
+plt.show()
