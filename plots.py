@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 from os import listdir
@@ -22,6 +24,7 @@ def real_dist(nome, model, ins, zvec):
 # Calcula a distância relativa
 def relative_dist(nome, model, ins, zvec):
 	real = f.real_ATE(model, ins, nome)
+        print([real,ins[1]+ins[2]])
 	esti = f.ate_estimate(zvec, f.simulate(model, zvec, ins, nome), nome, 2)
 	return(distance(real, esti)/(ins[1] + ins[2]))
 
@@ -33,7 +36,7 @@ def fracz1(nome, model, ins, zvec):
 # Constantes
 nome = "email-Eu-core"
 trat = 6
-model = 3
+model = 2
 
 # m3
 #    alpha              linear    func_a media e var
@@ -71,10 +74,20 @@ ax.scatter(betas, gammas, altura)
 # Legenda
 ax.set_xlabel("Beta")
 ax.set_ylabel("Gamma")
+<<<<<<< HEAD
 ax.set_zlabel("Distância")
+=======
+
+ax.set_zlabel("Distancia real")
+>>>>>>> 5086c90e35066dcf4112692d2010e1789cc6eef5
 
 # Finalização
 path = "Imagens/Plots/"
 run = len([ x for x in listdir(path)]) + 1
+<<<<<<< HEAD
 #plt.savefig(path + "TESTE #" + str(run) + ".png")
 plt.show()
+=======
+plt.savefig(path + "TESTE #" + str(run) + ".png")
+#plt.show()
+>>>>>>> 5086c90e35066dcf4112692d2010e1789cc6eef5
