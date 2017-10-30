@@ -1,4 +1,8 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from statsmodels.discrete.discrete_model import Probit
+from scipy.stats import norm
 from random import random as rd
 import networkx as nx
 from sklearn import linear_model
@@ -42,7 +46,7 @@ def print_out(model, zvec, yvec):
 		print("Fração de nós com Yi=1 dado que Z=1: {}".format(out[2]))
 	else:
 		print("Não há nós com Z=1")
-	
+
 
 # Recebe entradas do usuário
 def get_input(model):
@@ -53,8 +57,8 @@ def get_input(model):
 	if model != 1:
 		inputs.append(float(input("Beta: ")))
 		inputs.append(float(input("Gamma: ")))
-		
-		# 
+
+		#
 		if model == 2:
 			inputs.append(float(input("Kappa: ")))
 
@@ -65,13 +69,13 @@ def get_input(model):
 
 			if inputs[3] == False:
 				inputs[4] = (float(input("Tau: ")))
-			
+
 		elif model == 4:
 			inputs.append(int(input("Time: ")))
-		
+
 	inputs.append(float(input("µ: ")))
 	inputs.append(float(input("σ²: ")))
-		
+
 	return(inputs)
 
 
@@ -174,6 +178,7 @@ def ate_estimate(zvec, yvec, name, est_model):
 	features = []
 	for j in range(N):
 		features.append([])
+		features[j].append(1)
 		features[j].append(zvec[j])
 		features[j].append(tau[j])
 
@@ -183,7 +188,8 @@ def ate_estimate(zvec, yvec, name, est_model):
 
 	# Probit
 	if est_model == 3:
-		return(sum(Probit(yvec, features).fit(disp=0).params))
+		vals = Probit(yvec, features).fit(disp=0).params
+		return(norm.cdf(sum(vals)) - norm.cdf(vals[0]))		
 
 
 # Cria path completo do set
@@ -218,7 +224,7 @@ def zvector_to_zfile(vec, name):
 	return(int(run))
 
 
-# Cria zvector lendo de um arquivo 
+# Cria zvector lendo de um arquivo
 def zfile_to_zvector(name, run):
 	treatment = []
 
@@ -332,10 +338,10 @@ def simulate(model, zvec, ins, name):
 
 	elif model == 2:
 		return(num(g, ins, zvec))
-	
+
 	elif model == 3:
 		return(frac(g, ins, zvec))
-	
+
 	elif model == 4:
 		return(resp(g, ins, zvec))
 
