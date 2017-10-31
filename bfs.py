@@ -42,7 +42,7 @@ while len(lista) > 1:
 		comunidades.append(centro)
 
 		bfs(g, lista, centro, centro, 2, 1)
-
+		
 		quantidade += 1
 
 
