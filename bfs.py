@@ -37,12 +37,12 @@ while len(lista) > 1:
 	if g.node[centro]["comunidade"] == -1:  #se ele nao estiver em nenhuma comunidade, cria uma comunidade para ele
 		g.node[centro]["distancia"] = 0
 		g.node[centro]["comunidade"] = centro
-		
+
 		lista.remove(centro)
 		comunidades.append(centro)
-		
+
 		bfs(g, lista, centro, centro, 2, 1)
-		
+
 		quantidade += 1
 
 
