@@ -1,5 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 import numpy as np
-import networkx as nx
 
 from comu import comunidade as com
 
@@ -10,7 +11,7 @@ def a(valor):
 
 
 # Função Fração
-def frac(g, ins, zvector, comu=None):
+def frac(g, ins, zvector, U, comu=None):
 
 	# Entradas
 	alpha = ins[0]
@@ -30,7 +31,8 @@ def frac(g, ins, zvector, comu=None):
 		g.node[i]['z'] = zvector[i]
 
 	# Componente Estocástico
-	U = np.random.normal(ins[6], ins[7], N)
+	if U == None:
+		U = np.random.normal(ins[6], ins[7], N)
 
 	if comu != None:
 		for k in range(N):
@@ -38,9 +40,12 @@ def frac(g, ins, zvector, comu=None):
 				U[k] = np.random.normal(0.5, 0.8)
 
 
+	#filename = 'a{0}_b{1}_g{2}.txt'.format(alpha, beta, gama)
+	#with open(filename,'w') as csvfile:
+	    #datafile = csv.writer(csvfile)
 	for i in range(N):
 
-		soma = 0
+		soma = 0.0
 		for k in g.neighbors(i): soma += g.node[k]['z']
 		frac = soma / g.degree(i)
 
@@ -55,9 +60,11 @@ def frac(g, ins, zvector, comu=None):
 
 		else:
 			g.node[i]['y'] = alpha + beta*g.node[i]['z'] + gama*frac + U[i]
+			#datafile.writerow([g.node[i]['z'],frac,g.node[i]['y']])
 
 	yvector = []
 	for i in range(N):
 		yvector.append(g.node[i]['y'])
+
 
 	return(yvector)
