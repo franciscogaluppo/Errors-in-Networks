@@ -7,6 +7,7 @@ from random import random as rd
 import networkx as nx
 from sklearn import linear_model
 from os import listdir
+import ipdb
 
 from Modelos.ITR import itr
 from Modelos.numero import num
@@ -169,7 +170,7 @@ def ate_estimate(zvec, yvec, name, est_model):
 	# Vetor tau
 	tau = []
 	for i in range(N):
-		soma = 0
+		soma = 0.0
 		for k in g.neighbors(i):
 			soma += zvec[k]
 		tau.append(soma/g.degree(i))
@@ -184,12 +185,15 @@ def ate_estimate(zvec, yvec, name, est_model):
 
 	# Linear
 	if est_model == 2:
+                #print(linear_model.LinearRegression().fit(features, yvec).coef_)
+                #FIXME: remove intercept before summing coefficients
 		return(sum(linear_model.LinearRegression().fit(features, yvec).coef_))
 
 	# Probit
 	if est_model == 3:
-		vals = Probit(yvec, features).fit(disp=0).params
-		return(norm.cdf(sum(vals)) - norm.cdf(vals[0]))		
+		return(sum(linear_model.LinearRegression().fit(features, yvec).coef_))
+		#vals = Probit(yvec, features).fit(disp=0).params
+		#return(norm.cdf(sum(vals)) - norm.cdf(vals[0]))
 
 
 # Cria path completo do set
@@ -330,7 +334,7 @@ def yfile_to_yvector(name, yvec_run, modelo, ins_run, zvec_run):
 
 
 # Simula um dos modelos
-def simulate(model, zvec, ins, name):
+def simulate(model, zvec, ins, name, U=None):
 	g = nx.read_edgelist(path(name), nodetype=int)
 
 	if model == 1:
@@ -340,7 +344,7 @@ def simulate(model, zvec, ins, name):
 		return(num(g, ins, zvec))
 
 	elif model == 3:
-		return(frac(g, ins, zvec))
+		return(frac(g, ins, zvec, U))
 
 	elif model == 4:
 		return(resp(g, ins, zvec))
@@ -350,4 +354,5 @@ def simulate(model, zvec, ins, name):
 def real_ATE(model, ins, name):
 	g = nx.read_edgelist(path(name), nodetype=int)
 	N = g.number_of_nodes()
-	return((sum(simulate(model, cent(100, N), ins, name)) - sum(simulate(model, cent(0, N), ins, name)))/N)
+        U = [0]*N
+	return((sum(simulate(model, cent(100, N), ins, name, U)) - sum(simulate(model, cent(0, N), ins, name, U)))/N)

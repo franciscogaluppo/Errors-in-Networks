@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 from os import listdir
@@ -14,10 +17,15 @@ def distance(a, b):
 	return((-1) * diff)
 
 # Calcula a distância real entre o ATE e o valor estimado pela regressão linear
-def real_dist(nome, model, ins, zvec):
+def real_dist(nome, model, ins, zvec, RUNS=100):
 	real = f.real_ATE(model, ins, nome)
-	esti = f.ate_estimate(zvec, f.simulate(model, zvec, ins, nome), nome, 2)
-	return(distance(real, esti))
+	for run in xrange(RUNS):
+		esti = f.ate_estimate(zvec, f.simulate(model, zvec, ins, nome), nome, 2)
+		if run == 0:
+			sum_esti = esti
+		else:
+			sum_esti += esti
+	return(distance(real, sum_esti/RUNS))
 
 # Calcula a distância real com a função a() entre o ATE e o valor estimado pela regressão probit
 def real_dist_a(nome, model, ins, zvec):
@@ -38,9 +46,9 @@ def fracz1(nome, model, ins, zvec):
 # CÓDIGO PRINCIPAL
 
 # Constantes
-nome = "email-Eu-core"    # Nome do Dataset
-trat = 6                  # Número do vetor de tratamento
-model = 3                 # Número do modelo da simulação
+nome = "email-Eu-core"	  # Nome do Dataset
+trat = 1		  # Número do vetor de tratamento
+model = 3		  # Número do modelo da simulação
 
 
 # Lê o arquivo de tratamento escolhido e retorna o vetor
@@ -53,7 +61,7 @@ gammas = []
 altura = []
 
 
-#  -- ENTRADAS 
+#  -- ENTRADAS
 
 # Modelo 1
 
@@ -64,20 +72,20 @@ if model == 3:
 	ins = [0,      # Alpha
 		'beta',    # Beta
 		'gamma',   # Gamma
-		True,      # Linear
-		0,         # Tau
-		False,     # Função a
-		0,         # Média µ do U
-		0]         # Var σ² do U
+		True,	   # Linear
+		0,	   # Tau
+		False,	   # Função a
+		0,	   # Média µ do U
+		0.1]	   # Var σ² do U
 
 # Modelo 4
 if model == 4:
 	ins = [0,      # Alpha
 		'beta',    # Beta
 		'gamma',   # Gamma
-		10,        # Tempo discreto
-		0,         # Média µ do U
-		0.4]       # Var σ² do U
+		10,	   # Tempo discreto
+		0,	   # Média µ do U
+		0.4]	   # Var σ² do U
 
 
 #  -- SIMULAÇÕES
@@ -99,7 +107,7 @@ for gamma in [x / 10.0 for x in range(1, 11, 1)]:
 		gammas.append(gamma)
 
 		# Cálculo da altura usando a função desejada
-		altura.append(relative_dist(nome, model, ins, zvec))
+		altura.append(real_dist(nome, model, ins, zvec))
 
 	print(str(int(gamma*100)) + " %")
 
@@ -114,7 +122,7 @@ ax.scatter(betas, gammas, altura)
 # Legenda
 ax.set_xlabel("Beta")
 ax.set_ylabel("Gamma")
-ax.set_zlabel("Distância")
+ax.set_zlabel("Distance")
 
 # Finalização
 path = "Imagens/Plots/"
