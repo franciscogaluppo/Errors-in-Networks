@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 from os import listdir
 import funcs as f
+import numpy as np
 
 
 # FUNÇÕES PARA A ALTURA
@@ -19,12 +20,16 @@ def distance(a, b):
 # Calcula a distância real entre o ATE e o valor estimado pela regressão linear
 def real_dist(nome, model, ins, zvec, RUNS=100):
 	real = f.real_ATE(model, ins, nome)
+        #100FIXME: remove line below
+        real2 = ins[1]+ins[2]
+        print({'ATE real':real, 'beta+gamma':real2})
 	for run in xrange(RUNS):
 		esti = f.ate_estimate(zvec, f.simulate(model, zvec, ins, nome), nome, 2)
 		if run == 0:
 			sum_esti = esti
 		else:
 			sum_esti += esti
+        print([real,sum_esti/RUNS])
 	return(distance(real, sum_esti/RUNS))
 
 # Calcula a distância real com a função a() entre o ATE e o valor estimado pela regressão probit
@@ -91,13 +96,13 @@ if model == 4:
 #  -- SIMULAÇÕES
 
 # Roda a simulação para diferentes gammas
-for gamma in [x / 10.0 for x in range(1, 11, 1)]:
+for gamma in [x / np.float64(10.0) for x in range(1, 11, 1)]:
 
 	# Novo valor de gamma
 	ins[2] = gamma
 
 	# E para diferentes betas
-	for beta in [x / 10.0 for x in range(1, 11, 1)]:
+	for beta in [x / np.float64(10.0) for x in range(1, 11, 1)]:
 
 		# Novo valor de beta
 		ins[1] = beta

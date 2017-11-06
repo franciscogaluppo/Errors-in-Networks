@@ -8,6 +8,8 @@ import networkx as nx
 from sklearn import linear_model
 from os import listdir
 import ipdb
+import numpy as np
+import sys
 
 from Modelos.ITR import itr
 from Modelos.numero import num
@@ -137,6 +139,9 @@ def count_y1z0(vecz, vecy):
 # Estima o valor do ATE
 def ate_estimate(zvec, yvec, name, est_model):
 	g = nx.read_edgelist(path(name), nodetype=int)
+        selfloops = [ (i,i) for i in g.nodes_with_selfloops()]
+        g.remove_edges_from(selfloops)
+
 	N = len(zvec)
 
 	# SUTVA
@@ -173,7 +178,10 @@ def ate_estimate(zvec, yvec, name, est_model):
 		soma = 0.0
 		for k in g.neighbors(i):
 			soma += zvec[k]
-		tau.append(soma/g.degree(i))
+                if g.degree(i) == 0:
+                    tau.append(1.0)
+                else:
+                    tau.append(soma/g.degree(i))
 
 	# Vetor das features
 	features = []
@@ -336,6 +344,8 @@ def yfile_to_yvector(name, yvec_run, modelo, ins_run, zvec_run):
 # Simula um dos modelos
 def simulate(model, zvec, ins, name, U=None):
 	g = nx.read_edgelist(path(name), nodetype=int)
+        selfloops = [ (i,i) for i in g.nodes_with_selfloops()]
+        g.remove_edges_from(selfloops)
 
 	if model == 1:
 		return(itr(g, ins, zvec))
@@ -344,7 +354,7 @@ def simulate(model, zvec, ins, name, U=None):
 		return(num(g, ins, zvec))
 
 	elif model == 3:
-		return(frac(g, ins, zvec, U))
+		return(np.array(frac(g, ins, zvec, U)))
 
 	elif model == 4:
 		return(resp(g, ins, zvec))
@@ -355,4 +365,4 @@ def real_ATE(model, ins, name):
 	g = nx.read_edgelist(path(name), nodetype=int)
 	N = g.number_of_nodes()
         U = [0]*N
-	return((sum(simulate(model, cent(100, N), ins, name, U)) - sum(simulate(model, cent(0, N), ins, name, U)))/N)
+	return((sum(simulate(model, [1]*N, ins, name, U) - simulate(model, [0]*N, ins, name, U)))/N)
