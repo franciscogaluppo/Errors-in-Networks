@@ -59,8 +59,7 @@ def frac(g, ins, zvector, U, comu=None):
 		
 		else:
 			g.node[i]['y'] = alpha + beta*g.node[i]['z'] + gama*frac + U[i]
-			#datafile.writerow([g.node[i]['z'],frac,g.node[i]['y']])
-
+			
 	yvector = []
 	for i in range(N):
 		yvector.append(g.node[i]['y'])
