@@ -7,7 +7,7 @@ from random import random as rd
 import networkx as nx
 from sklearn import linear_model
 from os import listdir
-import ipdb
+# import ipdb
 import numpy as np
 import sys
 
@@ -137,11 +137,7 @@ def count_y1z0(vecz, vecy):
 
 
 # Estima o valor do ATE
-def ate_estimate(zvec, yvec, name, est_model):
-	g = nx.read_edgelist(path(name), nodetype=int)
-        selfloops = [ (i,i) for i in g.nodes_with_selfloops()]
-        g.remove_edges_from(selfloops)
-
+def ate_estimate(g, zvec, yvec, name, est_model):
 	N = len(zvec)
 
 	# SUTVA
@@ -177,11 +173,12 @@ def ate_estimate(zvec, yvec, name, est_model):
 	for i in range(N):
 		soma = 0.0
 		for k in g.neighbors(i):
-			soma += zvec[k]
-                if g.degree(i) == 0:
-                    tau.append(1.0)
-                else:
-                    tau.append(soma/g.degree(i))
+			soma += float(zvec[k])
+			
+		if g.degree(i) == 0:
+			tau.append(1.0)
+		else:
+			tau.append(soma/g.degree(i))
 
 	# Vetor das features
 	features = []
@@ -193,15 +190,14 @@ def ate_estimate(zvec, yvec, name, est_model):
 
 	# Linear
 	if est_model == 2:
-                #print(linear_model.LinearRegression().fit(features, yvec).coef_)
-                #FIXME: remove intercept before summing coefficients
-		return(sum(linear_model.LinearRegression().fit(features, yvec).coef_))
+		lr = linear_model.LinearRegression().fit(features, yvec).coef_
+		return(lr[1] + lr[2])
 
 	# Probit
 	if est_model == 3:
-		return(sum(linear_model.LinearRegression().fit(features, yvec).coef_))
-		#vals = Probit(yvec, features).fit(disp=0).params
-		#return(norm.cdf(sum(vals)) - norm.cdf(vals[0]))
+		# return(sum(linear_model.LinearRegression().fit(features, yvec).coef_))
+		vals = Probit(yvec, features).fit(disp=0).params
+		return(norm.cdf(sum(vals)) - norm.cdf(vals[0]))
 
 
 # Cria path completo do set
@@ -342,11 +338,7 @@ def yfile_to_yvector(name, yvec_run, modelo, ins_run, zvec_run):
 
 
 # Simula um dos modelos
-def simulate(model, zvec, ins, name, U=None):
-	g = nx.read_edgelist(path(name), nodetype=int)
-        selfloops = [ (i,i) for i in g.nodes_with_selfloops()]
-        g.remove_edges_from(selfloops)
-
+def simulate(g, model, zvec, ins, U=None):
 	if model == 1:
 		return(itr(g, ins, zvec))
 
@@ -361,8 +353,16 @@ def simulate(model, zvec, ins, name, U=None):
 
 
 # Calcula o ATE real
-def real_ATE(model, ins, name):
-	g = nx.read_edgelist(path(name), nodetype=int)
+def real_ATE(g, model, ins, U=None):
 	N = g.number_of_nodes()
-        U = [0]*N
-	return((sum(simulate(model, [1]*N, ins, name, U) - simulate(model, [0]*N, ins, name, U)))/N)
+	return((sum(simulate(g, model, [1]*N, ins, U)) - sum(simulate(g, model, [0]*N, ins, U)))/N)
+
+
+# Inicializa o grafo
+def get_graph(name):
+	g = nx.read_edgelist(path(name), nodetype=int)
+
+	selfloops = [ (i,i) for i in g.nodes_with_selfloops()]
+	g.remove_edges_from(selfloops)
+
+	return(g)

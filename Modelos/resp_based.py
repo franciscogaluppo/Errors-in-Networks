@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+
 import numpy as np
 import networkx as nx
 
@@ -12,7 +13,7 @@ def a(valor):
 
 
 # Função Response Based
-def resp(g, ins, zvector, comu=None):
+def resp(g, ins, zvector, U, comu=None):
 
 	# Entradas
 	alpha = ins[0]
@@ -31,7 +32,8 @@ def resp(g, ins, zvector, comu=None):
 		g.node[i]['y'] = 0
 
 	# Componente estocástico
-	U = np.random.normal(ins[4], ins[5], N)
+	if U == None:
+		U = np.random.normal(ins[4], ins[5], N)
 
 	if comu != None:
 		for k in membros:
@@ -43,7 +45,7 @@ def resp(g, ins, zvector, comu=None):
 		for j in range(N):
 
 			# Soma dos tratamentos dos nós vizinhos de j
-			soma = 0
+			soma = np.float64(0.0)
 			for k in g.neighbors(j): soma += g.node[k]['y']
 
 			# Aplica a função ao nó j

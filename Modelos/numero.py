@@ -12,7 +12,7 @@ def a(valor):
 
 
 # Função Número
-def num(g, ins, zvector, normal=[0, 1], comu=None):
+def num(g, ins, zvector, U, comu=None):
 
 	# Entradas
 	alpha = ins[0]
@@ -30,7 +30,9 @@ def num(g, ins, zvector, normal=[0, 1], comu=None):
 		g.node[i]['z'] = zvector[i]
 
 	# Componente Estocástico
-	U = np.random.normal(ins[4], ins[5], N)
+	if U == None:
+		U = np.random.normal(ins[4], ins[5], N)
+	
 	if comu != None:
 		for k in membros:
 			U[k] = np.random.normal(0.5, 0.8)

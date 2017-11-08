@@ -40,20 +40,23 @@ def frac(g, ins, zvector, U, comu=None):
 				U[k] = np.random.normal(0.5, 0.8)
 
 
-	#filename = 'a{0}_b{1}_g{2}.txt'.format(alpha, beta, gama)
-	#with open(filename,'w') as csvfile:
-	#	datafile = csv.writer(csvfile)
+
 	for i in range(N):
 		soma = np.float64(0.0)
 		for k in g.neighbors(i): soma += g.node[k]['z']
+		
 		#TODO: decide for isolated nodes if fraction should be 0 or 1
 		frac = soma / g.degree(i) if g.degree(i) else 1
+
 		if g.node[i]['z'] == 0 and frac < tau and not linear:
 			g.node[i]['y'] = a(alpha + U[i])
+		
 		elif g.node[i]['z'] == 1 and frac > tau and not linear:
 			g.node[i]['y'] = a(alpha + beta + U[i])
+		
 		elif binario:
 			g.node[i]['y'] = a(alpha + beta*g.node[i]['z'] + gama*frac + U[i])
+		
 		else:
 			g.node[i]['y'] = alpha + beta*g.node[i]['z'] + gama*frac + U[i]
 			#datafile.writerow([g.node[i]['z'],frac,g.node[i]['y']])
