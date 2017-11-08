@@ -54,16 +54,16 @@ def print_out(model, zvec, yvec):
 # Recebe entradas do usuário
 def get_input(model):
 	inputs = []
-	inputs.append(float(input("Alpha: ")))
+	inputs.append(np.float64(input("Alpha: ")))
 
 	# NOT ITR
 	if model != 1:
-		inputs.append(float(input("Beta: ")))
-		inputs.append(float(input("Gamma: ")))
+		inputs.append(np.float64(input("Beta: ")))
+		inputs.append(np.float64(input("Gamma: ")))
 
 		#
 		if model == 2:
-			inputs.append(float(input("Kappa: ")))
+			inputs.append(np.float64(input("Kappa: ")))
 
 		elif model == 3:
 			inputs.append(bool(int(input("Linear: "))))
@@ -71,13 +71,13 @@ def get_input(model):
 			inputs.append(bool(int(input("Função a: "))))
 
 			if inputs[3] == False:
-				inputs[4] = (float(input("Tau: ")))
+				inputs[4] = (np.float64(input("Tau: ")))
 
 		elif model == 4:
 			inputs.append(int(input("Time: ")))
 
-	inputs.append(float(input("µ: ")))
-	inputs.append(float(input("σ²: ")))
+	inputs.append(np.float64(input("µ: ")))
+	inputs.append(np.float64(input("σ²: ")))
 
 	return(inputs)
 
@@ -173,7 +173,7 @@ def ate_estimate(g, zvec, yvec, name, est_model):
 	for i in range(N):
 		soma = 0.0
 		for k in g.neighbors(i):
-			soma += float(zvec[k])
+			soma += np.float64(zvec[k])
 			
 		if g.degree(i) == 0:
 			tau.append(1.0)
@@ -184,7 +184,7 @@ def ate_estimate(g, zvec, yvec, name, est_model):
 	features = []
 	for j in range(N):
 		features.append([])
-		features[j].append(1)
+		features[j].append(1.0)
 		features[j].append(zvec[j])
 		features[j].append(tau[j])
 
@@ -195,7 +195,6 @@ def ate_estimate(g, zvec, yvec, name, est_model):
 
 	# Probit
 	if est_model == 3:
-		# return(sum(linear_model.LinearRegression().fit(features, yvec).coef_))
 		vals = Probit(yvec, features).fit(disp=0).params
 		return(norm.cdf(sum(vals)) - norm.cdf(vals[0]))
 
@@ -289,7 +288,7 @@ def file_to_ins(name, model, run):
 		elif model is 4 and "." not in i:
 			ins.append(int(i))
 		else:
-			ins.append(float(i))
+			ins.append(np.float64(i))
 	tf.close()
 
 	return(ins)
@@ -332,7 +331,7 @@ def yfile_to_yvector(name, yvec_run, modelo, ins_run, zvec_run):
 
 	# Lê o arquivo
 	for i in tf:
-		vec.append(float(i))
+		vec.append(np.float64(i))
 	tf.close()
 	return(vec)
 
@@ -340,16 +339,16 @@ def yfile_to_yvector(name, yvec_run, modelo, ins_run, zvec_run):
 # Simula um dos modelos
 def simulate(g, model, zvec, ins, U=None):
 	if model == 1:
-		return(itr(g, ins, zvec))
+		return(itr(g, ins, zvec, U))
 
 	elif model == 2:
-		return(num(g, ins, zvec))
+		return(num(g, ins, zvec, U))
 
 	elif model == 3:
 		return(np.array(frac(g, ins, zvec, U)))
 
 	elif model == 4:
-		return(resp(g, ins, zvec))
+		return(resp(g, ins, zvec, U))
 
 
 # Calcula o ATE real

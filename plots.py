@@ -18,40 +18,32 @@ def distance(a, b):
 	return((-1) * diff)
 
 # Calcula a distância real entre o ATE e o valor estimado pela regressão linear
-def real_dist(nome, model, ins, zvec, RUNS=100):
-	real = f.real_ATE(model, ins, nome)
-        #100FIXME: remove line below
-        real2 = ins[1]+ins[2]
-        print({'ATE real':real, 'beta+gamma':real2})
-	for run in xrange(RUNS):
-		esti = f.ate_estimate(zvec, f.simulate(model, zvec, ins, nome), nome, 2)
-		if run == 0:
-			sum_esti = esti
-		else:
-			sum_esti += esti
-        print([real,sum_esti/RUNS])
-	return(distance(real, sum_esti/RUNS))
+def real_dist(g, nome, model, ins, zvec, U):
+	real = f.real_ATE(g, model, ins, U)
+	esti = f.ate_estimate(g, zvec, f.simulate(g, model, zvec, ins, U), nome, 2)
+	return(distance(real, esti))
 
 # Calcula a distância real com a função a() entre o ATE e o valor estimado pela regressão probit
-def real_dist_a(nome, model, ins, zvec):
-	real = f.real_ATE(model, ins, nome)
-	esti = f.ate_estimate(zvec, f.simulate(model, zvec, ins, nome), nome, 3)
+def real_dist_a(g, nome, model, ins, zvec, U):
+	real = f.real_ATE(g, model, ins, U)
+	esti = f.ate_estimate(g, zvec, f.simulate(g, model, zvec, ins, U), nome, 3)
 	return(distance(real, esti))
 
 # Calcula a distância relativa entre o ATE e o valor estimado pela regressão linear
-def relative_dist(nome, model, ins, zvec):
-	return(real_dist(nome, model, ins, zvec)/(ins[1] + ins[2]))
+def relative_dist(g, nome, model, ins, zvec, U):
+	return(real_dist(g, nome, model, ins, zvec, U)/(ins[1] + ins[2]))
 
 # Calcula a fração de respostas 1
-def fracz1(nome, model, ins, zvec):
-	return(sum(f.simulate(model, zvec, ins, nome)) / len(zvec))
+def fracz1(g, nome, model, ins, zvec, U):
+	return(sum(f.simulate(g, model, zvec, ins, U)) / len(zvec))
 
 
 
 # CÓDIGO PRINCIPAL
 
 # Constantes
-nome = "email-Eu-core"	  # Nome do Dataset
+nome = "p2p-Gnutella08"	  # Nome do Dataset
+g = f.get_graph(nome)     # Grafo
 trat = 1		  # Número do vetor de tratamento
 model = 3		  # Número do modelo da simulação
 
@@ -78,18 +70,18 @@ if model == 3:
 		'beta',    # Beta
 		'gamma',   # Gamma
 		True,	   # Linear
-		0,	   # Tau
+		0,	       # Tau
 		False,	   # Função a
-		0,	   # Média µ do U
-		0.1]	   # Var σ² do U
+		0,	       # Média µ do U
+		0]	       # Var σ² do U
 
 # Modelo 4
 if model == 4:
 	ins = [0,      # Alpha
 		'beta',    # Beta
 		'gamma',   # Gamma
-		10,	   # Tempo discreto
-		0,	   # Média µ do U
+		10,	       # Tempo discreto
+		0,	       # Média µ do U
 		0.4]	   # Var σ² do U
 
 
@@ -112,7 +104,7 @@ for gamma in [x / np.float64(10.0) for x in range(1, 11, 1)]:
 		gammas.append(gamma)
 
 		# Cálculo da altura usando a função desejada
-		altura.append(real_dist(nome, model, ins, zvec))
+		altura.append(real_dist_a(g, nome, model, ins, zvec, None))
 
 	print(str(int(gamma*100)) + " %")
 
