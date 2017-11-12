@@ -13,10 +13,10 @@ def a(valor):
 
 
 # Função ITR
-def itr(g, ins, zvector, U, comu=None):
+def itr(g, beta_vector, zvector, U, comu=None):
 
 	# Entradas
-	alpha = ins[0]
+	alpha = beta_vector[0]
 
 	if comu != None:
 		membros = com(comu)
@@ -27,10 +27,7 @@ def itr(g, ins, zvector, U, comu=None):
 	for i in range(N):
 		g.node[i]['z'] = zvector[i]
 
-	# Componente Estocástico
-	if U == None:
-		U = np.random.normal(ins[1], ins[2], N)
-	
+	# Comunidades
 	if comu != None:
 		for k in membros:
 			U[k] = np.random.normal(0.5, 0.8)

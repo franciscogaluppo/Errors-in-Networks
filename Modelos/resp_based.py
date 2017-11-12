@@ -13,13 +13,15 @@ def a(valor):
 
 
 # Função Response Based
-def resp(g, ins, zvector, U, comu=None):
+def resp(g, beta_vector, ins, zvector, U, comu=None):
 
 	# Entradas
-	alpha = ins[0]
-	beta = ins[1]
-	gama = ins[2]
-	T = ins[3]
+	alpha = beta_vector[0]
+	beta = beta_vector[1]
+	gama = beta_vector[2]
+
+	# Tempo
+	T = ins[0]
 
 	if comu != None:
 		membros = com(comu)
@@ -31,10 +33,7 @@ def resp(g, ins, zvector, U, comu=None):
 		g.node[i]['z'] = zvector[i]
 		g.node[i]['y'] = 0
 
-	# Componente estocástico
-	if U == None:
-		U = np.random.normal(ins[4], ins[5], N)
-
+	# Comunidades
 	if comu != None:
 		for k in membros:
 			U[k] = np.random.normal(0.5, 0.8)
@@ -47,9 +46,10 @@ def resp(g, ins, zvector, U, comu=None):
 			# Soma dos tratamentos dos nós vizinhos de j
 			soma = np.float64(0.0)
 			for k in g.neighbors(j): soma += g.node[k]['y']
+			frac = soma / g.degree(i) if g.degree(i) else 1
 
 			# Aplica a função ao nó j
-			g.node[j]["y'"] = a(alpha + (beta * g.node[j]['z']) + (gama * soma/ g.degree(j)) + U[j])
+			g.node[j]["y'"] = a(alpha + (beta * g.node[j]['z']) + (gama * frac) + U[j])
 
 		# Atualiza as respostas dos nós com os novos valores
 		for j in range(N):

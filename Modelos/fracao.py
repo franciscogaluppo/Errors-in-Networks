@@ -11,15 +11,17 @@ def a(valor):
 
 
 # Função Fração
-def frac(g, ins, zvector, U, comu=None):
+def frac(g, beta_vector, ins, zvector, U, comu=None):
 
-	# Entradas
-	alpha = ins[0]
-	beta = ins[1]
-	gama = ins[2]
-	linear = ins[3]
-	tau = ins[4]
-	binario = ins[5]
+	# Ceoeficientes
+	alpha = beta_vector[0]
+	beta = beta_vector[1]
+	gama = beta_vector[2]
+
+	# Controles
+	linear = ins[0]
+	tau = ins[1]
+	binario = ins[2]
 
 	if comu != None:
 		membros = com(comu)
@@ -30,13 +32,12 @@ def frac(g, ins, zvector, U, comu=None):
 	for i in range(N):
 		g.node[i]['z'] = zvector[i]
 
-	# Componente Estocástico
-	if U == None:
-		U = np.random.normal(ins[6], ins[7], N)
-
+	# Comunidades
 	if comu != None:
 		for k in range(N):
 			if k in membros:
+
+				# Arbitrário
 				U[k] = np.random.normal(0.5, 0.8)
 
 

@@ -12,13 +12,15 @@ def a(valor):
 
 
 # Função Número
-def num(g, ins, zvector, U, comu=None):
+def num(g, beta_vector, ins, zvector, U, comu=None):
 
 	# Entradas
-	alpha = ins[0]
-	beta = ins[1]
-	gama = ins[2]
-	kappa = ins[3]
+	alpha = beta_vector[0]
+	beta = beta_vector[1]
+	gama = beta_vector[2]
+
+	# Kappa
+	kappa = ins[0]
 
 	if comu != None:
 		membros = com(comu)
@@ -29,10 +31,7 @@ def num(g, ins, zvector, U, comu=None):
 	for i in range(N):
 		g.node[i]['z'] = zvector[i]
 
-	# Componente Estocástico
-	if U == None:
-		U = np.random.normal(ins[4], ins[5], N)
-	
+	# Comunidades	
 	if comu != None:
 		for k in membros:
 			U[k] = np.random.normal(0.5, 0.8)

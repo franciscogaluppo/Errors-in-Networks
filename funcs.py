@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from statsmodels.discrete.discrete_model import Probit
+from statsmodels.discrete.discrete_model import Logit
 from scipy.stats import norm
 from random import random as rd
 import networkx as nx
@@ -51,35 +52,45 @@ def print_out(model, zvec, yvec):
 		print("Não há nós com Z=1")
 
 
-# Recebe entradas do usuário
-def get_input(model):
-	inputs = []
-	inputs.append(np.float64(input("Alpha: ")))
+# Recebe o vetor beta do usuário
+def get_beta_vector(model):
+	betas = []
+	betas.append(np.float64(input("Alpha: ")))
 
 	# NOT ITR
 	if model != 1:
-		inputs.append(np.float64(input("Beta: ")))
-		inputs.append(np.float64(input("Gamma: ")))
+		betas.append(np.float64(input("Beta: ")))
+		betas.append(np.float64(input("Gamma: ")))
 
-		#
-		if model == 2:
-			inputs.append(np.float64(input("Kappa: ")))
+	return(betas)
 
-		elif model == 3:
-			inputs.append(bool(int(input("Linear: "))))
-			inputs.append(0)
-			inputs.append(bool(int(input("Função a: "))))
 
-			if inputs[3] == False:
-				inputs[4] = (np.float64(input("Tau: ")))
+# Recebe os controles
+def get_input(model):
+	inputs = []
+	if model == 2:
+		inputs.append(np.float64(input("Kappa: ")))
 
-		elif model == 4:
-			inputs.append(int(input("Time: ")))
+	elif model == 3:
+		inputs.append(bool(int(input("Linear: "))))
+		inputs.append(0)
+		inputs.append(bool(int(input("Função a: "))))
 
-	inputs.append(np.float64(input("µ: ")))
-	inputs.append(np.float64(input("σ²: ")))
+		if inputs[0] == False:
+			inputs[1] = (np.float64(input("Tau: ")))
+
+	elif model == 4:
+		inputs.append(int(input("Time: ")))
 
 	return(inputs)
+
+
+# Pede para o usuário os parámetros da Normal
+def get_normal_params():
+	params = []
+	params.append(np.float64(input("µ: ")))
+	params.append(np.float64(input("σ²: ")))
+	return(params)
 
 
 # Cria vetor com porcentagem desejada de z=1
@@ -137,7 +148,7 @@ def count_y1z0(vecz, vecy):
 
 
 # Estima o valor do ATE
-def ate_estimate(g, zvec, yvec, name, est_model):
+def ate_estimate(g, zvec, yvec, est_model):
 	N = len(zvec)
 
 	# SUTVA
@@ -198,6 +209,15 @@ def ate_estimate(g, zvec, yvec, name, est_model):
 		vals = Probit(yvec, features).fit(disp=0).params
 		return(norm.cdf(sum(vals)) - norm.cdf(vals[0]))
 
+	# Logit
+	if est_model == 4:
+		vals = Logit(yvec, features).fit(disp=0).params
+		return(
+			(np.exp(-vals[0]) - np.exp(-sum(vals)))/
+			((1 + np.exp(-vals[0])) * (1 + np.exp(-sum(vals))))
+		)
+
+
 
 # Cria path completo do set
 def path(name):
@@ -250,9 +270,57 @@ def zfile_to_zvector(name, run):
 
 
 # Cria o arquivo do ins
+def beta_vector_to_file(beta_vector, name, model):
+	N = len(beta_vector)
+	path = "Datasets/" + name + "/Betas/"
+	run = len([ x for x in listdir(path) if ("m" +  str(model)) in x ]) + 1
+
+	# Zero à esquerda
+	run = int_to_str(run)
+
+	path += "Beta-m" + str(model) + "|#" + run + ".txt"
+	arq = open(path, "w")
+
+	# Escreve no arquivo
+	for i in range(N):
+		arq.write("{}\n".format(beta_vector[i]))
+	arq.close()
+
+	return(int(run))
+
+
+# Cria ins lendo de um arquivo
+def file_to_beta_vector(name, model, run):
+	beta_vector = []
+
+	# Zero à esquerda
+	run = int_to_str(run)
+
+	path = "Datasets/" + name + "/Betas/Beta-m" + str(model) + "|#" + run + ".txt"
+	tf = open(path, "r")
+
+	# Lê o arquivo
+	for i in tf:
+		if i[0] is "T":
+			beta_vector.append(bool(1))
+		elif i[0] is "F":
+			beta_vector.append(bool(0))
+		elif model is 4 and "." not in i:
+			beta_vector.append(int(i))
+		else:
+			beta_vector.append(np.float64(i))
+	tf.close()
+
+	return(beta_vector)
+
+
+# Cria o arquivo do ins
 def ins_to_file(ins, name, model):
+	if model == 1:
+		return(-1)
+
 	N = len(ins)
-	path = "Datasets/" + name + "/Entradas/"
+	path = "Datasets/" + name + "/Ins/"
 	run = len([ x for x in listdir(path) if ("m" +  str(model)) in x ]) + 1
 
 	# Zero à esquerda
@@ -276,7 +344,7 @@ def file_to_ins(name, model, run):
 	# Zero à esquerda
 	run = int_to_str(run)
 
-	path = "Datasets/" + name + "/Entradas/ins-m" + str(model) + "|#" + run + ".txt"
+	path = "Datasets/" + name + "/Ins/ins-m" + str(model) + "|#" + run + ".txt"
 	tf = open(path, "r")
 
 	# Lê o arquivo
@@ -295,18 +363,19 @@ def file_to_ins(name, model, run):
 
 
 # Cria o arquivo resposta
-def yvector_to_yfile(vec, modelo, name, ins_run, zvec_run):
+def yvector_to_yfile(vec, modelo, name, ins_run, zvec_run, beta_run):
 	N = len(vec)
 	path = "Datasets/" + name + "/Respostas/"
 	zvec_run = int_to_str(zvec_run)
 	ins_run = int_to_str(ins_run)
+	beta_run = int_to_str(beta_run)
 
 	run = len([ x for x in listdir(path) if ("m" +  str(modelo)) in x
 	and ("Z#" + zvec_run) in x and ("ins#" + ins_run) in x]) + 1
 
 	run = int_to_str(run)
 
-	path += "Y-m" + str(modelo) + "|Z#" + zvec_run + "|ins#" + ins_run + "|#" + run + ".txt"
+	path += "Y-m" + str(modelo) + "|Z#" + zvec_run + "|ins#" + ins_run + "|beta#" + beta_run + "|#" + run + ".txt"
 	arq = open(path, "w")
 
 	# Escreve no arquivo
@@ -326,7 +395,7 @@ def yfile_to_yvector(name, yvec_run, modelo, ins_run, zvec_run):
 	zvec_run = int_to_str(zvec_run)
 	ins_run = int_to_str(ins_run)
 
-	path = "Datasets/" + name + "/Respostas/Y-m" + str(modelo) + "|Z#" + zvec_run + "|ins#" + ins_run + "|#" + yvec_run + ".txt"
+	path = "Datasets/" + name + "/Respostas/Y-m" + str(modelo) + "|Z#" + zvec_run + "|ins#" + ins_run + "|beta#" + beta_run + "|#" + yvec_run + ".txt"
 	tf = open(path, "r")
 
 	# Lê o arquivo
@@ -337,24 +406,24 @@ def yfile_to_yvector(name, yvec_run, modelo, ins_run, zvec_run):
 
 
 # Simula um dos modelos
-def simulate(g, model, zvec, ins, U=None):
+def simulate(g, model, zvec, beta_vector, ins, U=None):
 	if model == 1:
-		return(itr(g, ins, zvec, U))
+		return(np.array(itr(g, beta_vector, zvec, U)))
 
 	elif model == 2:
-		return(num(g, ins, zvec, U))
+		return(np.array(num(g, beta_vector, ins, zvec, U)))
 
 	elif model == 3:
-		return(np.array(frac(g, ins, zvec, U)))
+		return(np.array(frac(g, beta_vector, ins, zvec, U)))
 
 	elif model == 4:
-		return(resp(g, ins, zvec, U))
+		return(np.array(resp(g, beta_vector, ins, zvec, U)))
 
 
 # Calcula o ATE real
-def real_ATE(g, model, ins, U=None):
+def real_ATE(g, model, beta_vector, ins, U):
 	N = g.number_of_nodes()
-	return((sum(simulate(g, model, [1]*N, ins, U)) - sum(simulate(g, model, [0]*N, ins, U)))/N)
+	return((sum(simulate(g, model, [1]*N, beta_vector, ins, U)) - sum(simulate(g, model, [0]*N, beta_vector, ins, U)))/N)
 
 
 # Inicializa o grafo
@@ -365,3 +434,27 @@ def get_graph(name):
 	g.remove_edges_from(selfloops)
 
 	return(g)
+
+
+# Calcula a variância
+def var_linear(g, zvec, yvec, betas):
+	N = len(zvec)
+
+	# Vetor tau
+	tau = []
+	for i in range(N):
+		soma = 0.0
+		for k in g.neighbors(i):
+			soma += np.float64(zvec[k])
+			
+		if g.degree(i) == 0:
+			tau.append(1.0)
+		else:
+			tau.append(soma/g.degree(i))
+
+	# Soma dos quadrados das diferenças
+	soma = 0
+	for i in range(N):
+		soma += (yvec[i] - (betas[0] + zvec[i]*betas[1] + tau[i]*betas[2])) ** 2
+
+	return(soma/N)
