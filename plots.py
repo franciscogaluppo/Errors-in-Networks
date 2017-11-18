@@ -56,7 +56,7 @@ model = 3		          # Número do modelo da simulação
 N = g.number_of_nodes()
 
 media = 0                 # Média da distribuição Normal
-sig_sqd = 0.3             # Variância da distribuição Normal
+sig_sqd = 0               # Variância da distribuição Normal
 
 if len(argv) > 1:
 	media, sig_sqd = [np.float64(x) for x in argv[1:3]]
@@ -79,7 +79,7 @@ altura = []
 
 # Modelo 3 - Fração
 if model == 3:
-	ins = [True, 0, True]
+	ins = [True, 0, False]
 	beta_vector = [0, 'beta', 'gamma']
 
 # Modelo 4 - Iterativo
@@ -103,7 +103,7 @@ for gamma in [x / np.float64(10.0) for x in range(1, 11, 1)]:
 		gammas.append(gamma)
 
 		# Cálculo da altura usando a função desejada
-		altura.append(real_dist_logit(g, nome, model, ins, beta_vector, zvec, U))
+		altura.append(real_dist(g, nome, model, ins, beta_vector, zvec, U))
 
 	#print(str(int(gamma*100)) + "%")
 

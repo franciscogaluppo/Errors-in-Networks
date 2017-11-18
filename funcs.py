@@ -426,14 +426,30 @@ def real_ATE(g, model, beta_vector, ins, U):
 	return((sum(simulate(g, model, [1]*N, beta_vector, ins, U)) - sum(simulate(g, model, [0]*N, beta_vector, ins, U)))/N)
 
 
+# Renomeia nós
+def relabel(g):
+	N = g.number_of_nodes()
+	antigo = g.nodes()
+
+	mapping = {antigo[i]: i for i in range(N)}
+	return(nx.relabel_nodes(g, mapping))
+
+
 # Inicializa o grafo
 def get_graph(name):
-	g = nx.read_edgelist(path(name), nodetype=int)
+	g = relabel(nx.read_edgelist(path(name), nodetype=int))
+	N = g.number_of_nodes()
 
+	# Remove self loops
 	selfloops = [ (i,i) for i in g.nodes_with_selfloops()]
 	g.remove_edges_from(selfloops)
 
-	return(g)
+	# Remove vértices isolados
+	for i in range(N):
+		if not g.degree(i):
+			g.remove_node(i)
+
+	return(relabel(g))
 
 
 # Calcula a variância
