@@ -185,11 +185,7 @@ def ate_estimate(g, zvec, yvec, est_model):
 		soma = 0.0
 		for k in g.neighbors(i):
 			soma += np.float64(zvec[k])
-			
-		if g.degree(i) == 0:
-			tau.append(1.0)
-		else:
-			tau.append(soma/g.degree(i))
+		tau.append(soma/g.degree(i))
 
 	# Vetor das features
 	features = []
@@ -474,3 +470,23 @@ def var_linear(g, zvec, yvec, betas):
 		soma += (yvec[i] - (betas[0] + zvec[i]*betas[1] + tau[i]*betas[2])) ** 2
 
 	return(soma/N)
+
+
+# Transforma o grafo em dois vetores, um do tratamento e outro das frações
+def ZF_file(grafo, zvector, nome):
+	N = len(zvector)
+	arq = open(nome, "w")
+
+	# Vetor de frações
+	frac = []
+	for i in range(N):
+		soma = np.float64(0)
+		for k in grafo.neighbors(i):
+			soma += np.float64(zvector[k])
+		frac.append(soma/grafo.degree(i))
+	frac = np.array(frac)
+
+	# Escreve no arquivo
+	for i in range(N):
+		arq.write("{} {}\n".format(zvector[i], frac[i]))
+	arq.close()
