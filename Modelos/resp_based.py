@@ -46,7 +46,7 @@ def resp(g, beta_vector, ins, zvector, U, comu=None):
 			# Soma dos tratamentos dos nós vizinhos de j
 			soma = np.float64(0.0)
 			for k in g.neighbors(j): soma += g.node[k]['y']
-			frac = soma / g.degree(i) if g.degree(i) else 1
+			frac = soma / g.degree(i)
 
 			# Aplica a função ao nó j
 			g.node[j]["y'"] = a(alpha + (beta * g.node[j]['z']) + (gama * frac) + U[j])

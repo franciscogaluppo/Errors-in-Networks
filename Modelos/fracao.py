@@ -32,22 +32,17 @@ def frac(g, beta_vector, ins, zvector, U, comu=None):
 	for i in range(N):
 		g.node[i]['z'] = zvector[i]
 
-	# Comunidades
+	# Comunidades - Arbitrátrio
 	if comu != None:
 		for k in range(N):
 			if k in membros:
-
-				# Arbitrário
 				U[k] = np.random.normal(0.5, 0.8)
-
-
 
 	for i in range(N):
 		soma = np.float64(0.0)
 		for k in g.neighbors(i): soma += g.node[k]['z']
 		
-		#TODO: decide for isolated nodes if fraction should be 0 or 1
-		frac = soma / g.degree(i) if g.degree(i) else 1
+		frac = soma / g.degree(i)
 
 		if g.node[i]['z'] == 0 and frac < tau and not linear:
 			g.node[i]['y'] = a(alpha + U[i])
