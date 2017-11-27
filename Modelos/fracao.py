@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import numpy as np
-from comu import comunidade as com
+from Comu.comu import comunidade as com
 #import csv
 
 # Função a

@@ -3,7 +3,7 @@
 import numpy as np
 import networkx as nx
 
-from comu import comunidade as com
+from Comu.comu import comunidade as com
 
 # Função a
 def a(valor):
