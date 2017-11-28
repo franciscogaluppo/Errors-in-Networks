@@ -1,6 +1,12 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+double pot(double a, double b){
+	for(int i = 1; i < b; i++)
+		a *= a;
+	return a;
+}
+
 int main(int argc, char const *argv[])
 {
 	//tamanho do vetor
@@ -8,7 +14,7 @@ int main(int argc, char const *argv[])
 	vector <vector<int>> m (n);
 
 	//Cria a lista de adjacencia
-	FILE *f = fopen("Datasets/SlashDot/set.txt", "r");
+	FILE *f = fopen("set.txt", "r");
 	if (f == NULL){
 		printf("Arquivo set nao encontrado\n");
 		return 1;
@@ -45,8 +51,7 @@ int main(int argc, char const *argv[])
 	}
 
 	//capacidade maxima de cada cluster
-	double limite = (double) n / clusters;
-	limite *= 1.01;
+	double expoente = atof(argv[4]);
 
 	for(int k = 0; k < n; k++){
 		if(centro[k] > -1)
@@ -75,7 +80,7 @@ int main(int argc, char const *argv[])
 
 				//calcula o coeficeinte
 				for(int j = 0; j < clusters; j++)
-					coeficiente[j] *= (1 - (double) tamanho[j]/limite);
+					coeficiente[j] /= pot(tamanho[j], expoente);
 
 				//descobre a comunidade que tem o maior coeficiente
 				int maior = 0;
@@ -128,7 +133,7 @@ int main(int argc, char const *argv[])
 					}
 
 					for(int j = 0; j < clusters; j++)
-						coeficiente[j] *= (1 - (double) tamanho[j]/limite);
+						coeficiente[j] /= pot(tamanho[j], expoente);
 
 					//descobre a comunidade que tem o maior coeficiente
 					int maior = 0;
@@ -163,7 +168,7 @@ int main(int argc, char const *argv[])
 	// 	printf("%i\n", centro[i]);
 
 
-	FILE* escrita = fopen("Datasets/SlashDot/comunidades.txt", "w");
+	FILE* escrita = fopen("comunidades.txt", "w");
 	for(int i = 0; i < clusters; i++){
 		for (int j = 0; j < n; j++)
 			if (centro[j] == i)
