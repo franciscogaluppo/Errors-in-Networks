@@ -490,3 +490,21 @@ def ZF_file(grafo, zvector, nome):
 	for i in range(N):
 		arq.write("{} {}\n".format(zvector[i], frac[i]))
 	arq.close()
+
+
+# Calcula o MSE -- muios parâmetros...
+def mse(nome, rodadas, zvec, beta, ins, model, est_model, media, var):
+	g = get_graph(nome)
+	N = g.number_of_nodes()
+
+	predicoes = np.empty(rodadas)
+	ATE = np.empty(rodadas)
+
+	for i in range(rodadas):
+		U = np.random.normal(media, var, N)
+
+		yvec = f.simulate(g, model, zvec, beta, ins, U)
+		predicoes[i] = f.ate_estimate(g, zvec, yvec, est_model)
+		ATE[i] = f.real_ATE(g, model, beta, ins, U)
+
+	return(((predicoes - ATE) ** 2).mean())
