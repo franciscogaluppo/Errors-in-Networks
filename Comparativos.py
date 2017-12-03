@@ -12,7 +12,8 @@ model = 3		          # Número do modelo da simulação
 #beta = [0, 0, 1]
 #beta = [0, 0.5, 0.5]
 #beta = [0, 1, 0]
-beta = [0, 1, 1]
+#beta = [0, 1, 1]
+beta = [0, 1, 2]
 
 ins = [True, 0, True]     # Linear (True) e não Binário (False)
 
@@ -27,9 +28,8 @@ X = np.empty((3, rodadas))
 ATE = np.empty(rodadas)
 
 for i in range(rodadas):
+	U = np.random.normal(media, var, N)
 	for j in range(3):
-		U = np.random.normal(media, var, N)
-
 		yvec = f.simulate(g, model, zvec, beta, ins, U)
 		X[j][i] = f.ate_estimate(g, zvec, yvec, 2 + j)
 	
