@@ -12,6 +12,6 @@ g = get_graph(nome)
 zvector = ztz(nome, zvec_run)
 
 # Cria a saida
-nome = nome + "_VETORES_TRATAMENTO_&_FRAC.txt"
+nome = "ZF/" + nome + "_ZF.txt"
 zf(g, zvector, nome)
 print("Pronto!")

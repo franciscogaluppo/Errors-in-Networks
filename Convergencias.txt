@@ -1,0 +1,47 @@
+email-Eu-core:
+	
+	Linear:
+		linear_mse(X, 1): 0.027051
+		mse.py:
+			10   rodadas: 0.057661033939
+			100  rodadas: 0.0369435101885
+			1000 rodadas: 0.0280670872555
+	
+	Probit:
+		probit_mse(X, 1, [0, 1, 1]): 0.0037963
+		mse.py:
+			10   rodadas: 0.00420826561746
+			100  rodadas: 0.00421067715184
+			1000 rodadas: 0.00356011091161
+
+	Logit:
+		logit_mse(X, [0, 1, 1]): 0.0048842
+		mse.py:
+			10   rodadas: 0.00275459745288
+			100  rodadas: 0.00438297297277
+			1000 rodadas: 0.00430704516793
+
+
+
+p2p-Gnutella08:
+	
+	Linear:
+		linear_mse(X, 1): 0.0021323
+		mse.py:
+			10   rodadas: 0.00199531369865
+			100  rodadas: 0.00222798959281
+			1000 rodadas: 0.00220808829904
+	
+	Probit:
+		probit_mse(X, 1, [0, 1, 1]): 2.8497e-04
+		mse.py:
+			10   rodadas: 0.000292393223467
+			100  rodadas: 0.00027303818994
+			1000 rodadas: 0.000240833716688
+
+	Logit:
+		logit_mse(X, [0, 1, 1]): 3.7502e-04
+		mse.py:
+			10   rodadas: 0.000312497153091
+			100  rodadas: 0.000364826419113
+			1000 rodadas: 0.000330377195452
