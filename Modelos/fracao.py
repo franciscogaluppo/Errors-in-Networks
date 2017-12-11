@@ -56,9 +56,9 @@ def frac(g, beta_vector, ins, zvector, U, comu=None):
 		else:
 			g.node[i]['y'] = alpha + beta*g.node[i]['z'] + gama*frac + U[i]
 			
-	yvector = []
+	yvector = np.empty(N)
 	for i in range(N):
-		yvector.append(g.node[i]['y'])
+		yvector[i] = g.node[i]['y']
 
 
 	return(yvector)
