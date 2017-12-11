@@ -202,8 +202,6 @@ def ate_estimate(g, zvec, yvec, est_model):
 
 	# Probit
 	if est_model == 3:
-		print(yvec)
-		print(features)
 		vals = Probit(yvec, features).fit(disp=0).params
 		return(norm.cdf(sum(vals)) - norm.cdf(vals[0]))
 

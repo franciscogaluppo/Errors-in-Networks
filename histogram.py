@@ -1,13 +1,16 @@
-import funcs as f
-import numpy as np
 from sys import argv
+import funcs as f
+from Modelos.fracao import frac
+
+import numpy as np
+from scipy.stats import norm
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
+
 from sklearn import linear_model
 from statsmodels.discrete.discrete_model import Probit
 from statsmodels.discrete.discrete_model import Logit
-from scipy.stats import norm
-from Modelos.fracao import frac
+
 
 nome = "email-Eu-core"	  # Nome do Dataset
 g = f.get_graph(nome)     # Grafo
