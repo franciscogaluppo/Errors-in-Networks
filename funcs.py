@@ -191,7 +191,7 @@ def ate_estimate(g, zvec, yvec, est_model):
 	features = []
 	for j in range(N):
 		features.append([])
-		features[j].append(1.0)
+		features[j].append(1)
 		features[j].append(zvec[j])
 		features[j].append(tau[j])
 
@@ -202,6 +202,8 @@ def ate_estimate(g, zvec, yvec, est_model):
 
 	# Probit
 	if est_model == 3:
+		print(yvec)
+		print(features)
 		vals = Probit(yvec, features).fit(disp=0).params
 		return(norm.cdf(sum(vals)) - norm.cdf(vals[0]))
 
@@ -262,7 +264,7 @@ def zfile_to_zvector(name, run):
 		treatment.append(int(i[0]))
 
 	tf.close()
-	return(treatment)
+	return(np.array(treatment))
 
 
 # Cria o arquivo do ins
