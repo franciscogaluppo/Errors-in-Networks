@@ -61,7 +61,7 @@ f.print_out(sim, zvector, yvector)
 print("\nATE:        ", f.real_ATE(g, sim, beta_vector, ins, U))
 print("SUTVA:      ", f.ate_estimate(g, zvector, yvector, 1))
 print("Linear:     ", f.ate_estimate(g, zvector, yvector, 2))
-if sim != 3 or ins[0] == 1:
+if not(sim == 3 and ins[0]):
 	print("Probit:     ", f.ate_estimate(g, zvector, yvector, 3))
 	print("Logit:      ", f.ate_estimate(g, zvector, yvector, 4))
 	print("Variância:  ", f.var_linear(g, zvector, yvector, beta_vector))

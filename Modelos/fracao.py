@@ -45,16 +45,16 @@ def frac(g, beta_vector, ins, zvector, U, comu=None):
 		frac = soma / g.degree(i)
 
 		if g.node[i]['z'] == 0 and frac < tau and not linear:
-			g.node[i]['y'] = a(alpha + U[i])
+			g.node[i]['y'] = alpha + U[i]
 		
 		elif g.node[i]['z'] == 1 and frac > tau and not linear:
-			g.node[i]['y'] = a(alpha + beta + U[i])
-		
-		elif binario:
-			g.node[i]['y'] = a(alpha + beta*g.node[i]['z'] + gama*frac + U[i])
+			g.node[i]['y'] = alpha + beta + U[i]
 		
 		else:
 			g.node[i]['y'] = alpha + beta*g.node[i]['z'] + gama*frac + U[i]
+
+		if binario:
+			g.node[i]['y'] = a(g.node[i]['y'])
 			
 	yvector = np.empty(N)
 	for i in range(N):

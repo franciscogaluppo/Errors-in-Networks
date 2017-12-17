@@ -180,20 +180,19 @@ def ate_estimate(g, zvec, yvec, est_model):
 		return(sum_resp_z1/z1 - sum_resp_z0/z0)
 
 	# Vetor tau
-	tau = []
+	tau = np.empty(shape=(N))
 	for i in range(N):
 		soma = 0.0
 		for k in g.neighbors(i):
 			soma += np.float64(zvec[k])
-		tau.append(soma/g.degree(i))
+		tau[i] = soma/g.degree(i)
 
 	# Vetor das features
-	features = []
+	features = np.empty(shape=(N, 3))
 	for j in range(N):
-		features.append([])
-		features[j].append(1)
-		features[j].append(zvec[j])
-		features[j].append(tau[j])
+		features[j][0] = 1
+		features[j][1] = zvec[j]
+		features[j][2] = tau[j]
 
 	# Linear
 	if est_model == 2:
@@ -451,6 +450,10 @@ def get_graph(name):
 # Calcula a variância
 def var_linear(g, zvec, yvec, betas):
 	N = len(zvec)
+
+	if len(betas) != 3:
+		print("TODO")
+		return
 
 	# Vetor tau
 	tau = []
