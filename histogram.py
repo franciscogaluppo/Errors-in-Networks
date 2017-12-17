@@ -97,13 +97,13 @@ for i in range(len(ests)):
 		# Cálculo de valores
 		ATE_est = predicoes[i][j].mean()
 		ATE_real = ATE[i][j].mean()
-		erro = (predicoes[i][j] - ATE[i][j]).mean()
+		erro = np.absolute(predicoes[i][j] - ATE[i][j]).mean()
 		var = predicoes[i][j].var()
 
 		# Histograma
 		fig, ax = plt.subplots() 
 		plt.xlabel("ATE estimado")
-		plt.ylabel("Número de aparições")
+		plt.ylabel("Frequência")
 		n, bins, patches = ax.hist(predicoes[i][j], bins=50, histtype='bar')
 		plt.axvline(ATE_real, color='black', linestyle='dashed', linewidth=2)
 
@@ -112,7 +112,7 @@ for i in range(len(ests)):
 			patch.set_facecolor(cor)
 
 		# Legenda
-		vals = "Média do ATE estimado: {}\nMédia do ATE real: {}\nErro Médio: {}\nVariância: {}\n".format(ATE_est, ATE_real, erro, var)
+		vals = "Média do ATE estimado: {:.5}\nMédia do ATE real: {:.5}\nErro Médio: {:.5}\nVariância: {:.5}\n".format(ATE_est, ATE_real, erro, var)
 		handles, labels = ax.get_legend_handles_labels()
 		handles.append(mpatches.Patch(color='none', label=vals))
 		plt.legend(handles=handles, fontsize=6)
