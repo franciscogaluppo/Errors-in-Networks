@@ -403,16 +403,16 @@ def yfile_to_yvector(name, yvec_run, modelo, ins_run, zvec_run):
 # Simula um dos modelos
 def simulate(g, model, zvec, beta_vector, ins, U=None):
     if model == 1:
-        return(np.array(itr(g, beta_vector, zvec, U)))
+        return(itr(g, beta_vector, zvec, U))
 
     elif model == 2:
-        return(np.array(num(g, beta_vector, ins, zvec, U)))
+        return(num(g, beta_vector, ins, zvec, U))
 
     elif model == 3:
-        return(np.array(frac(g, beta_vector, ins, zvec, U)))
+        return(frac(g, beta_vector, ins, zvec, U))
 
     elif model == 4:
-        return(np.array(resp(g, beta_vector, ins, zvec, U)))
+        return(resp(g, beta_vector, ins, zvec, U))
 
 
 # Calcula o ATE real
@@ -461,18 +461,14 @@ def var_linear(g, zvec, yvec, betas):
         soma = 0.0
         for k in g.neighbors(i):
             soma += np.float64(zvec[k])
-            
-        if g.degree(i) == 0:
-            tau.append(1.0)
-        else:
-            tau.append(soma/g.degree(i))
+        tau.append(soma/g.degree(i))
 
     # Soma dos quadrados das diferenças
     soma = 0
     for i in range(N):
         soma += (yvec[i] - (betas[0] + zvec[i]*betas[1] + tau[i]*betas[2])) ** 2
 
-    return(soma/N)
+    return(soma/(N-1))
 
 
 # Transforma o grafo em dois vetores, um do tratamento e outro das frações
