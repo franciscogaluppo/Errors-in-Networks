@@ -1,6 +1,6 @@
 import numpy as np
 import networkx as nx
-import funcs as f
+import Funcs.funcs as f
 
 nome = "email-Eu-core"
 g = f.get_graph(nome)
@@ -24,7 +24,7 @@ ins = []
 ins_run = 0
 
 if sim != 1:
-    new == bool(int(input("Novos controles? ")))
+    new = bool(int(input("Novos controles? ")))
 
     # Entrada de novos controles
     if new:
@@ -61,7 +61,7 @@ f.print_out(sim, zvector, yvector)
 print("\nATE:        ", f.real_ATE(g, sim, beta_vector, ins, U))
 print("SUTVA:      ", f.ate_estimate(g, zvector, yvector, 1))
 print("Linear:     ", f.ate_estimate(g, zvector, yvector, 2))
-if not(sim == 3 and ins[0]):
+if not(sim == 3 and not ins[2]):
     print("Probit:     ", f.ate_estimate(g, zvector, yvector, 3))
     print("Logit:      ", f.ate_estimate(g, zvector, yvector, 4))
     print("Variância:  ", f.var_linear(g, zvector, yvector, beta_vector))

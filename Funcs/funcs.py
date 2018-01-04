@@ -12,10 +12,7 @@ from os import listdir
 import numpy as np
 import sys
 
-from Modelos.ITR import itr
-from Modelos.numero import num
-from Modelos.fracao import frac
-from Modelos.resp_based import resp
+import Funcs.Simulate as m
 
 # Função a
 def a(valor):
@@ -403,16 +400,16 @@ def yfile_to_yvector(name, yvec_run, modelo, ins_run, zvec_run):
 # Simula um dos modelos
 def simulate(g, model, zvec, beta_vector, ins, U=None):
     if model == 1:
-        return(itr(g, beta_vector, zvec, U))
+        return(m.itr(g, beta_vector, zvec, U))
 
     elif model == 2:
-        return(num(g, beta_vector, ins, zvec, U))
+        return(m.num(g, beta_vector, ins, zvec, U))
 
     elif model == 3:
-        return(frac(g, beta_vector, ins, zvec, U))
+        return(m.frac(g, beta_vector, ins, zvec, U))
 
     elif model == 4:
-        return(resp(g, beta_vector, ins, zvec, U))
+        return(m.resp(g, beta_vector, ins, zvec, U))
 
 
 # Calcula o ATE real
