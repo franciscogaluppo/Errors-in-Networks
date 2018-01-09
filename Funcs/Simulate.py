@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+
 import numpy as np
 import networkx as nx
 from Funcs.Comu.comu import comunidade as com
@@ -196,3 +197,24 @@ def resp(g, beta_vector, ins, zvector, U, comu=None):
         yvector.append(g.node[i]['y'])
 
     return(yvector)
+
+
+# Simula um dos modelos
+def simulate(g, model, zvec, beta_vector, ins, U=None):
+    if model == 1:
+        return(itr(g, beta_vector, zvec, U))
+
+    elif model == 2:
+        return(num(g, beta_vector, ins, zvec, U))
+
+    elif model == 3:
+        return(frac(g, beta_vector, ins, zvec, U))
+
+    elif model == 4:
+        return(resp(g, beta_vector, ins, zvec, U))
+
+
+# Calcula o ATE real
+def real_ATE(g, model, beta_vector, ins, U):
+    N = g.number_of_nodes()
+    return((sum(simulate(g, model, [1]*N, beta_vector, ins, U)) - sum(simulate(g, model, [0]*N, beta_vector, ins, U)))/N)

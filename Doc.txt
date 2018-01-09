@@ -1,0 +1,4 @@
+// TODO: Descrever todas as funções do projeto:
+	1) O que elas fazem
+	2) O que elas recebem
+	3) O que elas retornam
