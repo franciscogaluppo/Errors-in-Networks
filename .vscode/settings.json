@@ -1,3 +1,9 @@
 {
-	"python.linting.pylintEnabled": false
+	"python.linting.pylintEnabled": false,
+	"files.associations": {
+		"random": "cpp",
+		"__tree": "cpp",
+		"bitset": "cpp",
+		"set": "cpp"
+	}
 }

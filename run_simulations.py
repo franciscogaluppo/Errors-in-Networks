@@ -24,7 +24,7 @@ betas = [[0, 0, 1],
 # Cores, modelos de estimação, nomes desses modelos, controle
 cores = ['r', 'b', 'g', 'y', 'm']
 ests = [2, 3, 4]
-nomes_modelo = ["Linear Binário", "Probit", "Logit", ]
+nomes_modelo = ["Linear Binário", "Probit", "Logit"]
 ins = [False, 0.5, True]
 
 # Distribuição
