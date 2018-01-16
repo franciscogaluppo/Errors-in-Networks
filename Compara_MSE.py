@@ -27,7 +27,7 @@ modelos =  ["SUTVA",
             "Linear",
             "Probit",
             "Logistic",
-            "SUTVA C1 C0",
+            "Médias C1 C0",
             "Linear C1 C0"]
 ins = [False, 0.5, True]
 

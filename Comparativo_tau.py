@@ -24,7 +24,7 @@ betas = [[0, 0, 1],
 		[0, 1, 1],
 		[0, 1, 2]]
 
-modelos =  ["Médias",
+modelos =  ["SUTVA",
 			"Linear",
 			"Probit",
 			"Logistic",
