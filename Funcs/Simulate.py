@@ -18,7 +18,7 @@ def frac(g, beta_vector, ins, zvector, U, comu=None):
     # Ceoeficientes
     alpha = beta_vector[0]
     beta = beta_vector[1]
-    gama = beta_vector[2]
+    gamma = beta_vector[2]
 
     # Controles
     linear = ins[0]
@@ -46,15 +46,21 @@ def frac(g, beta_vector, ins, zvector, U, comu=None):
         
         frac = soma / g.degree(i)
 
-        if g.node[i]['z'] == 0 and frac < tau and not linear:
-            g.node[i]['y'] = alpha + U[i]
-        
-        elif g.node[i]['z'] == 1 and frac > tau and not linear:
-            g.node[i]['y'] = alpha + beta + U[i]
-        
-        else:
-            g.node[i]['y'] = alpha + beta*g.node[i]['z'] + gama*frac + U[i]
+        if linear:
+            g.node[i]['y'] = alpha + beta * g.node[i]['z'] + gamma * frac + U[i]
 
+        elif g.node[i]['z'] == 0:
+            if frac < tau:
+                g.node[i]['y'] = alpha + U[i]
+            else:
+                g.node[i]['y'] = alpha + gamma * (frac - tau) + U[i]
+        
+        elif g.node[i]['z'] == 1:
+            if frac > tau:
+                g.node[i]['y'] = alpha + beta + U[i]
+            else:
+                g.node[i]['y'] = alpha + beta + gamma * (frac - tau) + U[i]
+        
         if binario:
             g.node[i]['y'] = a(g.node[i]['y'])
             
@@ -104,7 +110,7 @@ def num(g, beta_vector, ins, zvector, U, comu=None):
     # Entradas
     alpha = beta_vector[0]
     beta = beta_vector[1]
-    gama = beta_vector[2]
+    gamma = beta_vector[2]
 
     # Kappa
     kappa = ins[0]
@@ -140,7 +146,7 @@ def num(g, beta_vector, ins, zvector, U, comu=None):
 
         # Sobra
         else:
-            g.node[i]['y'] = a(alpha + (g.node[i]['z']*gama + (1 - gama)*min(kappa, soma)*beta/(gama + (1 - gama)*kappa) + U[i]))
+            g.node[i]['y'] = a(alpha + (g.node[i]['z']*gamma + (1 - gamma)*min(kappa, soma)*beta/(gamma + (1 - gamma)*kappa) + U[i]))
 
     yvector = []
     for i in range(N):
@@ -155,7 +161,7 @@ def resp(g, beta_vector, ins, zvector, U, comu=None):
     # Entradas
     alpha = beta_vector[0]
     beta = beta_vector[1]
-    gama = beta_vector[2]
+    gamma = beta_vector[2]
 
     # Tempo
     T = ins[0]
@@ -186,7 +192,7 @@ def resp(g, beta_vector, ins, zvector, U, comu=None):
             frac = soma / g.degree(i)
 
             # Aplica a função ao nó j
-            g.node[j]["y'"] = a(alpha + (beta * g.node[j]['z']) + (gama * frac) + U[j])
+            g.node[j]["y'"] = a(alpha + (beta * g.node[j]['z']) + (gamma * frac) + U[j])
 
         # Atualiza as respostas dos nós com os novos valores
         for j in range(N):

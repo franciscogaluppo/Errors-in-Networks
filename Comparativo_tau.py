@@ -98,5 +98,5 @@ f.tight_layout()
 #plt.setp([a.get_yticklabels() for a in ytick], visible=False)
 
 #plt.show()
-plt.savefig("teste.png", dpi=100)
+plt.savefig("Gráfico #2.png", dpi=100)
 print("Processo terminado")

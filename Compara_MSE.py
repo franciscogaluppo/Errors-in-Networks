@@ -42,7 +42,7 @@ for j in range(len(betas)):
     print("MSE {}\n".format(betas[j]))
     for i in range(len(modelos)):
         print("{}: {}".format(modelos[i], ((predicoes[i][j] - ATE[i][j])**2).mean()))
-    print()
+    print("\n")
 
 
-IO.write_results(ATE, predicoes, betas, modelos, "Resultados/Compara_MSE")
+IO.write_results(ATE, predicoes, betas, modelos, "Resultados/Compara_MSE_2/")
