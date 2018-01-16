@@ -7,6 +7,7 @@ from Funcs import Estimate
 from Funcs import Simulate
 
 nome = "email-Eu-core"
+nome = "p2p-Gnutella08"
 g = Sugar.get_graph(Sugar.path(nome))
 N = g.number_of_nodes()
 
