@@ -53,7 +53,7 @@ for clusters in range(100, 1100, 100):
 
 	# Gera os dados
 	vals = Estimate.multiple_estimate(g, zvec, ins, betas, runs=50, tau_param=0.5)
-	IO.write_results(vals[0], vals[1], betas, modelos,
+	IO.write_results(vals[1], vals[0], betas, modelos,
 		"Resultados/Valores Teste Tau-Exposure/",
 		nome + " {} {}|{}".format(clusters, p, q))
 	conjunto_da_obra.append(vals)
