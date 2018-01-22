@@ -2,7 +2,7 @@ from sys import argv
 from os import system
 import re
 
-arq = open("set.csv", "r")
+arq = open("set.txt", "r")
 out = open(".out", "w")
 
 for i in arq:
