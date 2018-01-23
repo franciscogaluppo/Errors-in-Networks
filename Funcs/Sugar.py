@@ -39,7 +39,7 @@ def relabel(g):
     N = g.number_of_nodes()
     antigo = g.nodes()
 
-    mapping = {antigo[i]: i for i in range(N)}
+    mapping = {node: idx for idx, node in enumerate(g.nodes())}
     return(nx.relabel_nodes(g, mapping))
 
 
