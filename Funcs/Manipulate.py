@@ -14,6 +14,7 @@ import matplotlib.patches as mpatches
 
 # Cria os histogramas
 def hist(predicoes, ATE, betas, bins, nomes_modelos, path="Imagens/Histogramas/", nome_grafo="email-Eu-core", cores=None):
+    plt.rcParams.update({'figure.max_open_warning': 0})
     ests, bet_len, rodadas = predicoes.shape
     cor = 'r'
 
