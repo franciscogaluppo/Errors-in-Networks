@@ -12,7 +12,7 @@ nomes = [
 
 rodadas = 1000
 model = 3
-ins = [True, 0.5, True]
+ins = [True, 0, True]
 media = 0
 var = 1
 
@@ -32,7 +32,7 @@ nomes_modelo = ["SUTVA", "Linear", "Probit", "Logit", "Média C1 C0", "Linear C1
 for nome_grafo in nomes:
 	g = Sugar.get_graph(Sugar.path(nome_grafo))
 	zvec = Sugar.cent(50, g.number_of_nodes())
-	#IO.zvector_to_zfile(zvec, nome_grafo)
+	IO.zvector_to_zfile(zvec, nome_grafo)
 
 	# Valores
 	predicoes, ATE = Estimate.multiple_estimate(
