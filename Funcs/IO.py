@@ -315,7 +315,6 @@ def ZF_file(grafo, zvector, nome):
 # Gera o arquivo com os resultados
 def write_results(ATE, predicoes, betas, nomes_modelos, path="Vals hists/", nome_grafo="email-Eu-core"):
     ests, bet_len, rodadas = predicoes.shape
-    cor = 'r'
 
     for i in range(ests):
         modelo = nomes_modelos[i]
