@@ -16,7 +16,7 @@ p = 1
 q = 1
 
 ins = [False, 0.5, True]
-cores = ['r', 'b', 'g', 'y', 'm', 'k']
+cores = ['r', 'b', 'g', 'y', 'm']
 
 betas = [[0, 0, 1],
 		[0, 0.5, 0.5],
@@ -28,15 +28,14 @@ modelos =  ["SUTVA",
 			"Linear",
 			"Probit",
 			"Logistic",
-			"Médias C1 C0",
-			"Linear C1 C0"]
+			"Médias C1 C0"]
 
 print("Processo inicializado")
 conjunto_da_obra = []
 
 # Gera o tratamento
 system("g++ Clusterização/FENNEL_ZVEC.cpp -o CLST.PRGM")
-system("./CLST.PRGM {} {} {} {} {} {} {}".format(nome, nodes, 10, 0.0001, 100, 1100, 100, p, q))
+system("./CLST.PRGM {} {} {} {} {} {} {} {} {}".format(nome, nodes, 10, 0.0001, 10, 110, 10, p, q))
 system("rm -f CLST.PRGM")
 print("Clusters prontos\nInicialiando as simulações")
 
@@ -51,8 +50,10 @@ for clusters in range(100, 1100, 100):
 		j += 1
 	tf.close()
 
+	print(sum(zvec)/len(zvec))
+
 	# Gera os dados
-	vals = Estimate.multiple_estimate(g, zvec, ins, betas, runs=50, tau_param=0.5)
+	vals = Estimate.multiple_estimate(g, zvec, ins, betas, 3, [1, 2, 3, 4, 5], 10, [0, 1], True, 0.5)
 	IO.write_results(vals[1], vals[0], betas, modelos,
 		"Resultados/Valores Teste Tau-Exposure/",
 		nome + " {} {}|{}".format(clusters, p, q))
@@ -63,7 +64,8 @@ for clusters in range(100, 1100, 100):
 	# Porcentagem do limite
 	print("{} %".format(clusters*100/(1100-100)))
 
-valores = np.array(conjunto_da_obra)
+# valores = np.array(conjunto_da_obra)
+valores = conjunto_da_obra
 
 print("Criando os gráficos")
 # Gráfico MSE x Número de clusters
