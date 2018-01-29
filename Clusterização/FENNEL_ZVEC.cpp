@@ -118,8 +118,8 @@ int main(int argc, char const *argv[])
 					tamanho[i] = 0;
 		}
 
-		// for(int i = 0; i < clusters; i++)
-		// 	printf("O tamanho do cluster %i e %i\n", i + 1, tamanho[i]);
+		for(int i = 0; i < clusters; i++)
+			printf("O tamanho do cluster %i e %i\n", i + 1, tamanho[i]);
 
 		// A razão entre os clusters
 		int p, q;
@@ -134,6 +134,13 @@ int main(int argc, char const *argv[])
 			p = 1;
 			q = 1;
 		}
+
+		// vector<int> frequencia (n, 0);
+		// for(int i = 0; i < clusters; i++)
+		// 	frequencia[centro[i]]++;
+
+		// for(int i = 0; i < clusters; i++)
+		// 	printf("Centro:%d Tamanho:%d\n", i, frequencia[i]);
 
 		// Escreve o tratamento com a razão correta
 		char zvec[200];
