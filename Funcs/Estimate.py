@@ -221,7 +221,7 @@ def multiple_estimate(g, zvec, ins, betas, model=3, estimator_types=[1, 2, 3, 4,
                     predicoes[i][j][k] = ((np.exp(-vals[0]) - np.exp(-sum(vals)))/
                         ((1 + np.exp(-vals[0])) * (1 + np.exp(-sum(vals)))))
 
-                # SUTVA C1 C0
+                # Média C1 C0
                 elif est_model == 5:
                     soma_z1 = 0
                     soma_z0 = 0
