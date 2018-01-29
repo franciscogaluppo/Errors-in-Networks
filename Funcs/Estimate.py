@@ -166,17 +166,17 @@ def multiple_estimate(g, zvec, ins, betas, model=3, estimator_types=[1, 2, 3, 4,
     ATE = np.empty(shape=(len(estimator_types), len(betas), runs))
 
     # Gera os dados e coloca nos array
-    for i in range(len(estimator_types)):
-        est_model = estimator_types[i]
-
-        for j in range(len(betas)):
-            beta = betas[j]
+    for j in range(len(betas)):
+        beta = betas[j]
+    
+        # Estima
+        for k in range(runs):
+            U = np.random.normal(mean_var[0], mean_var[1], N)
+            yvec = simulate(g, model, zvec, beta, ins, U)
         
-            # Estima
-            for k in range(runs):
-                U = np.random.normal(mean_var[0], mean_var[1], N)
-                yvec = simulate(g, model, zvec, beta, ins, U)
-            
+            for i in range(len(estimator_types)):
+                est_model = estimator_types[i]
+
                 # SUTVA
                 if est_model == 1:
                     z1_count = 0
