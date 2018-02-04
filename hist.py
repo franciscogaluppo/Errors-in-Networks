@@ -3,10 +3,10 @@ import numpy as np
 import re
 
 nomes = [
-	"soc-sign-bitcoinotc"#,
-	# "email-Enron",
+	"soc-sign-bitcoinotc",
+	"email-Enron",
 	# "soc-sign-epinions",
-	# "Wiki-Vote"
+	"Wiki-Vote"
 ]
 
 betas = [
@@ -26,7 +26,8 @@ nomes_modelo = [
 ]
 
 num_rodadas = 1000
-Modelo_gerador = "Tau-Exposure"
+# Modelo_gerador = "Tau-Exposure"
+Modelo_gerador = "Probit"
 cores = ['r', 'b', 'g', 'y', 'm']
 
 predicoes = np.empty(shape=(len(nomes_modelo), len(betas), num_rodadas))

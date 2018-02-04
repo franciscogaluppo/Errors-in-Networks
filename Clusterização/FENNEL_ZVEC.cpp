@@ -33,7 +33,7 @@ int main(int argc, char const *argv[])
 	int iteracoes = atoi(argv[3]);
 	double alpha = atof(argv[4]);
 
-	for(int clusters = atoi(argv[5]); clusters < atoi(argv[6]); clusters += atoi(argv[7]))
+	for(int clusters = atoi(argv[5]); clusters < atoi(argv[6]); clusters *= atoi(argv[7]))
 	{
 		// vetor que vai guardar a que comunidade pertence cada vertice
 		vector <int> centro (n, -1);
@@ -118,8 +118,8 @@ int main(int argc, char const *argv[])
 					tamanho[i] = 0;
 		}
 
-		for(int i = 0; i < clusters; i++)
-			printf("O tamanho do cluster %i e %i\n", i + 1, tamanho[i]);
+		// for(int i = 0; i < clusters; i++)
+		// 	printf("O tamanho do cluster %i e %i\n", i + 1, tamanho[i]);
 
 		// A razão entre os clusters
 		int p, q;

@@ -35,11 +35,11 @@ conjunto_da_obra = []
 
 # Gera o tratamento
 system("g++ Clusterização/FENNEL_ZVEC.cpp -o CLST.PRGM")
-system("./CLST.PRGM {} {} {} {} {} {} {} {} {}".format(nome, nodes, 10, 0.0001, 10, 110, 10, p, q))
+system("./CLST.PRGM {} {} {} {} {} {} {} {} {}".format(nome, nodes, 10, 1, 2, 2048, 2, p, q))
 system("rm -f CLST.PRGM")
 print("Clusters prontos\nInicialiando as simulações")
 
-for clusters in range(100, 1100, 100):
+for clusters in [2**i for i in range(1, 11)]:
 	# Leitura do tratamento
 	zvec = np.empty(shape=(nodes))
 	path = "Datasets/{}/comunidades-{}.txt".format(nome, clusters)
@@ -49,8 +49,6 @@ for clusters in range(100, 1100, 100):
 		zvec[j] = int(i[0])
 		j += 1
 	tf.close()
-
-	print(sum(zvec)/len(zvec))
 
 	# Gera os dados
 	vals = Estimate.multiple_estimate(g, zvec, ins, betas, 3, [1, 2, 3, 4, 5], 10, [0, 1], True, 0.5)
@@ -64,12 +62,11 @@ for clusters in range(100, 1100, 100):
 	# Porcentagem do limite
 	print("{} %".format(clusters*100/(1100-100)))
 
-# valores = np.array(conjunto_da_obra)
-valores = conjunto_da_obra
+valores = np.array(conjunto_da_obra)
 
 print("Criando os gráficos")
 # Gráfico MSE x Número de clusters
-x = np.array([x for x in range(100, 1100, 100)])
+x = np.array([2**i for i in range(1, 11)])
 
 plt.rc('axes', titlesize=6)
 plt.rc('xtick', labelsize=6)
@@ -100,5 +97,5 @@ f.tight_layout()
 #plt.setp([a.get_yticklabels() for a in ytick], visible=False)
 
 #plt.show()
-plt.savefig("Gráfico #2.png", dpi=100)
+plt.savefig("Gráfico.png", dpi=100)
 print("Processo terminado")
