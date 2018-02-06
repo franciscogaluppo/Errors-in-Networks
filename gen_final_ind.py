@@ -1,32 +1,42 @@
 from Funcs import Sugar
 from Funcs import IO
 from Funcs import Estimate
-#from Funcs import Manipulate
 import sys
+import os
 
-if len(sys.argv) < 2:
-    print('Incorrect number of arguments.')
+# Verifica tamanho da entrada
+if len(sys.argv) <3:
+    print('Modo de Usar: python3 gen_final_ind.py nome_grafo modelo_resposta')
     sys.exit(1)
 
-nome_grafo = sys.argv[1]
+# Controle para cada modelo_resposta
+controles = {
+	"Probit": [True, 0, True],
+	"Logit": [True, 0, True],
+	"Tau-Exposure": [False, 0.5, False],
+	"Tau-Exposure-Binario": [False, 0.5, True],
+	"Linear": [True, 0, False]
+}
 
-nomes = [
-	"soc-sign-bitcoinotc",
-	"email-Enron",
-	"soc-sign-epinions",
-	"Wiki-Vote"
-]
+# Estimadores para cada modelo_resposta
+estimadores = {
+	"Probit": ["SUTVA", "Probit", "Logit", "Tau-Exposure"],
+	"Logit": ["SUTVA", "Probit", "Logit", "Tau-Exposure"],
+	"Tau-Exposure": ["SUTVA", "Linear", "Tau-Exposure"],
+	"Tau-Exposure-Binario": ["SUTVA", "Probit", "Logit", "Tau-Exposure"],
+	"Linear": ["SUTVA", "Linear", "Tau-Exposure"]
+}
 
-controles = [
-	[True, 0, True],
-	[False, 0.5, True]
-]
+# Número correspondente a cada estimador
+ests_dict = {
+	"SUTVA": 1,
+	"Linear": 2,
+	"Probit": 3,
+	"Logit": 4,
+	"Tau-Exposure": 5
+}
 
-rodadas = 1000
-model = 3
-media = 0
-var = 1
-
+# Betas utilizados
 betas = [
 	[0, 0, 1],
 	[0, 1, 0.5],
@@ -35,37 +45,44 @@ betas = [
 	[0, 1, 2]
 ]
 
-cores = ['r', 'b', 'g', 'y', 'm', 'c']
-ests = [x+1 for x in range(5)]
-nomes_modelo = ["SUTVA", "Linear", "Probit", "Logit", "Média C1 C0"]
+# Configurações gerais
+rodadas = 10
+model = 3
+estoc_params = [0, 1]
 
-# Grafo
-for i in range(len(controles)):
-	ins = controles[i]
+# Parâmetros da geração de dados
+nome_grafo = sys.argv[1]
+modelo_resposta = sys.argv[2]
+modelo_resposta = modelo_resposta if modelo_resposta is not "Logistic" else "Logit"
+ins = controles[modelo_resposta]
+nomes_estimadores = estimadores[modelo_resposta]
+ests = [ests_dict[x] for x in nomes_estimadores]
+cores = ['r', 'b', 'g', 'y', 'm', 'c'][:len(nomes_estimadores)]
 
-	pasta = "Probit/" if not i else "Tau-Exposure/"
+# Lê o grafo, cria um vetor com randomização individual e o salva
+g = Sugar.get_graph(Sugar.path(nome_grafo))
+zvec = Sugar.cent(50, g.number_of_nodes())
+IO.zvector_to_zfile(zvec, nome_grafo)
 
-	#for nome_grafo in nomes:
-	g = Sugar.get_graph(Sugar.path(nome_grafo))
-	zvec = Sugar.cent(50, g.number_of_nodes())
-	IO.zvector_to_zfile(zvec, nome_grafo)
+# Gera valores
+predicoes, ATE = Estimate.multiple_estimate(
+	g, zvec, ins, betas, model, ests,
+	rodadas, modelo_resposta, estoc_params, True
+)
 
-	# Valores
-	predicoes, ATE = Estimate.multiple_estimate(
-		g, zvec, ins, betas, model, ests,
-		rodadas, [media, var], True, 0.5
-	)
+# Escreve valores
+pre_path = ["teste", modelo_resposta, nome_grafo]
+path = ''
 
-	IO.write_results(
-		ATE, predicoes, betas, nomes_modelo,
-		"Resultados/Valores Finais/" + pasta + nome_grafo + '/',
-		nome_grafo
-	)
+while len(pre_path):
+	path += pre_path[0] + '/'
+	pre_path.pop(0)
+	if not os.path.exists(path):
+		os.makedirs(path)
 
-	#Manipulate.hist(
-	#	predicoes, ATE, betas, 50, nomes_modelo,
-	#	"Imagens/Histogramas Finais/" + pasta + nome_grafo + '/',
-	#	nome_grafo, cores
-	#)
+IO.write_results(
+	ATE, predicoes, betas, nomes_estimadores,
+	path, nome_grafo
+)
 
-	print(nome_grafo + " concluído")
+print("{} - {}: Concluído".format(nome_grafo, modelo_resposta))

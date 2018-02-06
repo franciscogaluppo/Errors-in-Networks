@@ -79,9 +79,11 @@ def estimate(g, zvec, yvec, est_model):
 # TODO: Find tau_param
 # Execita a estimativa múltiplas vezes
 def multiple_estimate(g, zvec, ins, betas, model=3, estimator_types=[1, 2, 3, 4, 5, 6],
-                        runs=1000, mean_var=[0, 1], silent=True, tau_param=0): 
+                        runs=1000, estoc_distr="Probit", estoc_params=[0, 1], silent=True): 
     N = g.number_of_nodes()
-    
+    if model == 3:
+        tau_param = ins[1]
+
     # Caso seja necessário o vetor frac
     if len([x for x in estimator_types if x in [2, 3, 4]]):
         
@@ -171,7 +173,7 @@ def multiple_estimate(g, zvec, ins, betas, model=3, estimator_types=[1, 2, 3, 4,
     
         # Estima
         for k in range(runs):
-            U = np.random.normal(mean_var[0], mean_var[1], N)
+            U = np.random.normal(estoc_params[0], estoc_params[1], N) if estoc_distr is not "Logit" else np.random.logistic(estoc_params[0], estoc_params[1], N)
             yvec = simulate(g, model, zvec, beta, ins, U)
         
             for i in range(len(estimator_types)):
