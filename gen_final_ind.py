@@ -46,7 +46,7 @@ betas = [
 ]
 
 # Configurações gerais
-rodadas = 10
+rodadas = 1000
 model = 3
 estoc_params = [0, 1]
 
