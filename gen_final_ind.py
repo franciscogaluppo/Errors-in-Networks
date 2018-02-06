@@ -71,7 +71,7 @@ predicoes, ATE = Estimate.multiple_estimate(
 )
 
 # Escreve valores
-pre_path = ["teste", modelo_resposta, nome_grafo]
+pre_path = ["Resultados", "Novos", modelo_resposta, nome_grafo]
 path = ''
 
 while len(pre_path):
