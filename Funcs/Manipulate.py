@@ -13,7 +13,8 @@ import matplotlib.patches as mpatches
 
 
 # Cria os histogramas
-def hist(predicoes, ATE, betas, bins, nomes_modelos, path="Imagens/Histogramas/", nome_grafo="email-Eu-core", cores=None):
+def hist(predicoes, ATE, betas, bins, nomes_modelos, nome_grafo, estimado_por, path="Imagens/Histogramas/", cores=None):
+    plt.rcParams.update({'figure.max_open_warning': 0})
     ests, bet_len, rodadas = predicoes.shape
     cor = 'r'
 
@@ -23,20 +24,23 @@ def hist(predicoes, ATE, betas, bins, nomes_modelos, path="Imagens/Histogramas/"
         for j in range(bet_len):
             beta = betas[j]
             
+            # print(modelo, beta, predicoes, ATE)
             if cores != None:
                 cor = cores[j]
             
             # Cálculo de valores
             ATE_est = predicoes[i][j].mean()
             ATE_real = ATE[i][j].mean()
-            erro = np.absolute(predicoes[i][j] - ATE[i][j]).mean()
+            erro = ((predicoes[i][j] - ATE[i][j])**2).mean()
             var = predicoes[i][j].var()
 
             # Histograma
             fig, ax = plt.subplots() 
             plt.xlabel("ATE estimado")
-            plt.ylabel("Frequência")
-            n, bins, patches = ax.hist(predicoes[i][j], bins=bins, histtype='bar')
+            plt.ylabel("Frequência Relativa")
+
+            n, b, patches = ax.hist(predicoes[i][j], bins=bins, histtype='bar',
+                weights=np.zeros_like(predicoes[i][j]) + 1. / predicoes[i][j].size)
             plt.axvline(ATE_real, color='black', linestyle='dashed', linewidth=2)
 
             # cores
@@ -44,14 +48,16 @@ def hist(predicoes, ATE, betas, bins, nomes_modelos, path="Imagens/Histogramas/"
                 patch.set_facecolor(cor)
 
             # Legenda
-            vals = "Média do ATE estimado: {:.5}\nMédia do ATE real: {:.5}\nErro Médio: {:.5}\nVariância: {:.5}\n".format(ATE_est, ATE_real, erro, var)
+            vals = "Média do ATE estimado: {:.3}\nMédia do ATE real: {:.3}\nMSE Empírico: {:.3}\nVariância: {:.3}\n".format(ATE_est, ATE_real, erro, var)
             handles, labels = ax.get_legend_handles_labels()
             handles.append(mpatches.Patch(color='none', label=vals))
-            plt.legend(handles=handles, fontsize=6)
+            plt.legend(handles=handles, fontsize=8, frameon=False)
 
             # Gera o gráfico
-            plt.title('Estimativas do ATE — ' + nome_grafo + " " + str(beta) + " " + modelo)
-            plt.savefig(path + modelo + " " + nome_grafo + " " + str(beta) + " .png")
+            plt.title("{} - {}({}, {}, {}) - {}". format(nome_grafo, estimado_por, beta[0],
+            beta[1], beta[2], modelo))
+            plt.savefig("{}{} - {}({}, {}, {}) - {}". format(path, nome_grafo, estimado_por, beta[0],
+            beta[1], beta[2], modelo) + ".png")
 
 
 # Calcula o MSE -- muios parâmetros...

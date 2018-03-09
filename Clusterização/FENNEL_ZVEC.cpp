@@ -33,7 +33,7 @@ int main(int argc, char const *argv[])
 	int iteracoes = atoi(argv[3]);
 	double alpha = atof(argv[4]);
 
-	for(int clusters = atoi(argv[5]); clusters < atoi(argv[6]); clusters += atoi(argv[7]))
+	for(int clusters = atoi(argv[5]); clusters < atoi(argv[6]); clusters *= atoi(argv[7]))
 	{
 		// vetor que vai guardar a que comunidade pertence cada vertice
 		vector <int> centro (n, -1);
@@ -134,6 +134,13 @@ int main(int argc, char const *argv[])
 			p = 1;
 			q = 1;
 		}
+
+		// vector<int> frequencia (n, 0);
+		// for(int i = 0; i < clusters; i++)
+		// 	frequencia[centro[i]]++;
+
+		// for(int i = 0; i < clusters; i++)
+		// 	printf("Centro:%d Tamanho:%d\n", i, frequencia[i]);
 
 		// Escreve o tratamento com a razão correta
 		char zvec[200];
