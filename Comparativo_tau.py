@@ -16,7 +16,7 @@ p = 1
 q = 1
 
 ins = [False, 0.5, True]
-cores = ['r', 'b', 'g', 'y', 'm']
+cores = ['r', 'b', 'g', 'y', 'm', 'k']
 
 betas = [[0, 0, 1],
 		[0, 0.5, 0.5],
@@ -28,18 +28,19 @@ modelos =  ["SUTVA",
 			"Linear",
 			"Probit",
 			"Logistic",
-			"Médias C1 C0"]
+			"Médias C1 C0",
+			"Linear C1 C0"]
 
 print("Processo inicializado")
 conjunto_da_obra = []
 
 # Gera o tratamento
 system("g++ Clusterização/FENNEL_ZVEC.cpp -o CLST.PRGM")
-system("./CLST.PRGM {} {} {} {} {} {} {} {} {}".format(nome, nodes, 10, 1, 2, 2048, 2, p, q))
+system("./CLST.PRGM {} {} {} {} {} {} {}".format(nome, nodes, 10, 0.0001, 100, 1100, 100, p, q))
 system("rm -f CLST.PRGM")
 print("Clusters prontos\nInicialiando as simulações")
 
-for clusters in [2**i for i in range(1, 11)]:
+for clusters in range(100, 1100, 100):
 	# Leitura do tratamento
 	zvec = np.empty(shape=(nodes))
 	path = "Datasets/{}/comunidades-{}.txt".format(nome, clusters)
@@ -51,8 +52,8 @@ for clusters in [2**i for i in range(1, 11)]:
 	tf.close()
 
 	# Gera os dados
-	vals = Estimate.multiple_estimate(g, zvec, ins, betas, 3, [1, 2, 3, 4, 5], 10, [0, 1], True, 0.5)
-	IO.write_results(vals[1], vals[0], betas, modelos,
+	vals = Estimate.multiple_estimate(g, zvec, ins, betas, runs=50, tau_param=0.5)
+	IO.write_results(vals[0], vals[1], betas, modelos,
 		"Resultados/Valores Teste Tau-Exposure/",
 		nome + " {} {}|{}".format(clusters, p, q))
 	conjunto_da_obra.append(vals)
@@ -66,7 +67,7 @@ valores = np.array(conjunto_da_obra)
 
 print("Criando os gráficos")
 # Gráfico MSE x Número de clusters
-x = np.array([2**i for i in range(1, 11)])
+x = np.array([x for x in range(100, 1100, 100)])
 
 plt.rc('axes', titlesize=6)
 plt.rc('xtick', labelsize=6)
@@ -97,5 +98,5 @@ f.tight_layout()
 #plt.setp([a.get_yticklabels() for a in ytick], visible=False)
 
 #plt.show()
-plt.savefig("Gráfico.png", dpi=100)
+plt.savefig("Gráfico #2.png", dpi=100)
 print("Processo terminado")

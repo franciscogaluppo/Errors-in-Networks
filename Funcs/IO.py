@@ -145,9 +145,6 @@ def zfile_to_zvector(name, run):
     # Zero à esquerda
     run = int_to_str(run)
 
-    if not os.path.exists("Datasets/{}/Tratamento/".format(name)):
-        os.makedirs("Datasets/{}/Tratamento/".format(name))
-
     path = "Datasets/" + name + "/Tratamentos/Z-#" + run + ".txt"
     tf = open(path, "r")
 
@@ -318,6 +315,7 @@ def ZF_file(grafo, zvector, nome):
 # Gera o arquivo com os resultados
 def write_results(ATE, predicoes, betas, nomes_modelos, path="Vals hists/", nome_grafo="email-Eu-core"):
     ests, bet_len, rodadas = predicoes.shape
+    cor = 'r'
 
     for i in range(ests):
         modelo = nomes_modelos[i]
