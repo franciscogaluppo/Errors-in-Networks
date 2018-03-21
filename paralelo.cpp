@@ -17,7 +17,7 @@ int main(int argc, char const *argv[])
 
 	//tamanho o vetor
 	int n = atoi(argv[2]);
-	vector <vector<int> > m (n);
+	vector <vector<int>> m (n);
 
 	//mapa para o caso em que os vertice nao estao numerados de 0 ate n - 1
 	map <int, int> mapa;
@@ -61,7 +61,7 @@ int main(int argc, char const *argv[])
 
 
 	int nMaq = atoi(argv[6]);
-	vector <int> maq(n);
+	vector <int> maq(n); //o vertice i esta na maquina maq[i]
 	for(int i = 0; i < n; i++)
 		maq[i] = rand() % nMaq;
 
@@ -69,8 +69,8 @@ int main(int argc, char const *argv[])
 	for(int i = 0; i < nMaq; i++){
 		int aux = 0;
 		for(int j = 0; j < n; j++)
-			aux += maq[j] == i;
-		printf("%i ", aux);
+			aux += (maq[j] == i);
+		//printf("%i ", aux);
 
 		set<int> s;
 		for(int j = 0; j < n; j++)
@@ -80,7 +80,7 @@ int main(int argc, char const *argv[])
 						s.insert(m[j][k]);
 			}
 
-		printf("%i\n", (int) s.size());
+		//printf("%i\n", (int) s.size());
 	}
 
 	vector <int> atual(n, -1);
@@ -158,6 +158,17 @@ int main(int argc, char const *argv[])
 			}
 		}
 
+		//agora tem que ver o custo de mandar pra todo mundo
+		for(int i = 0; i < n; i++){
+			if(centro[i] == atual[i])
+				continue;
+			set<int> s;
+			for(int j = 0; j < m[i].size(); j++)
+				if(maq[i] != maq[m[i][j]])
+					s.insert(maq[m[i][j]]);
+			custo += s.size();
+		}
+
 		for(int i = 0; i < n; i++){
 			custo += centro[i] != atual[i];
 			centro[i] = atual[i];
@@ -179,7 +190,7 @@ int main(int argc, char const *argv[])
 	}
 
 	//printf("Diferenca entre os clusters = %lf\n", (double) maior/menor);
-	fprintf(stderr, "%i\n", custo);
+	printf("%i\n", custo);
 
 	char com[200];
 	sprintf(com, "Datasets/%s/comunidades.txt", argv[1]);
