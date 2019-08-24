@@ -1,0 +1,27 @@
+NoMAS | soc-sign-bitcoinotc | Linear
+
+[0, 0, 1]
+Média do ATE real: 1.0
+Média do ATE estimado: 1.0004616176985235
+MSE: 0.0021199238057892653
+
+[0, 1, 0.5]
+Média do ATE real: 1.5
+Média do ATE estimado: 1.500367338662481
+MSE: 0.0019080453316457167
+
+[0, 1, 0]
+Média do ATE real: 1.0
+Média do ATE estimado: 0.9995684634071453
+MSE: 0.00200475686549984
+
+[0, 1, 1]
+Média do ATE real: 2.0
+Média do ATE estimado: 1.9992261545793952
+MSE: 0.0019041207501887018
+
+[0, 1, 2]
+Média do ATE real: 3.0
+Média do ATE estimado: 3.0003065738535177
+MSE: 0.0018857708185398092
+

@@ -1,0 +1,28 @@
+FENNEL | Wiki-Vote | Linear
+[0 0 0 1 1 1 1 0 1 0]
+
+[0, 0, 1]
+Média do ATE real: 1.0
+Média do ATE estimado: 0.9992619253979047
+MSE: 0.0019813506851152542
+
+[0, 1, 0.5]
+Média do ATE real: 1.5
+Média do ATE estimado: 1.498020736098895
+MSE: 0.001809463425040346
+
+[0, 1, 0]
+Média do ATE real: 1.0
+Média do ATE estimado: 1.0019589742303763
+MSE: 0.0018855962717213392
+
+[0, 1, 1]
+Média do ATE real: 2.0
+Média do ATE estimado: 1.9985061382422735
+MSE: 0.0018750131746776506
+
+[0, 1, 2]
+Média do ATE real: 3.0
+Média do ATE estimado: 2.9989357926168276
+MSE: 0.0018643019532975918
+

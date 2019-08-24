@@ -1,0 +1,27 @@
+epsnet | Wiki-Vote | Linear
+
+[0, 0, 1]
+Média do ATE real: 1.0
+Média do ATE estimado: 1.0027622147915032
+MSE: 0.00200622224633388
+
+[0, 1, 0.5]
+Média do ATE real: 1.5
+Média do ATE estimado: 1.5002771887235273
+MSE: 0.0021759944620742
+
+[0, 1, 0]
+Média do ATE real: 1.0
+Média do ATE estimado: 1.0002422739153156
+MSE: 0.0020419574312674073
+
+[0, 1, 1]
+Média do ATE real: 2.0
+Média do ATE estimado: 1.9994788940311208
+MSE: 0.002027980645296392
+
+[0, 1, 2]
+Média do ATE real: 3.0
+Média do ATE estimado: 3.0021997687951427
+MSE: 0.0020873608404287573
+

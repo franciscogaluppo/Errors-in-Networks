@@ -1,0 +1,28 @@
+FENNEL | soc-sign-bitcoinotc | Linear
+[0 0 1 1 1 0 1 1 0 0]
+
+[0, 0, 1]
+Média do ATE real: 1.0
+Média do ATE estimado: 0.9997345964952844
+MSE: 0.001895616684375963
+
+[0, 1, 0.5]
+Média do ATE real: 1.5
+Média do ATE estimado: 1.499823217038714
+MSE: 0.001743782102708204
+
+[0, 1, 0]
+Média do ATE real: 1.0
+Média do ATE estimado: 0.9997693790592739
+MSE: 0.0019187756133295215
+
+[0, 1, 1]
+Média do ATE real: 1.9999999999999998
+Média do ATE estimado: 1.9979250926377212
+MSE: 0.0019422863164114898
+
+[0, 1, 2]
+Média do ATE real: 3.0
+Média do ATE estimado: 2.99957878842345
+MSE: 0.002141993258392083
+

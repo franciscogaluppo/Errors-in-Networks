@@ -1,0 +1,180 @@
+soc-sign-bitcoinotc - Tau-Exposure-Binario[0, 0, 1] - SUTVA
+MSE: 0.08506261479304789
+
+email-Enron - Tau-Exposure-Binario[0, 0, 1] - SUTVA
+MSE: 0.08029846021807611
+
+Wiki-Vote - Tau-Exposure-Binario[0, 0, 1] - SUTVA
+MSE: 0.0795142001426799
+
+soc-sign-bitcoinotc - Tau-Exposure-Binario[0, 1, 0.5] - SUTVA
+MSE: 0.016678511467322337
+
+email-Enron - Tau-Exposure-Binario[0, 1, 0.5] - SUTVA
+MSE: 0.01628042310947766
+
+Wiki-Vote - Tau-Exposure-Binario[0, 1, 0.5] - SUTVA
+MSE: 0.016074722967648603
+
+soc-sign-bitcoinotc - Tau-Exposure-Binario[0, 1, 0] - SUTVA
+MSE: 9.317996539341752e-05
+
+email-Enron - Tau-Exposure-Binario[0, 1, 0] - SUTVA
+MSE: 1.4448066292416534e-05
+
+Wiki-Vote - Tau-Exposure-Binario[0, 1, 0] - SUTVA
+MSE: 7.565549051440601e-05
+
+soc-sign-bitcoinotc - Tau-Exposure-Binario[0, 1, 1] - SUTVA
+MSE: 0.07168023502482453
+
+email-Enron - Tau-Exposure-Binario[0, 1, 1] - SUTVA
+MSE: 0.06740868388601257
+
+Wiki-Vote - Tau-Exposure-Binario[0, 1, 1] - SUTVA
+MSE: 0.06590266941781238
+
+soc-sign-bitcoinotc - Tau-Exposure-Binario[0, 1, 2] - SUTVA
+MSE: 0.276520088252189
+
+email-Enron - Tau-Exposure-Binario[0, 1, 2] - SUTVA
+MSE: 0.24642282089506437
+
+Wiki-Vote - Tau-Exposure-Binario[0, 1, 2] - SUTVA
+MSE: 0.24191600169018984
+
+soc-sign-bitcoinotc - Tau-Exposure-Binario[0, 0, 1] - Logit
+MSE: 0.001772374435426613
+
+email-Enron - Tau-Exposure-Binario[0, 0, 1] - Logit
+MSE: 0.0019296150137353084
+
+Wiki-Vote - Tau-Exposure-Binario[0, 0, 1] - Logit
+MSE: 0.0021913689400819836
+
+soc-sign-bitcoinotc - Tau-Exposure-Binario[0, 1, 0.5] - Logit
+MSE: 0.0005032472186021979
+
+email-Enron - Tau-Exposure-Binario[0, 1, 0.5] - Logit
+MSE: 0.00037354761304510465
+
+Wiki-Vote - Tau-Exposure-Binario[0, 1, 0.5] - Logit
+MSE: 0.0005967190476911849
+
+soc-sign-bitcoinotc - Tau-Exposure-Binario[0, 1, 0] - Logit
+MSE: 0.00028612231146009083
+
+email-Enron - Tau-Exposure-Binario[0, 1, 0] - Logit
+MSE: 6.26970172543308e-05
+
+Wiki-Vote - Tau-Exposure-Binario[0, 1, 0] - Logit
+MSE: 0.00033986069779182675
+
+soc-sign-bitcoinotc - Tau-Exposure-Binario[0, 1, 1] - Logit
+MSE: 0.0009823746219783938
+
+email-Enron - Tau-Exposure-Binario[0, 1, 1] - Logit
+MSE: 0.0013333045807601533
+
+Wiki-Vote - Tau-Exposure-Binario[0, 1, 1] - Logit
+MSE: 0.0015618193729668773
+
+soc-sign-bitcoinotc - Tau-Exposure-Binario[0, 1, 2] - Logit
+MSE: 0.003030143099761446
+
+email-Enron - Tau-Exposure-Binario[0, 1, 2] - Logit
+MSE: 0.0045501019803795865
+
+Wiki-Vote - Tau-Exposure-Binario[0, 1, 2] - Logit
+MSE: 0.004516420726615527
+
+soc-sign-bitcoinotc - Tau-Exposure-Binario[0, 0, 1] - Tau-Exposure
+MSE: 0.0007656815077411619
+
+email-Enron - Tau-Exposure-Binario[0, 0, 1] - Tau-Exposure
+MSE: 0.00013455767273251902
+
+Wiki-Vote - Tau-Exposure-Binario[0, 0, 1] - Tau-Exposure
+MSE: 0.0007399758104099333
+
+soc-sign-bitcoinotc - Tau-Exposure-Binario[0, 1, 0.5] - Tau-Exposure
+MSE: 0.0005068355814608736
+
+email-Enron - Tau-Exposure-Binario[0, 1, 0.5] - Tau-Exposure
+MSE: 9.917373284631497e-05
+
+Wiki-Vote - Tau-Exposure-Binario[0, 1, 0.5] - Tau-Exposure
+MSE: 0.0005321596349592474
+
+soc-sign-bitcoinotc - Tau-Exposure-Binario[0, 1, 0] - Tau-Exposure
+MSE: 0.0004440372743218097
+
+email-Enron - Tau-Exposure-Binario[0, 1, 0] - Tau-Exposure
+MSE: 9.553034759854328e-05
+
+Wiki-Vote - Tau-Exposure-Binario[0, 1, 0] - Tau-Exposure
+MSE: 0.0005145263520284975
+
+soc-sign-bitcoinotc - Tau-Exposure-Binario[0, 1, 1] - Tau-Exposure
+MSE: 0.00046131144260413124
+
+email-Enron - Tau-Exposure-Binario[0, 1, 1] - Tau-Exposure
+MSE: 9.633137089462928e-05
+
+Wiki-Vote - Tau-Exposure-Binario[0, 1, 1] - Tau-Exposure
+MSE: 0.0005377966766023986
+
+soc-sign-bitcoinotc - Tau-Exposure-Binario[0, 1, 2] - Tau-Exposure
+MSE: 0.0005005393529451869
+
+email-Enron - Tau-Exposure-Binario[0, 1, 2] - Tau-Exposure
+MSE: 9.50088037393278e-05
+
+Wiki-Vote - Tau-Exposure-Binario[0, 1, 2] - Tau-Exposure
+MSE: 0.0005273777368857106
+
+soc-sign-bitcoinotc - Tau-Exposure-Binario[0, 0, 1] - Probit
+MSE: 0.0016145880406114289
+
+email-Enron - Tau-Exposure-Binario[0, 0, 1] - Probit
+MSE: 0.0017207920433497436
+
+Wiki-Vote - Tau-Exposure-Binario[0, 0, 1] - Probit
+MSE: 0.0019770874757969337
+
+soc-sign-bitcoinotc - Tau-Exposure-Binario[0, 1, 0.5] - Probit
+MSE: 0.0005400665991222298
+
+email-Enron - Tau-Exposure-Binario[0, 1, 0.5] - Probit
+MSE: 0.00036534520120183145
+
+Wiki-Vote - Tau-Exposure-Binario[0, 1, 0.5] - Probit
+MSE: 0.0005865004717300477
+
+soc-sign-bitcoinotc - Tau-Exposure-Binario[0, 1, 0] - Probit
+MSE: 0.0002921088136837327
+
+email-Enron - Tau-Exposure-Binario[0, 1, 0] - Probit
+MSE: 6.24955584250883e-05
+
+Wiki-Vote - Tau-Exposure-Binario[0, 1, 0] - Probit
+MSE: 0.0003385314551924611
+
+soc-sign-bitcoinotc - Tau-Exposure-Binario[0, 1, 1] - Probit
+MSE: 0.0010705819658198951
+
+email-Enron - Tau-Exposure-Binario[0, 1, 1] - Probit
+MSE: 0.001301086940938797
+
+Wiki-Vote - Tau-Exposure-Binario[0, 1, 1] - Probit
+MSE: 0.0015209799073921833
+
+soc-sign-bitcoinotc - Tau-Exposure-Binario[0, 1, 2] - Probit
+MSE: 0.0030386196975147554
+
+email-Enron - Tau-Exposure-Binario[0, 1, 2] - Probit
+MSE: 0.004359825125705432
+
+Wiki-Vote - Tau-Exposure-Binario[0, 1, 2] - Probit
+MSE: 0.004319060501284114
+

@@ -1,0 +1,180 @@
+soc-sign-bitcoinotc - Probit[0, 0, 1] - SUTVA
+MSE: 0.1161643581361258
+
+email-Enron - Probit[0, 0, 1] - SUTVA
+MSE: 0.1171139208723644
+
+Wiki-Vote - Probit[0, 0, 1] - SUTVA
+MSE: 0.11254105708347752
+
+soc-sign-bitcoinotc - Probit[0, 1, 0.5] - SUTVA
+MSE: 0.016992709308121058
+
+email-Enron - Probit[0, 1, 0.5] - SUTVA
+MSE: 0.019880144942702613
+
+Wiki-Vote - Probit[0, 1, 0.5] - SUTVA
+MSE: 0.01790670042134559
+
+soc-sign-bitcoinotc - Probit[0, 1, 0] - SUTVA
+MSE: 9.203729765891444e-05
+
+email-Enron - Probit[0, 1, 0] - SUTVA
+MSE: 1.479586604677688e-05
+
+Wiki-Vote - Probit[0, 1, 0] - SUTVA
+MSE: 7.511566672062928e-05
+
+soc-sign-bitcoinotc - Probit[0, 1, 1] - SUTVA
+MSE: 0.04728821090879337
+
+email-Enron - Probit[0, 1, 1] - SUTVA
+MSE: 0.057550692167565975
+
+Wiki-Vote - Probit[0, 1, 1] - SUTVA
+MSE: 0.051459308518083786
+
+soc-sign-bitcoinotc - Probit[0, 1, 2] - SUTVA
+MSE: 0.09377666187441168
+
+email-Enron - Probit[0, 1, 2] - SUTVA
+MSE: 0.11904899471959073
+
+Wiki-Vote - Probit[0, 1, 2] - SUTVA
+MSE: 0.1071945714983867
+
+soc-sign-bitcoinotc - Probit[0, 0, 1] - Logit
+MSE: 0.0002918139462133588
+
+email-Enron - Probit[0, 0, 1] - Logit
+MSE: 6.203640636949185e-05
+
+Wiki-Vote - Probit[0, 0, 1] - Logit
+MSE: 0.00029735435554940947
+
+soc-sign-bitcoinotc - Probit[0, 1, 0.5] - Logit
+MSE: 0.00022238427694178494
+
+email-Enron - Probit[0, 1, 0.5] - Logit
+MSE: 4.691318191326027e-05
+
+Wiki-Vote - Probit[0, 1, 0.5] - Logit
+MSE: 0.0002181830805588735
+
+soc-sign-bitcoinotc - Probit[0, 1, 0] - Logit
+MSE: 0.0003112068449726999
+
+email-Enron - Probit[0, 1, 0] - Logit
+MSE: 6.312745110901922e-05
+
+Wiki-Vote - Probit[0, 1, 0] - Logit
+MSE: 0.0003354853678147698
+
+soc-sign-bitcoinotc - Probit[0, 1, 1] - Logit
+MSE: 0.0001732415778515934
+
+email-Enron - Probit[0, 1, 1] - Logit
+MSE: 8.765679366116346e-05
+
+Wiki-Vote - Probit[0, 1, 1] - Logit
+MSE: 0.00021944581299509502
+
+soc-sign-bitcoinotc - Probit[0, 1, 2] - Logit
+MSE: 0.00029131695467676116
+
+email-Enron - Probit[0, 1, 2] - Logit
+MSE: 0.0004167931680713609
+
+Wiki-Vote - Probit[0, 1, 2] - Logit
+MSE: 0.0004974108301491512
+
+soc-sign-bitcoinotc - Probit[0, 0, 1] - Tau-Exposure
+MSE: 0.0004313106525968473
+
+email-Enron - Probit[0, 0, 1] - Tau-Exposure
+MSE: 0.00011032492802119312
+
+Wiki-Vote - Probit[0, 0, 1] - Tau-Exposure
+MSE: 0.0004613287800865015
+
+soc-sign-bitcoinotc - Probit[0, 1, 0.5] - Tau-Exposure
+MSE: 0.00031313931786716996
+
+email-Enron - Probit[0, 1, 0.5] - Tau-Exposure
+MSE: 8.154290180462503e-05
+
+Wiki-Vote - Probit[0, 1, 0.5] - Tau-Exposure
+MSE: 0.00035932337521737403
+
+soc-sign-bitcoinotc - Probit[0, 1, 0] - Tau-Exposure
+MSE: 0.0004649844291394418
+
+email-Enron - Probit[0, 1, 0] - Tau-Exposure
+MSE: 9.997755226987514e-05
+
+Wiki-Vote - Probit[0, 1, 0] - Tau-Exposure
+MSE: 0.0005241815824888876
+
+soc-sign-bitcoinotc - Probit[0, 1, 1] - Tau-Exposure
+MSE: 0.0002269288741803086
+
+email-Enron - Probit[0, 1, 1] - Tau-Exposure
+MSE: 7.266896892237261e-05
+
+Wiki-Vote - Probit[0, 1, 1] - Tau-Exposure
+MSE: 0.00029552991093417824
+
+soc-sign-bitcoinotc - Probit[0, 1, 2] - Tau-Exposure
+MSE: 0.00020825828357576225
+
+email-Enron - Probit[0, 1, 2] - Tau-Exposure
+MSE: 6.578331293347963e-05
+
+Wiki-Vote - Probit[0, 1, 2] - Tau-Exposure
+MSE: 0.00027794465052154914
+
+soc-sign-bitcoinotc - Probit[0, 0, 1] - Probit
+MSE: 0.00029549982859070214
+
+email-Enron - Probit[0, 0, 1] - Probit
+MSE: 6.173429991661237e-05
+
+Wiki-Vote - Probit[0, 0, 1] - Probit
+MSE: 0.0002992374224028203
+
+soc-sign-bitcoinotc - Probit[0, 1, 0.5] - Probit
+MSE: 0.000218802267992569
+
+email-Enron - Probit[0, 1, 0.5] - Probit
+MSE: 4.4638983967322865e-05
+
+Wiki-Vote - Probit[0, 1, 0.5] - Probit
+MSE: 0.00021563172814524468
+
+soc-sign-bitcoinotc - Probit[0, 1, 0] - Probit
+MSE: 0.00031627078934572984
+
+email-Enron - Probit[0, 1, 0] - Probit
+MSE: 6.304513339974029e-05
+
+Wiki-Vote - Probit[0, 1, 0] - Probit
+MSE: 0.0003358525497759879
+
+soc-sign-bitcoinotc - Probit[0, 1, 1] - Probit
+MSE: 0.0001620010120104764
+
+email-Enron - Probit[0, 1, 1] - Probit
+MSE: 4.318455124857325e-05
+
+Wiki-Vote - Probit[0, 1, 1] - Probit
+MSE: 0.00018362005048619702
+
+soc-sign-bitcoinotc - Probit[0, 1, 2] - Probit
+MSE: 0.00016019469010751335
+
+email-Enron - Probit[0, 1, 2] - Probit
+MSE: 3.9306601032873406e-05
+
+Wiki-Vote - Probit[0, 1, 2] - Probit
+MSE: 0.00019909931906158878
+

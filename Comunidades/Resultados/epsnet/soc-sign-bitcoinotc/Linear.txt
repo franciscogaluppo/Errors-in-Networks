@@ -1,0 +1,27 @@
+epsnet | soc-sign-bitcoinotc | Linear
+
+[0, 0, 1]
+Média do ATE real: 1.0
+Média do ATE estimado: 1.0005823628897512
+MSE: 0.0022415451972613446
+
+[0, 1, 0.5]
+Média do ATE real: 1.5
+Média do ATE estimado: 1.5009618894016084
+MSE: 0.0021452177204250387
+
+[0, 1, 0]
+Média do ATE real: 1.0
+Média do ATE estimado: 0.9988248002104791
+MSE: 0.0020447015399793554
+
+[0, 1, 1]
+Média do ATE real: 2.0
+Média do ATE estimado: 1.9995080963960636
+MSE: 0.0020787030129132086
+
+[0, 1, 2]
+Média do ATE real: 3.0
+Média do ATE estimado: 3.0013176154771215
+MSE: 0.0020516101500978223
+

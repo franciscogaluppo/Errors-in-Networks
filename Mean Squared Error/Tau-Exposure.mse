@@ -1,0 +1,135 @@
+soc-sign-bitcoinotc - Tau-Exposure[0, 0, 1] - SUTVA
+MSE: 0.5765615366707516
+
+email-Enron - Tau-Exposure[0, 0, 1] - SUTVA
+MSE: 0.5868104618697403
+
+Wiki-Vote - Tau-Exposure[0, 0, 1] - SUTVA
+MSE: 0.5619351148327202
+
+soc-sign-bitcoinotc - Tau-Exposure[0, 1, 0.5] - SUTVA
+MSE: 0.14454525531165438
+
+email-Enron - Tau-Exposure[0, 1, 0.5] - SUTVA
+MSE: 0.14708645698973458
+
+Wiki-Vote - Tau-Exposure[0, 1, 0.5] - SUTVA
+MSE: 0.14214322521080391
+
+soc-sign-bitcoinotc - Tau-Exposure[0, 1, 0] - SUTVA
+MSE: 0.0007135181040946975
+
+email-Enron - Tau-Exposure[0, 1, 0] - SUTVA
+MSE: 0.00010479492747989306
+
+Wiki-Vote - Tau-Exposure[0, 1, 0] - SUTVA
+MSE: 0.0005683056623794269
+
+soc-sign-bitcoinotc - Tau-Exposure[0, 1, 1] - SUTVA
+MSE: 0.5781236332016676
+
+email-Enron - Tau-Exposure[0, 1, 1] - SUTVA
+MSE: 0.5856771415070448
+
+Wiki-Vote - Tau-Exposure[0, 1, 1] - SUTVA
+MSE: 0.5636810059002306
+
+soc-sign-bitcoinotc - Tau-Exposure[0, 1, 2] - SUTVA
+MSE: 2.3141664006396114
+
+email-Enron - Tau-Exposure[0, 1, 2] - SUTVA
+MSE: 2.3465465284310523
+
+Wiki-Vote - Tau-Exposure[0, 1, 2] - SUTVA
+MSE: 2.2467038227294482
+
+soc-sign-bitcoinotc - Tau-Exposure[0, 0, 1] - Linear
+MSE: 0.009026651905541541
+
+email-Enron - Tau-Exposure[0, 0, 1] - Linear
+MSE: 0.011647834365076121
+
+Wiki-Vote - Tau-Exposure[0, 0, 1] - Linear
+MSE: 0.012828749828272734
+
+soc-sign-bitcoinotc - Tau-Exposure[0, 1, 0.5] - Linear
+MSE: 0.0036821884762386955
+
+email-Enron - Tau-Exposure[0, 1, 0.5] - Linear
+MSE: 0.003069768401449102
+
+Wiki-Vote - Tau-Exposure[0, 1, 0.5] - Linear
+MSE: 0.0044798675613654405
+
+soc-sign-bitcoinotc - Tau-Exposure[0, 1, 0] - Linear
+MSE: 0.0019453036356169035
+
+email-Enron - Tau-Exposure[0, 1, 0] - Linear
+MSE: 0.0003435548740261671
+
+Wiki-Vote - Tau-Exposure[0, 1, 0] - Linear
+MSE: 0.0017515709231867556
+
+soc-sign-bitcoinotc - Tau-Exposure[0, 1, 1] - Linear
+MSE: 0.00891735459761714
+
+email-Enron - Tau-Exposure[0, 1, 1] - Linear
+MSE: 0.011535507276366494
+
+Wiki-Vote - Tau-Exposure[0, 1, 1] - Linear
+MSE: 0.012252673010133974
+
+soc-sign-bitcoinotc - Tau-Exposure[0, 1, 2] - Linear
+MSE: 0.029427259248872673
+
+email-Enron - Tau-Exposure[0, 1, 2] - Linear
+MSE: 0.04540267534040429
+
+Wiki-Vote - Tau-Exposure[0, 1, 2] - Linear
+MSE: 0.04331907643776626
+
+soc-sign-bitcoinotc - Tau-Exposure[0, 0, 1] - Tau-Exposure
+MSE: 0.002676525676551312
+
+email-Enron - Tau-Exposure[0, 0, 1] - Tau-Exposure
+MSE: 0.0005440056946502432
+
+Wiki-Vote - Tau-Exposure[0, 0, 1] - Tau-Exposure
+MSE: 0.0028494676511364794
+
+soc-sign-bitcoinotc - Tau-Exposure[0, 1, 0.5] - Tau-Exposure
+MSE: 0.002712708150462304
+
+email-Enron - Tau-Exposure[0, 1, 0.5] - Tau-Exposure
+MSE: 0.0005310708796308124
+
+Wiki-Vote - Tau-Exposure[0, 1, 0.5] - Tau-Exposure
+MSE: 0.0029167983887046288
+
+soc-sign-bitcoinotc - Tau-Exposure[0, 1, 0] - Tau-Exposure
+MSE: 0.002869853312054884
+
+email-Enron - Tau-Exposure[0, 1, 0] - Tau-Exposure
+MSE: 0.0005188819522090867
+
+Wiki-Vote - Tau-Exposure[0, 1, 0] - Tau-Exposure
+MSE: 0.0027390183263837483
+
+soc-sign-bitcoinotc - Tau-Exposure[0, 1, 1] - Tau-Exposure
+MSE: 0.0027936868585918605
+
+email-Enron - Tau-Exposure[0, 1, 1] - Tau-Exposure
+MSE: 0.0005526887375362275
+
+Wiki-Vote - Tau-Exposure[0, 1, 1] - Tau-Exposure
+MSE: 0.0027576123779324505
+
+soc-sign-bitcoinotc - Tau-Exposure[0, 1, 2] - Tau-Exposure
+MSE: 0.0024912684541555934
+
+email-Enron - Tau-Exposure[0, 1, 2] - Tau-Exposure
+MSE: 0.0004632222378663806
+
+Wiki-Vote - Tau-Exposure[0, 1, 2] - Tau-Exposure
+MSE: 0.002683964817240491
+
