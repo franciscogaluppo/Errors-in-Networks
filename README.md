@@ -1,7 +1,7 @@
 # Estimation Errors in Network A/B Testing
 This repository contains the code used to research about the estimation errors in network A/B testing due to sample variance and model misspecification, and how clusterization affects it. A simple new clusterization model is also proposed.
 
-All of the researchers are from the Computer Science Department in Universidade Federal de Minas Gerais (UFMG), Brazil: 
+All of the researchers are from the Computer Science Department at Universidade Federal de Minas Gerais (UFMG), Brazil: 
 
 1. Francisco Galuppo Azevedo - franciscogaluppo@dcc.ufmg.br
 2. Bruno Demattos Nogueira - bruno.demattos@dcc.ufmg.br
